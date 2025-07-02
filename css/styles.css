@@ -132,17 +132,46 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 20px;
 }
 
+/* Enhanced Logo Styling */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .nav-logo .logo {
-    height: 50px;
+    height: 80px; /* Increased from 50px to 80px */
     width: auto;
-    border-radius: 4px;
+    max-width: 300px; /* Prevent logo from getting too wide */
+    object-fit: contain;
+    transition: var(--transition);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)); /* Subtle shadow for depth */
+}
+
+.nav-logo .logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
 }
 
 .footer-logo .logo {
-    height: 40px;
+    height: 60px; /* Increased from 40px to 60px */
     width: auto;
-    margin-bottom: 1rem;
-    border-radius: 4px;
+    max-width: 250px;
+    object-fit: contain;
+    transition: var(--transition);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)); /* Slightly stronger shadow for footer */
+}
+
+.footer-logo .logo:hover {
+    transform: scale(1.02);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25));
 }
 
 .nav-menu {
@@ -200,7 +229,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     min-height: 100vh;
-    padding-top: 80px;
+    padding-top: 120px; /* Increased to accommodate larger header */
     background: linear-gradient(135deg, var(--accent-cream) 0%, var(--light-gray) 100%);
     position: relative;
     overflow: hidden;
@@ -860,61 +889,70 @@ h1, h2, h3, h4, h5, h6 {
     .nav-actions {
         display: none;
     }
-    
+
     .hamburger {
         display: flex;
     }
-    
+
+    /* Adjust logo size for mobile */
+    .nav-logo .logo {
+        height: 60px; /* Smaller on mobile but still larger than original */
+    }
+
+    .footer-logo .logo {
+        height: 50px; /* Proportionally smaller for mobile footer */
+    }
+
     .hero {
         flex-direction: column;
         text-align: center;
-        padding: 100px 20px 50px;
+        padding: 140px 20px 50px; /* Adjusted for larger header */
     }
-    
+
     .hero-image {
         position: relative;
         width: 100%;
         height: 200px;
         margin-top: 2rem;
     }
-    
+
     .hero-title {
         font-size: 2.5rem;
     }
-    
+
     .hero-actions {
         justify-content: center;
     }
-    
+
     .hero-features {
         justify-content: center;
     }
-    
+
     .section-title {
         font-size: 2rem;
     }
-    
+
     .services-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .service-card.featured {
         transform: none;
     }
-    
+
     .about-content {
         grid-template-columns: 1fr;
         text-align: center;
     }
-    
+
     .about-stats {
         justify-content: center;
     }
-    
+
     .contact-content {
         grid-template-columns: 1fr;
     }
-    
+
     .footer-bottom-content {
         flex-direction: column;
         text-align: center;
@@ -922,25 +960,36 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 480px) {
+    /* Further reduce logo size for very small screens */
+    .nav-logo .logo {
+        height: 50px;
+        max-width: 200px;
+    }
+
+    .footer-logo .logo {
+        height: 40px;
+        max-width: 180px;
+    }
+
     .hero-title {
         font-size: 2rem;
     }
-    
+
     .hero-actions {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .btn-large {
         width: 100%;
         justify-content: center;
     }
-    
+
     .about-stats {
         flex-direction: column;
         gap: 1rem;
     }
-    
+
     .addon-grid,
     .discount-grid {
         grid-template-columns: 1fr;
@@ -983,5 +1032,23 @@ html {
 
 .mt-4 {
     margin-top: 2rem;
+}
+
+/* Logo-specific enhancements for transparent background */
+.nav-logo .logo,
+.footer-logo .logo {
+    /* Ensure transparent background is properly handled */
+    background: transparent;
+    /* Add subtle glow effect to make logo stand out */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.06));
+}
+
+/* Enhanced hover effects for better user experience */
+.nav-logo .logo:hover,
+.footer-logo .logo:hover {
+    /* Smooth scaling animation */
+    transform: scale(1.05);
+    /* Enhanced shadow on hover */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
