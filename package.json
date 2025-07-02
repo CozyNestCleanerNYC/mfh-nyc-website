@@ -1,0 +1,27 @@
+{
+  "name": "cozy-nest-cleaners-website",
+  "version": "1.0.0",
+  "description": "Professional website for Cozy Nest Cleaners - NYC cleaning services",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'No build process needed for static site'",
+    "dev": "serve ."
+  },
+  "keywords": [
+    "cleaning",
+    "services",
+    "nyc",
+    "website",
+    "static"
+  ],
+  "author": "Cozy Nest Cleaners",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
+
