@@ -1,0 +1,380 @@
+/* Book Us Page Specific Styles */
+
+/* Booking Hero Section */
+.booking-hero {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 120px 0 80px;
+    text-align: center;
+}
+
+.booking-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.booking-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.booking-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.booking-steps {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.step span {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Booking Form Section */
+.booking-form-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.booking-form-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.booking-form {
+    background: white;
+    border-radius: 12px;
+    padding: 3rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Sections */
+.form-section {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 2rem;
+}
+
+.form-section .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #28a745;
+    margin-bottom: 1.5rem;
+}
+
+.form-section .section-title i {
+    font-size: 1.25rem;
+}
+
+/* Form Layout */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Add-on Services */
+.addon-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.addon-item {
+    display: flex;
+    align-items: center;
+}
+
+.addon-item input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.75rem;
+    transform: scale(1.2);
+}
+
+.addon-item label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+}
+
+.addon-item input[type="checkbox"]:checked + label {
+    background: rgba(40, 167, 69, 0.1);
+    border-color: #28a745;
+}
+
+.addon-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.addon-price {
+    font-weight: 600;
+    color: #28a745;
+}
+
+/* Form Submit */
+.form-submit {
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.form-submit .btn {
+    min-width: 250px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.submit-note {
+    margin-top: 1rem;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Booking Summary Sidebar */
+.booking-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+}
+
+.summary-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #28a745;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.summary-features {
+    margin-bottom: 2rem;
+}
+
+.summary-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.summary-feature:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.summary-feature i {
+    color: #28a745;
+    font-size: 1.25rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+.summary-feature h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.summary-feature p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.contact-info,
+.service-hours {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f3f4;
+}
+
+.contact-info h4,
+.service-hours h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.75rem;
+}
+
+.contact-info p,
+.service-hours p {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.contact-info a {
+    color: #28a745;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .booking-form-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .booking-summary {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-hero {
+        padding: 100px 0 60px;
+    }
+    
+    .booking-title {
+        font-size: 2.25rem;
+    }
+    
+    .booking-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .booking-steps {
+        gap: 2rem;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .booking-form {
+        padding: 2rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .addon-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .booking-summary {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .booking-steps {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .booking-form {
+        padding: 1.5rem;
+    }
+    
+    .form-section .section-title {
+        font-size: 1.25rem;
+    }
+    
+    .addon-item label {
+        padding: 0.75rem;
+    }
+}
+
