@@ -8,69 +8,188 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <img src="images/cozy_nest_cleaners_logo_transparent.png" alt="Cozy Nest Cleaners Logo" class="logo">
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-actions">
-                    <a href="tel:+1234567890" class="phone-link">
-                        <i class="fas fa-phone"></i> (212) 555-0123
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <a href="tel:+12125550123" class="top-bar-link">
+                        <i class="fas fa-phone"></i> Call or text +1 212 555 0123
                     </a>
-                    <a href="book-us.html" class="btn btn-primary">Book Now</a>
+                    <span class="location">
+                        <i class="fas fa-map-marker-alt"></i> NYC
+                    </span>
                 </div>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div class="top-bar-right">
+                    <a href="#about" class="top-bar-link">About Us</a>
+                    <a href="#careers" class="top-bar-link">Work With Us</a>
+                    <a href="#privacy" class="top-bar-link">Privacy & Terms</a>
                 </div>
             </div>
-        </nav>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-logo">
+                    <a href="index.html">
+                        <img src="images/cozy_nest_cleaners_logo_transparent.png" alt="Cozy Nest Cleaners Logo" class="logo">
+                    </a>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#services" class="nav-link">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#areas" class="nav-link">Service Areas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#testimonials" class="nav-link">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#faq" class="nav-link">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#blog" class="nav-link">Blog</a>
+                    </li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="book-us.html" class="btn btn-primary">REQUEST A QUOTE</a>
+                    <a href="#contact" class="btn btn-secondary">CONTACT US</a>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section class="hero">
         <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">Your Cozy Nest Deserves the Best Care</h1>
-                <p class="hero-subtitle">Professional cleaning services in NYC with GoPro transparency and eco-friendly options. Experience the difference of a truly clean home.</p>
-                <div class="hero-actions">
-                    <a href="book-us.html" class="btn btn-primary btn-large">Get Free Estimate</a>
-                    <a href="tel:+1234567890" class="btn btn-secondary btn-large">
-                        <i class="fas fa-phone"></i> Call Now
-                    </a>
+            <h1 class="hero-title">A Clean home is a<br><span class="hero-title-accent">Healthy home</span></h1>
+            <div class="hero-actions">
+                <a href="#services" class="btn btn-primary btn-large">DISCOVER OUR SERVICES</a>
+                <a href="book-us.html" class="btn btn-secondary btn-large">REQUEST A QUOTE</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">ABOUT US</span>
+                <h2 class="section-title">A <strong>CLEAN HOME</strong> IS A CLEAN YOU</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Welcome to Cozy Nest Cleaners, where passion, expertise, and family values converge. Meet our team, the dynamic duo behind a Locally and Family run business...</p>
+                    <p>We believe your home should be your sanctuary – a cozy nest where you can relax and recharge. That's why we're dedicated to providing the highest quality cleaning services in New York City.</p>
+                    <p>What sets us apart is our commitment to transparency and trust. Our GoPro-equipped cleaners ensure you know exactly what's happening in your home, while our eco-friendly products keep your family and pets safe.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Satisfied Customers</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">2000+</div>
+                            <div class="stat-label">Cleanings</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-features">
-                    <div class="feature">
-                        <i class="fas fa-video"></i>
-                        <span>GoPro Transparency</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-leaf"></i>
-                        <span>Eco-Friendly Products</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Insured & Bonded</span>
+                <div class="about-image">
+                    <div class="about-img-placeholder">
+                        <i class="fas fa-users"></i>
+                        <p>Professional Cleaning Team</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="hero-image">
-            <div class="hero-bg"></div>
+    </section>
+
+    <!-- Scrolling Banner -->
+    <div class="scrolling-banner">
+        <div class="scrolling-text">
+            COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦ COZY NEST CLEANERS ✦
+        </div>
+    </div>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">principles</span>
+                <h2 class="section-title">WHY CHOOSE <strong>COZY NEST</strong></h2>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">EFFICIENCY</h3>
+                    <p class="feature-description">We offer 100% Satisfaction guarantee.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="feature-title">HEALTH</h3>
+                    <p class="feature-description">We can improve indoor air quality and reduce allergens, promoting better respiratory health.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">TIME</h3>
+                    <p class="feature-description">Reclaim numerous hours back each week so you may have more time for leisure and productivity.</p>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3 class="feature-title">PERSONALIZED SERVICE</h3>
+                    <p class="feature-description">Tailored to your exact specifications, ensuring every detail is handled with care.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="feature-title">Green Cleaning</h3>
+                    <p class="feature-description">Our team only use environmentally safe products and techniques, providing you with a healthy and sustainable clean for your home or business.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">Support</h3>
+                    <p class="feature-description">We understand communication is key and customer service is lacking these days. Our Highly trained support team is on call for you through our dedicated direct texting line from 8am-7pm.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">WHERE <strong>IMPECCABLE</strong> CLEANLINESS ARRIVES AT YOUR <strong>DOORSTEP</strong></h2>
+            <p class="cta-description">Rely on simple communication. You can call us, text or email us. Then we'll work through a process to find the best solution to fix anything needed.</p>
         </div>
     </section>
 
@@ -78,187 +197,88 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Our Cleaning Services</h2>
-                <p class="section-subtitle">Professional cleaning solutions tailored to your needs</p>
+                <span class="section-subtitle">SERVICES</span>
+                <h2 class="section-title">OUR COMMERCIAL & HOUSE CLEANING <strong>SERVICES</strong> IN NYC</h2>
+                <p class="section-description">Do you wish you had more free time? We can make it happen!</p>
             </div>
 
             <div class="services-grid">
                 <!-- Standard Cleaning -->
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-home"></i>
+                    <h3 class="service-title">Maid Services</h3>
+                    <div class="service-image">
+                        <img src="images/maid-services.jpg" alt="Maid Services">
                     </div>
-                    <h3 class="service-title">Standard Cleaning</h3>
-                    <div class="service-price">$60<span>/hour</span></div>
-                    <p class="service-description">Perfect for routine home maintenance and general upkeep. 2-hour minimum.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Dusting all surfaces</li>
-                        <li><i class="fas fa-check"></i> Vacuuming and mopping</li>
-                        <li><i class="fas fa-check"></i> Bathroom sanitizing</li>
-                        <li><i class="fas fa-check"></i> Kitchen cleaning</li>
-                        <li><i class="fas fa-check"></i> Trash removal</li>
-                    </ul>
-                    <a href="book-us.html" class="btn btn-outline">Book Now</a>
+                    <div class="service-content">
+                        <h3 class="service-title">Maid Services</h3>
+                        <p class="service-description">Maid services provide routine upkeep and maintenance, ensuring your home remains consistently clean and organized on schedule. This includes dusting, vacuuming, and mopping. Our professional maids are ready to reduce germs and keep your home hygienic.</p>
+                        <a href="book-us.html" class="service-link">LEARN MORE</a>
+                    </div>
                 </div>
 
                 <!-- Deep Cleaning -->
-                <div class="service-card featured">
-                    <div class="service-badge">Most Popular</div>
-                    <div class="service-icon">
-                        <i class="fas fa-sparkles"></i>
-                    </div>
-                    <h3 class="service-title">Deep Cleaning</h3>
-                    <div class="service-price">$70<span>/hour</span></div>
-                    <p class="service-description">First-time clients, seasonal clean-ups, or homes needing extra attention. 3-hour minimum.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Everything in Standard Cleaning</li>
-                        <li><i class="fas fa-check"></i> Baseboards and door frames</li>
-                        <li><i class="fas fa-check"></i> Inside appliances (on request)</li>
-                        <li><i class="fas fa-check"></i> Detailed grout scrubbing</li>
-                        <li><i class="fas fa-check"></i> Light switches and vents</li>
-                    </ul>
-                    <a href="book-us.html" class="btn btn-primary">Book Now</a>
-                </div>
-
-                <!-- Move-In/Out Cleaning -->
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-truck-moving"></i>
+                    <h3 class="service-title">House Cleaning</h3>
+                    <div class="service-image">
+                        <img src="images/house-cleaning.jpg" alt="House Cleaning">
                     </div>
-                    <h3 class="service-title">Move-In/Out Cleaning</h3>
-                    <div class="service-price">$70<span>/hour</span></div>
-                    <p class="service-description">Making sure your space is spotless before moving in or leaving. 3-hour minimum.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Inside all cabinets and drawers</li>
-                        <li><i class="fas fa-check"></i> Inside fridge and oven</li>
-                        <li><i class="fas fa-check"></i> Closets and storage areas</li>
-                        <li><i class="fas fa-check"></i> All doors and fixtures</li>
-                        <li><i class="fas fa-check"></i> Complete sanitization</li>
-                    </ul>
-                    <a href="book-us.html" class="btn btn-outline">Book Now</a>
-                </div>
-            </div>
-
-            <!-- Add-on Services -->
-            <div class="addon-services">
-                <h3 class="addon-title">Add-On Services</h3>
-                <div class="addon-grid">
-                    <div class="addon-item">
-                        <span class="addon-name">Inside Fridge</span>
-                        <span class="addon-price">+$25</span>
-                    </div>
-                    <div class="addon-item">
-                        <span class="addon-name">Inside Oven</span>
-                        <span class="addon-price">+$25</span>
-                    </div>
-                    <div class="addon-item">
-                        <span class="addon-name">Inside Cabinets</span>
-                        <span class="addon-price">+$35</span>
-                    </div>
-                    <div class="addon-item">
-                        <span class="addon-name">Laundry Folding (2 loads)</span>
-                        <span class="addon-price">+$25</span>
-                    </div>
-                    <div class="addon-item">
-                        <span class="addon-name">Eco-Friendly Products</span>
-                        <span class="addon-price">FREE</span>
+                    <div class="service-content">
+                        <h3 class="service-title">House Cleaning</h3>
+                        <p class="service-description">All our house cleanings include dusting and washing of all reachable surfaces, wiping the outside of kitchen appliances & cabinets, detailed cleaning of the bathrooms, vacuuming & mopping of all floors.</p>
+                        <a href="book-us.html" class="service-link">LEARN MORE</a>
                     </div>
                 </div>
-            </div>
 
-            <!-- Recurring Discounts -->
-            <div class="discounts">
-                <h3 class="discount-title">Recurring Cleaning Discounts</h3>
-                <div class="discount-grid">
-                    <div class="discount-item">
-                        <div class="discount-frequency">Weekly</div>
-                        <div class="discount-amount">30% OFF</div>
+                <!-- Apartment Cleaning -->
+                <div class="service-card">
+                    <h3 class="service-title">Apartment Cleaning</h3>
+                    <div class="service-image">
+                        <img src="images/apartment-cleaning.jpg" alt="Apartment Cleaning">
                     </div>
-                    <div class="discount-item">
-                        <div class="discount-frequency">Biweekly</div>
-                        <div class="discount-amount">25% OFF</div>
-                    </div>
-                    <div class="discount-item">
-                        <div class="discount-frequency">Monthly</div>
-                        <div class="discount-amount">15% OFF</div>
+                    <div class="service-content">
+                        <h3 class="service-title">Apartment Cleaning</h3>
+                        <p class="service-description">Apartment cleaning is a thorough refresh of your living space, tackling dust, grime, and buildup in every corner. Every apartment cleaning includes a thorough clean that leaves your space looking its best.</p>
+                        <a href="book-us.html" class="service-link">LEARN MORE</a>
                     </div>
                 </div>
-            </div>
 
-            <!-- Commercial Services -->
-            <div class="commercial-services">
-                <h3 class="commercial-title">Commercial Cleaning Services</h3>
-                <div class="commercial-grid">
-                    <div class="commercial-card">
-                        <h4>Regular Commercial Cleaning</h4>
-                        <div class="commercial-price">$70/hour</div>
-                        <p>Ongoing maintenance for offices, retail stores, studios, and small buildings.</p>
+                <!-- Deep Cleaning -->
+                <div class="service-card">
+                    <h3 class="service-title">Deep Cleaning</h3>
+                    <div class="service-image">
+                        <img src="images/deep-cleaning.jpg" alt="Deep Cleaning">
                     </div>
-                    <div class="commercial-card">
-                        <h4>Deep Commercial Cleaning</h4>
-                        <div class="commercial-price">$85/hour</div>
-                        <p>Top-to-bottom detailed cleaning for neglected spaces and seasonal needs.</p>
+                    <div class="service-content">
+                        <h3 class="service-title">Deep Cleaning</h3>
+                        <p class="service-description">Deep Cleaning is essentially a complete dedusting and renewal of the place. Moving light furniture if needed + focusing on disinfecting of all frequently touched areas. Every "Deep Clean" includes the "Basic Clean" with detail emphasis and focus on build up.</p>
+                        <a href="book-us.html" class="service-link">LEARN MORE</a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Why Choose Us Section -->
-    <section class="why-choose-us">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Why Choose Cozy Nest Cleaners?</h2>
-                <p class="section-subtitle">What makes us unique in NYC</p>
-            </div>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-video"></i>
+                <!-- Commercial Cleaning -->
+                <div class="service-card">
+                    <h3 class="service-title">Commercial Cleaning</h3>
+                    <div class="service-image">
+                        <img src="images/commercial-cleaning.jpg" alt="Commercial Cleaning">
                     </div>
-                    <h3 class="feature-title">GoPro Transparency</h3>
-                    <p class="feature-description">Our cleaners wear GoPro cameras for full transparency and your peace of mind. See exactly what we do in your home.</p>
+                    <div class="service-content">
+                        <h3 class="service-title">Commercial Cleaning</h3>
+                        <p class="service-description">Commercial cleaning is a service that aims to keep business environments clean, organized and safe for employees and customers.</p>
+                        <a href="book-us.html" class="service-link">LEARN MORE</a>
+                    </div>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-user-shield"></i>
+                <!-- Move In/Out Cleaning -->
+                <div class="service-card">
+                    <h3 class="service-title">MOVE IN – OUT</h3>
+                    <div class="service-image">
+                        <img src="images/move-in-out.jpg" alt="Move In/Out Cleaning">
                     </div>
-                    <h3 class="feature-title">Trusted Team</h3>
-                    <p class="feature-description">All our staff are background-checked, trained, and insured. We treat your home like our own cozy nest.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-leaf"></i>
+                    <div class="service-content">
+                        <h3 class="service-title">MOVE IN – OUT</h3>
+                        <p class="service-description">A move in/out cleaning is essentially a deep cleaning of the entirety of the home including the oven, refrigerator, closets, cabinets and windows. Anything can be added or deducted.</p>
+                        <a href="book-us.html" class="service-link">LEARN MORE</a>
                     </div>
-                    <h3 class="feature-title">Eco-Friendly Options</h3>
-                    <p class="feature-description">Eco-friendly cleaning products available at no extra charge. Safe for your family and pets.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3 class="feature-title">Flexible Scheduling</h3>
-                    <p class="feature-description">We work around your busy NYC lifestyle with flexible scheduling and reliable service.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-redo"></i>
-                    </div>
-                    <h3 class="feature-title">Satisfaction Guarantee</h3>
-                    <p class="feature-description">Not satisfied? We'll return within 24 hours to re-clean missed areas at no additional cost.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3 class="feature-title">Review Rewards</h3>
-                    <p class="feature-description">Leave us a review on Google & Yelp and get 15% OFF your next cleaning!</p>
                 </div>
             </div>
         </div>
@@ -268,94 +288,77 @@
     <section id="testimonials" class="testimonials">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">What Our Customers Say</h2>
-                <p class="section-subtitle">Real reviews from satisfied customers</p>
+                <span class="section-subtitle">TESTIMONIAL</span>
+                <h2 class="section-title"><strong>SATISFIED</strong> CUSTOMERS</h2>
+                <p class="section-description">See some testimonials from our customers.</p>
             </div>
 
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"The GoPro transparency feature gave me such peace of mind! The team was professional, thorough, and my apartment has never been cleaner. Highly recommend!"</p>
-                    <div class="testimonial-author">
-                        <strong>Sarah M.</strong>
-                        <span>Manhattan</span>
-                    </div>
+            <div class="testimonials-rating">
+                <div class="rating-score">5.0</div>
+                <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
                 </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Amazing deep cleaning service! They got into every corner and crevice. The eco-friendly products were a huge plus for our family with young kids."</p>
-                    <div class="testimonial-author">
-                        <strong>Michael R.</strong>
-                        <span>Brooklyn</span>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Perfect for our move-out cleaning! They made sure we got our full security deposit back. Professional, reliable, and reasonably priced."</p>
-                    <div class="testimonial-author">
-                        <strong>Jennifer L.</strong>
-                        <span>Queens</span>
-                    </div>
-                </div>
+                <div class="rating-text">Based on 434 reviews</div>
+                <div class="rating-powered">powered by Google</div>
             </div>
-        </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">About Cozy Nest Cleaners</h2>
-                    <p class="about-description">
-                        We believe your home should be your sanctuary – a cozy nest where you can relax and recharge.
-                        That's why we're dedicated to providing the highest quality cleaning services in New York City.
-                    </p>
-                    <p class="about-description">
-                        What sets us apart is our commitment to transparency and trust. Our GoPro-equipped cleaners
-                        ensure you know exactly what's happening in your home, while our eco-friendly products keep
-                        your family and pets safe.
-                    </p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <div class="stat-number">500+</div>
-                            <div class="stat-label">Happy Customers</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">2+</div>
-                            <div class="stat-label">Years Experience</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">Satisfaction Rate</div>
+            <div class="testimonials-carousel">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">S</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Sarah M.</div>
+                            <div class="testimonial-time">a month ago</div>
                         </div>
                     </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Cozy Nest Cleaners nailed it! From the first phone call through the additional time I empower on team to finish an incredibly difficult job, they were friendly and accommodating and professional. The cleaning team were terrific. They never took a break. They worked as fast as they could and as diligently as they could, and they gave great care and attention to every nook and cranny.</p>
                 </div>
-                <div class="about-image">
-                    <div class="about-img-placeholder">
-                        <i class="fas fa-users"></i>
-                        <p>Professional Cleaning Team</p>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">E</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Elizabeth S.</div>
+                            <div class="testimonial-time">2 months ago</div>
+                        </div>
                     </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Cozy Nest Cleaners is wonderful! My mom recommended them and I'm so glad we worked with them. They're so thorough - our place was spotless and they get the grime and dust out of all the little nooks and crannies (after construction!). They take so much pride in their work and even leave you a little treat with a toilet paper/tissue design.</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">H</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Holly C.</div>
+                            <div class="testimonial-time">3 months ago</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Great experience! My apartment looked amazing after my cleaning appointment. The cleaners arrived right on time. They added a fridge clean last minute (you have to schedule ahead) it was very appreciated and needed! Communication with the company is so easy and efficient. I will definitely use them again!</p>
                 </div>
             </div>
         </div>
@@ -429,7 +432,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Call Us</h4>
-                            <p><a href="tel:+1234567890">(212) 555-0123</a></p>
+                            <p><a href="tel:+12125550123">(212) 555-0123</a></p>
                         </div>
                     </div>
 
@@ -460,15 +463,6 @@
                         <div class="contact-details">
                             <h4>Hours</h4>
                             <p>Mon-Fri: 8AM-6PM<br>Sat-Sun: 9AM-5PM</p>
-                        </div>
-                    </div>
-
-                    <div class="payment-methods">
-                        <h4>Payment Methods</h4>
-                        <div class="payment-icons">
-                            <i class="fas fa-money-bill-wave" title="Cash"></i>
-                            <i class="fas fa-mobile-alt" title="Zelle"></i>
-                            <i class="fas fa-credit-card" title="Credit/Debit Card"></i>
                         </div>
                     </div>
                 </div>
