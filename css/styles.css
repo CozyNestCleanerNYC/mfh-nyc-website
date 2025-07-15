@@ -1,4 +1,4 @@
-/* Reset and Base Styles */
+/* Reset and Base Styles - v20250715 */
 * {
     margin: 0;
     padding: 0;
@@ -196,10 +196,13 @@ body {
     text-align: center;
 }
 
+.hero-title-container {
+    margin-bottom: 1rem;
+}
+
 .hero-title {
     font-size: 3.5rem;
     font-weight: 700;
-    margin-bottom: 1rem;
     line-height: 1.1;
     text-transform: uppercase;
 }
