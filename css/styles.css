@@ -255,77 +255,102 @@ img {
 
 /* CTA Section */
 .cta-section {
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 60px 0;
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 30px 0;
     text-align: center;
+    border-top: 3px solid #4CAF50;
 }
 
 .cta-title {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.cta-title strong {
+    color: #4CAF50;
 }
 
 .cta-description {
-    font-size: 1.2rem;
-    max-width: 800px;
+    font-size: 1rem;
+    max-width: 600px;
     margin: 0 auto;
+    color: #666;
 }
 
 /* Services Section */
 .services {
-    padding: 80px 0;
-    background-color: #f9f9f9;
+    padding: 60px 0;
+    background-color: #fff;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .section-subtitle {
     color: #4CAF50;
     font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
     margin-bottom: 10px;
     display: block;
+    text-transform: uppercase;
 }
 
 .section-title {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.section-title strong {
+    color: #4CAF50;
 }
 
 .section-description {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #666;
-    max-width: 700px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
 }
 
 .service-card {
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
     height: 100%;
     display: flex;
     flex-direction: column;
+    border: 1px solid #f0f0f0;
 }
 
 .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .service-image {
-    height: 250px;
+    height: 180px;
     overflow: hidden;
 }
 
@@ -333,7 +358,7 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s;
+    transition: transform 0.4s ease;
 }
 
 .service-card:hover .service-image img {
@@ -341,32 +366,53 @@ img {
 }
 
 .service-content {
-    padding: 25px;
+    padding: 18px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
 .service-title {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
     color: #333;
+    font-weight: 600;
 }
 
 .service-description {
     color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     flex-grow: 1;
     overflow-y: auto;
-    max-height: 150px;
+    max-height: 100px;
+    line-height: 1.4;
+    font-size: 0.85rem;
+}
+
+.service-description::-webkit-scrollbar {
+    width: 3px;
+}
+
+.service-description::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.service-description::-webkit-scrollbar-thumb {
+    background: #4CAF50;
+    border-radius: 2px;
 }
 
 .service-link {
     align-self: flex-start;
     color: #4CAF50;
     font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     position: relative;
-    padding-bottom: 5px;
+    padding-bottom: 3px;
+    transition: all 0.3s ease;
 }
 
 .service-link::after {
@@ -377,7 +423,7 @@ img {
     width: 0;
     height: 2px;
     background-color: #4CAF50;
-    transition: width 0.3s;
+    transition: width 0.3s ease;
 }
 
 .service-link:hover::after {
@@ -751,20 +797,20 @@ img {
     .hero-title {
         font-size: 3.5rem;
     }
-    
+
     .hero-title-accent {
         font-size: 4.5rem;
     }
-    
+
     .section-title {
         font-size: 2.2rem;
     }
-    
+
     .about-content,
     .contact-content {
         grid-template-columns: 1fr;
     }
-    
+
     .about-image {
         margin-bottom: 30px;
     }
@@ -774,42 +820,42 @@ img {
     .nav-list {
         display: none;
     }
-    
+
     .mobile-menu-toggle {
         display: flex;
     }
-    
+
     .header-cta .phone-link {
         display: none;
     }
-    
+
     .hero-title {
         font-size: 3rem;
     }
-    
+
     .hero-title-accent {
         font-size: 4rem;
     }
-    
+
     .hero-features {
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .services-grid,
     .testimonials-carousel {
         grid-template-columns: 1fr;
     }
-    
+
     .footer-bottom-content {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .footer-bottom-links {
         margin-top: 10px;
     }
-    
+
     .footer-bottom-links a {
         margin: 0 10px;
     }
@@ -819,19 +865,19 @@ img {
     .hero-title {
         font-size: 2.5rem;
     }
-    
+
     .hero-title-accent {
         font-size: 3.5rem;
     }
-    
+
     .hero-actions {
         flex-direction: column;
     }
-    
+
     .section-title {
         font-size: 1.8rem;
     }
-    
+
     .about-features {
         grid-template-columns: 1fr;
     }
