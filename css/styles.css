@@ -1,4 +1,4 @@
-/* Reset and Base Styles - v20250715 */
+/* Reset and Base Styles - v20250715c */
 * {
     margin: 0;
     padding: 0;
@@ -197,14 +197,15 @@ body {
 }
 
 .hero-title-container {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 700;
     line-height: 1.1;
     text-transform: uppercase;
+    margin-bottom: 0.5rem;
 }
 
 .hero-title-accent {
@@ -212,9 +213,9 @@ body {
     font-family: 'Dancing Script', cursive;
     font-weight: 600;
     text-transform: none;
-    font-size: 4rem;
+    font-size: 4.5rem;
     display: block;
-    margin-top: 0.5rem;
+    margin-top: -0.5rem;
 }
 
 .hero-subtitle {
