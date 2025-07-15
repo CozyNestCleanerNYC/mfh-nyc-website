@@ -201,6 +201,17 @@ body {
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.hero-title-accent {
+    color: var(--accent-yellow);
+    font-family: 'Dancing Script', cursive;
+    font-weight: 600;
+    text-transform: none;
+    font-size: 4rem;
+    display: block;
+    margin-top: 0.5rem;
 }
 
 .hero-subtitle {
@@ -903,6 +914,10 @@ body {
     .hero-title {
         font-size: 2.25rem;
     }
+    
+    .hero-title-accent {
+        font-size: 2.5rem;
+    }
 
     .hero-subtitle {
         font-size: 1rem;
@@ -959,6 +974,10 @@ body {
 @media (max-width: 480px) {
     .hero-title {
         font-size: 1.75rem;
+    }
+    
+    .hero-title-accent {
+        font-size: 2rem;
     }
 
     .section-title {
