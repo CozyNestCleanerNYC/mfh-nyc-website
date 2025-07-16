@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Cleaning Service - Maid For Heaven NYC</title>
     <meta name="description" content="Book your professional cleaning service with Maid For Heaven NYC. Easy online booking form for all your cleaning needs in NYC.">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=20250716mobile">
     <link rel="stylesheet" href="css/book-us.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -207,7 +207,7 @@
                 <li><a href="index.html#services" class="nav-link">SERVICES</a></li>
                 <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
                 <li><a href="faq.html" class="nav-link">FAQ</a></li>
-                <li><a href="contact-us.html" class="nav-link">CONTACT US</a></li>
+                <li><a href="contact-us.html" class="nav-link">CONTACT</a></li>
             </ul>
             <div class="nav-actions">
                 <a href="tel:3477592000" class="phone-link">
@@ -357,11 +357,11 @@
                         <label for="serviceType">Type of Cleaning Service *</label>
                         <select id="serviceType" name="serviceType" required>
                             <option value="">Select service type</option>
-                            <option value="standard">Standard Cleaning</option>
-                            <option value="deep">Deep Cleaning</option>
-                            <option value="move-in-out">Move-In/Out Cleaning</option>
-                            <option value="commercial-regular">Commercial Regular</option>
-                            <option value="commercial-deep">Commercial Deep</option>
+                            <option value="standard">Standard Cleaning ($60/hour)</option>
+                            <option value="deep">Deep Cleaning ($70/hour)</option>
+                            <option value="move-in-out">Move-In/Out Cleaning ($70/hour)</option>
+                            <option value="commercial-regular">Commercial Regular ($70/hour)</option>
+                            <option value="commercial-deep">Commercial Deep ($85/hour)</option>
                         </select>
                     </div>
                     <div class="form-row">
@@ -415,36 +415,42 @@
                             <input type="checkbox" id="insideFridge" name="addons" value="inside-fridge">
                             <label for="insideFridge">
                                 <span class="addon-name">Inside Fridge Cleaning</span>
+                                <span class="addon-price">+$25</span>
                             </label>
                         </div>
                         <div class="addon-item">
                             <input type="checkbox" id="insideOven" name="addons" value="inside-oven">
                             <label for="insideOven">
                                 <span class="addon-name">Inside Oven Cleaning</span>
+                                <span class="addon-price">+$25</span>
                             </label>
                         </div>
                         <div class="addon-item">
                             <input type="checkbox" id="insideCabinets" name="addons" value="inside-cabinets">
                             <label for="insideCabinets">
                                 <span class="addon-name">Inside Cabinets Cleaning</span>
+                                <span class="addon-price">+$35</span>
                             </label>
                         </div>
                         <div class="addon-item">
                             <input type="checkbox" id="laundryFolding" name="addons" value="laundry-folding">
                             <label for="laundryFolding">
                                 <span class="addon-name">Laundry Folding (2 loads)</span>
+                                <span class="addon-price">+$25</span>
                             </label>
                         </div>
                         <div class="addon-item">
                             <input type="checkbox" id="ecoFriendly" name="addons" value="eco-friendly">
                             <label for="ecoFriendly">
                                 <span class="addon-name">Eco-Friendly Products</span>
+                                <span class="addon-price">FREE</span>
                             </label>
                         </div>
                         <div class="addon-item">
                             <input type="checkbox" id="windowCleaning" name="addons" value="window-cleaning">
                             <label for="windowCleaning">
                                 <span class="addon-name">Interior Window Cleaning</span>
+                                <span class="addon-price">+$30</span>
                             </label>
                         </div>
                     </div>
