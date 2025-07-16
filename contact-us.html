@@ -96,6 +96,119 @@
             border-radius: 0 !important;
             font-size: 1rem !important;
         }
+
+        /* Service Area Redesign */
+        .service-area-item .service-intro {
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .service-areas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .area-badge {
+            background: linear-gradient(45deg, #4CAF50, #66BB6A);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .area-badge:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Hours Section Redesign */
+        .hours-schedule {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-row.closed {
+            opacity: 0.7;
+        }
+
+        .day-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .time-label {
+            color: #4CAF50;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .hours-row.closed .time-label {
+            color: #dc3545;
+        }
+
+        .hours-note {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hours-note i {
+            background: none !important;
+            width: auto !important;
+            height: auto !important;
+            border-radius: 0 !important;
+            font-size: 0.85rem !important;
+            color: #4CAF50 !important;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 768px) {
+            .service-areas {
+                justify-content: center;
+            }
+
+            .area-badge {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+
+            .hours-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .time-label {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -214,21 +327,43 @@
                         </div>
                     </div>
 
-                    <div class="contact-item">
+                    <div class="contact-item service-area-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <h4>Service Area</h4>
-                            <p>Manhattan, Brooklyn, Queens<br>Bronx, Staten Island</p>
+                            <p class="service-intro">We proudly serve all NYC boroughs:</p>
+                            <div class="service-areas">
+                                <span class="area-badge">Manhattan</span>
+                                <span class="area-badge">Brooklyn</span>
+                                <span class="area-badge">Queens</span>
+                                <span class="area-badge">Bronx</span>
+                                <span class="area-badge">Staten Island</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="contact-item">
+                    <div class="contact-item hours-item">
                         <i class="fas fa-clock"></i>
                         <div>
-                            <h4>Hours</h4>
-                            <p>Monday - Friday: 8:00 AM - 6:00 PM<br>
-                                Saturday: 9:00 AM - 4:00 PM<br>
-                                Sunday: Closed</p>
+                            <h4>Business Hours</h4>
+                            <div class="hours-schedule">
+                                <div class="hours-row">
+                                    <span class="day-label">Monday - Friday</span>
+                                    <span class="time-label">8:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="hours-row">
+                                    <span class="day-label">Saturday</span>
+                                    <span class="time-label">9:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="hours-row closed">
+                                    <span class="day-label">Sunday</span>
+                                    <span class="time-label">Closed</span>
+                                </div>
+                            </div>
+                            <p class="hours-note">
+                                <i class="fas fa-info-circle"></i>
+                                Emergency cleaning services available upon request
+                            </p>
                         </div>
                     </div>
                 </div>
