@@ -33,12 +33,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Booking Form Handling
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Book page DOM loaded');
     const bookingForm = document.getElementById('bookingForm');
+    console.log('Booking form found:', !!bookingForm);
 
-    if (!bookingForm) return;
+    if (!bookingForm) {
+        console.error('Booking form not found!');
+        return;
+    }
 
+    console.log('Setting up booking form event listener');
     bookingForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        console.log('Booking form submitted');
 
         // Collect form data
         const formData = new FormData(bookingForm);
