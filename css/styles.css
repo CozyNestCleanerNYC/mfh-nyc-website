@@ -116,7 +116,8 @@ img {
 
 /* Navigation Menu */
 .nav-menu {
-    display: none !important; /* Temporarily hide to fix overlay issue */
+    display: none !important; /* Completely hide navigation overlay */
+    visibility: hidden !important; /* Extra hiding for safety */
     list-style: none !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -191,11 +192,14 @@ img {
     align-items: center !important;
     gap: 15px !important;
     flex-direction: row !important;
+    white-space: nowrap !important;
 }
 
 .phone-link {
-    margin-right: 20px;
+    margin-right: 0 !important; /* Remove extra margin */
     font-weight: 600;
+    white-space: nowrap !important;
+    display: inline-block !important;
 }
 
 .cta-button {
