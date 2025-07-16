@@ -105,14 +105,14 @@
             transform: translateY(-2px);
         }
 
-        .hamburger {
+        .mobile-menu-toggle {
             display: none;
             flex-direction: column;
             cursor: pointer;
             gap: 4px;
         }
 
-        .hamburger span {
+        .mobile-menu-toggle span {
             width: 25px;
             height: 3px;
             background: #333;
@@ -125,7 +125,7 @@
                 display: none;
             }
 
-            .hamburger {
+            .mobile-menu-toggle {
                 display: flex;
             }
 
@@ -195,34 +195,36 @@
     </style>
 </head>
 <body>
+
 <!-- Header -->
-<header class="header">
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">Maid For Heaven NYC</a>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">HOME</a></li>
-                <li><a href="index.html#services" class="nav-link">SERVICES</a></li>
-                <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
-                <li><a href="faq.html" class="nav-link">FAQ</a></li>
-                <li><a href="contact-us.html" class="nav-link">CONTACT</a></li>
-            </ul>
-            <div class="nav-actions">
-                <a href="tel:3477592000" class="phone-link">
-                    <i class="fas fa-phone"></i> (347) 759-2000
-                </a>
-                <a href="book-us.html" class="btn btn-primary">Book Now</a>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+<nav class="header">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="index.html">Maid For Heaven NYC</a>
         </div>
-    </nav>
-</header>
+
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">HOME</a></li>
+            <li><a href="index.html#services" class="nav-link">SERVICES</a></li>
+            <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
+            <li><a href="faq.html" class="nav-link">FAQ</a></li>
+            <li><a href="contact-us.html" class="nav-link">CONTACT</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="tel:3477592000" class="phone-link">
+                <i class="fas fa-phone"></i> (347) 759-2000
+            </a>
+            <a href="book-us.html" class="btn btn-primary">BOOK NOW</a>
+        </div>
+
+        <div class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
 
 <!-- Booking Hero Section -->
 <section class="booking-hero">
@@ -255,10 +257,7 @@
             <form class="booking-form" id="bookingForm">
                 <!-- Personal Information -->
                 <div class="form-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-user"></i>
-                        Personal Information
-                    </h3>
+                    <h3 class="section-title">Personal Information</h3>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName">First Name *</label>
@@ -283,13 +282,10 @@
 
                 <!-- Property Information -->
                 <div class="form-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-home"></i>
-                        Property Information
-                    </h3>
+                    <h3 class="section-title">Property Information</h3>
                     <div class="form-group">
-                        <label for="address">Full Address *</label>
-                        <input type="text" id="address" name="address" placeholder="Street address, apartment/unit, city, state, zip" required>
+                        <label for="address">Property Address *</label>
+                        <input type="text" id="address" name="address" placeholder="Street address, City, State, ZIP" required>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -299,31 +295,15 @@
                                 <option value="apartment">Apartment</option>
                                 <option value="house">House</option>
                                 <option value="condo">Condo</option>
-                                <option value="townhouse">Townhouse</option>
                                 <option value="office">Office</option>
-                                <option value="retail">Retail Space</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="squareFootage">Approximate Square Footage</label>
-                            <select id="squareFootage" name="squareFootage">
-                                <option value="">Select size</option>
-                                <option value="under-500">Under 500 sq ft</option>
-                                <option value="500-1000">500 - 1,000 sq ft</option>
-                                <option value="1000-1500">1,000 - 1,500 sq ft</option>
-                                <option value="1500-2000">1,500 - 2,000 sq ft</option>
-                                <option value="2000-3000">2,000 - 3,000 sq ft</option>
-                                <option value="over-3000">Over 3,000 sq ft</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="bedrooms">Number of Bedrooms</label>
+                            <label for="bedrooms">Bedrooms</label>
                             <select id="bedrooms" name="bedrooms">
                                 <option value="">Select bedrooms</option>
-                                <option value="0">Studio</option>
+                                <option value="studio">Studio</option>
                                 <option value="1">1 Bedroom</option>
                                 <option value="2">2 Bedrooms</option>
                                 <option value="3">3 Bedrooms</option>
@@ -331,8 +311,10 @@
                                 <option value="5+">5+ Bedrooms</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group">
-                            <label for="bathrooms">Number of Bathrooms</label>
+                            <label for="bathrooms">Bathrooms</label>
                             <select id="bathrooms" name="bathrooms">
                                 <option value="">Select bathrooms</option>
                                 <option value="1">1 Bathroom</option>
@@ -340,213 +322,157 @@
                                 <option value="2">2 Bathrooms</option>
                                 <option value="2.5">2.5 Bathrooms</option>
                                 <option value="3">3 Bathrooms</option>
-                                <option value="3.5">3.5 Bathrooms</option>
-                                <option value="4+">4+ Bathrooms</option>
+                                <option value="3+">3+ Bathrooms</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="squareFootage">Square Footage (approx.)</label>
+                            <input type="number" id="squareFootage" name="squareFootage" placeholder="e.g., 1200">
                         </div>
                     </div>
                 </div>
 
                 <!-- Service Details -->
                 <div class="form-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-broom"></i>
-                        Service Details
-                    </h3>
-                    <div class="form-group">
-                        <label for="serviceType">Type of Cleaning Service *</label>
-                        <select id="serviceType" name="serviceType" required>
-                            <option value="">Select service type</option>
-                            <option value="standard">Standard Cleaning ($60/hour)</option>
-                            <option value="deep">Deep Cleaning ($70/hour)</option>
-                            <option value="move-in-out">Move-In/Out Cleaning ($70/hour)</option>
-                            <option value="commercial-regular">Commercial Regular ($70/hour)</option>
-                            <option value="commercial-deep">Commercial Deep ($85/hour)</option>
-                        </select>
-                    </div>
+                    <h3 class="section-title">Service Details</h3>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="frequency">Cleaning Frequency</label>
+                            <label for="serviceType">Service Type *</label>
+                            <select id="serviceType" name="serviceType" required>
+                                <option value="">Select service type</option>
+                                <option value="standard">Standard Cleaning</option>
+                                <option value="deep">Deep Cleaning</option>
+                                <option value="move">Move In/Out Cleaning</option>
+                                <option value="commercial">Commercial Cleaning</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="frequency">Frequency</label>
                             <select id="frequency" name="frequency">
-                                <option value="one-time">One-time cleaning</option>
-                                <option value="weekly">Weekly (30% discount)</option>
-                                <option value="biweekly">Every 2 weeks (25% discount)</option>
-                                <option value="monthly">Monthly (15% discount)</option>
+                                <option value="one-time">One-time</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="biweekly">Bi-weekly</option>
+                                <option value="monthly">Monthly</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="preferredDate">Preferred Date</label>
-                            <input type="date" id="preferredDate" name="preferredDate">
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="preferredTime">Preferred Time</label>
-                            <select id="preferredTime" name="preferredTime">
-                                <option value="">Select time</option>
-                                <option value="morning">Morning (8AM - 12PM)</option>
-                                <option value="afternoon">Afternoon (12PM - 4PM)</option>
-                                <option value="evening">Evening (4PM - 6PM)</option>
-                                <option value="flexible">Flexible</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="estimatedDuration">Estimated Duration</label>
-                            <select id="estimatedDuration" name="estimatedDuration">
-                                <option value="">Select duration</option>
-                                <option value="2-3">2-3 hours</option>
-                                <option value="3-4">3-4 hours</option>
-                                <option value="4-5">4-5 hours</option>
-                                <option value="5-6">5-6 hours</option>
-                                <option value="6+">6+ hours</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="preferredDate">Preferred Date</label>
+                        <input type="date" id="preferredDate" name="preferredDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="preferredTime">Preferred Time</label>
+                        <select id="preferredTime" name="preferredTime">
+                            <option value="">Select preferred time</option>
+                            <option value="morning">Morning (8am - 12pm)</option>
+                            <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                            <option value="evening">Evening (5pm - 8pm)</option>
+                        </select>
                     </div>
                 </div>
 
-                <!-- Add-on Services -->
+                <!-- Additional Services -->
                 <div class="form-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-plus-circle"></i>
-                        Add-on Services
-                    </h3>
-                    <div class="addon-options">
-                        <div class="addon-item">
-                            <input type="checkbox" id="insideFridge" name="addons" value="inside-fridge">
-                            <label for="insideFridge">
-                                <span class="addon-name">Inside Fridge Cleaning</span>
-                                <span class="addon-price">+$25</span>
-                            </label>
-                        </div>
-                        <div class="addon-item">
-                            <input type="checkbox" id="insideOven" name="addons" value="inside-oven">
-                            <label for="insideOven">
-                                <span class="addon-name">Inside Oven Cleaning</span>
-                                <span class="addon-price">+$25</span>
-                            </label>
-                        </div>
-                        <div class="addon-item">
-                            <input type="checkbox" id="insideCabinets" name="addons" value="inside-cabinets">
-                            <label for="insideCabinets">
-                                <span class="addon-name">Inside Cabinets Cleaning</span>
-                                <span class="addon-price">+$35</span>
-                            </label>
-                        </div>
-                        <div class="addon-item">
-                            <input type="checkbox" id="laundryFolding" name="addons" value="laundry-folding">
-                            <label for="laundryFolding">
-                                <span class="addon-name">Laundry Folding (2 loads)</span>
-                                <span class="addon-price">+$25</span>
-                            </label>
-                        </div>
-                        <div class="addon-item">
-                            <input type="checkbox" id="ecoFriendly" name="addons" value="eco-friendly">
-                            <label for="ecoFriendly">
-                                <span class="addon-name">Eco-Friendly Products</span>
-                                <span class="addon-price">FREE</span>
-                            </label>
-                        </div>
-                        <div class="addon-item">
-                            <input type="checkbox" id="windowCleaning" name="addons" value="window-cleaning">
-                            <label for="windowCleaning">
-                                <span class="addon-name">Interior Window Cleaning</span>
-                                <span class="addon-price">+$30</span>
-                            </label>
-                        </div>
+                    <h3 class="section-title">Additional Services</h3>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="addons" value="inside-oven">
+                            <span class="checkmark"></span>
+                            Inside Oven Cleaning
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="addons" value="inside-fridge">
+                            <span class="checkmark"></span>
+                            Inside Refrigerator Cleaning
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="addons" value="inside-cabinets">
+                            <span class="checkmark"></span>
+                            Inside Cabinets Cleaning
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="addons" value="laundry">
+                            <span class="checkmark"></span>
+                            Laundry Service
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="addons" value="window-cleaning">
+                            <span class="checkmark"></span>
+                            Window Cleaning (Interior)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="addons" value="garage">
+                            <span class="checkmark"></span>
+                            Garage Cleaning
+                        </label>
                     </div>
                 </div>
 
                 <!-- Special Instructions -->
                 <div class="form-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-clipboard-list"></i>
-                        Special Instructions & Questions
-                    </h3>
+                    <h3 class="section-title">Special Instructions</h3>
                     <div class="form-group">
-                        <label for="petInfo">Do you have pets?</label>
-                        <select id="petInfo" name="petInfo">
-                            <option value="no">No pets</option>
-                            <option value="dogs">Dogs</option>
-                            <option value="cats">Cats</option>
-                            <option value="both">Dogs and Cats</option>
-                            <option value="other">Other pets</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="accessInfo">How will our team access your property?</label>
-                        <select id="accessInfo" name="accessInfo">
-                            <option value="">Select access method</option>
-                            <option value="home">I'll be home</option>
-                            <option value="key">I'll provide a key</option>
-                            <option value="doorman">Doorman/Concierge</option>
-                            <option value="lockbox">Lockbox</option>
-                            <option value="other">Other (please specify in notes)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="priorityAreas">Priority Areas (areas that need extra attention)</label>
-                        <textarea id="priorityAreas" name="priorityAreas" rows="3" placeholder="e.g., Kitchen needs deep cleaning, bathroom grout, pet hair removal..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="specialInstructions">Special Instructions or Notes</label>
-                        <textarea id="specialInstructions" name="specialInstructions" rows="4" placeholder="Any special requests, allergies, areas to avoid, or other important information..."></textarea>
+                        <label for="instructions">Additional Notes</label>
+                        <textarea id="instructions" name="instructions" rows="4" placeholder="Any special instructions, areas of focus, or specific requirements..."></textarea>
                     </div>
                 </div>
 
-                <!-- Submit Button -->
-                <div class="form-submit">
-                    <button type="submit" class="btn btn-primary btn-large">
-                        <i class="fas fa-calendar-check"></i>
-                        Get My Free Quote
-                    </button>
-                    <p class="submit-note">We'll contact you within 2 hours with your personalized quote!</p>
-                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-calendar-check"></i>
+                    Request Free Quote
+                </button>
             </form>
 
-            <!-- Booking Summary Sidebar -->
-            <div class="booking-summary">
-                <h3 class="summary-title">Why Choose Maid For Heaven NYC?</h3>
-                <div class="summary-features">
-                    <div class="summary-feature">
-                        <i class="fas fa-video"></i>
-                        <div>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Why Choose Maid For Heaven NYC?</h3>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="feature-content">
                             <h4>GoPro Transparency</h4>
-                            <p>See exactly what we do in your home</p>
+                            <p>Watch your cleaning in real-time with our GoPro service for complete transparency.</p>
                         </div>
                     </div>
-                    <div class="summary-feature">
-                        <i class="fas fa-shield-alt"></i>
-                        <div>
-                            <h4>Insured & Bonded</h4>
-                            <p>Full protection for your peace of mind</p>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Eco-Friendly Products</h4>
+                            <p>We use only environmentally safe, non-toxic cleaning products.</p>
                         </div>
                     </div>
-                    <div class="summary-feature">
-                        <i class="fas fa-leaf"></i>
-                        <div>
-                            <h4>Eco-Friendly Options</h4>
-                            <p>Safe for family and pets - FREE upgrade</p>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Fully Insured</h4>
+                            <p>Complete insurance coverage for your peace of mind.</p>
                         </div>
                     </div>
-                    <div class="summary-feature">
-                        <i class="fas fa-redo"></i>
-                        <div>
-                            <h4>Satisfaction Guarantee</h4>
-                            <p>We'll return within 24hrs if not satisfied</p>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Flexible Scheduling</h4>
+                            <p>Book at your convenience with our flexible scheduling options.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="contact-info">
-                    <h4>Need Help?</h4>
-                    <p><i class="fas fa-phone"></i> <a href="tel:3477592000">(347) 759-2000</a></p>
-                    <p><i class="fas fa-envelope"></i> <a href="mailto:orhans@maidforheavennyc.com">orhans@maidforheavennyc.com</a></p>
-                </div>
-
-                <div class="service-hours">
-                    <h4>Service Hours</h4>
-                    <p>Mon-Sat: 8am - 8pm</p>
-                    <p>Sunday: 9am - 7pm</p>
+                <div class="sidebar-section">
+                    <div class="contact-info">
+                        <h4>Contact Information</h4>
+                        <p><i class="fas fa-phone"></i> (347) 759-2000</p>
+                        <p><i class="fas fa-envelope"></i> orhans@maidforheavennyc.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Sat: 8am - 8pm<br>Sunday: 9am - 7pm</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Serving All NYC Boroughs</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -555,50 +481,47 @@
 
 <!-- Footer -->
 <footer class="footer">
-    <div class="container">
+    <div class="footer-container">
         <div class="footer-content">
             <div class="footer-section">
                 <div class="footer-logo">
                     <h3>Maid For Heaven NYC</h3>
                 </div>
-                <p class="footer-description">
-                    Professional cleaning services in NYC with GoPro transparency and eco-friendly options.
-                </p>
+                <p>Professional cleaning services with GoPro transparency and eco-friendly products. Experience the difference of a truly clean home.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-google"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-yelp"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
 
             <div class="footer-section">
-                <h4 class="footer-title">Services</h4>
-                <ul class="footer-links">
-                    <li><a href="index.html#services">Standard Cleaning</a></li>
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="index.html#services">House Cleaning</a></li>
                     <li><a href="index.html#services">Deep Cleaning</a></li>
-                    <li><a href="index.html#services">Move-In/Out Cleaning</a></li>
                     <li><a href="index.html#services">Commercial Cleaning</a></li>
+                    <li><a href="index.html#services">Move In/Out</a></li>
+                    <li><a href="index.html#services">Airbnb Turnover</a></li>
+                    <li><a href="index.html#services">Post-Construction</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h4 class="footer-title">Company</h4>
-                <ul class="footer-links">
+                <h4>Company</h4>
+                <ul>
                     <li><a href="index.html#about">About Us</a></li>
                     <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="assets/Gmail-policy.pdf" target="_blank">Policies</a></li>
                     <li><a href="contact-us.html">Contact</a></li>
+                    <li><a href="book-us.html">Book Now</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h4 class="footer-title">Contact Info</h4>
-                <div class="footer-contact">
-                    <p><i class="fas fa-phone"></i> (347) 759-2000</p>
-                    <p><i class="fas fa-envelope"></i> orhans@maidforheavennyc.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Serving All NYC Boroughs</p>
-                </div>
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-phone"></i> (347) 759-2000</p>
+                <p><i class="fas fa-envelope"></i> orhans@maidforheavennyc.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Serving All NYC Boroughs</p>
             </div>
         </div>
 
