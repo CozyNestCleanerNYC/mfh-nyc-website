@@ -1390,6 +1390,14 @@ img {
         gap: 40px;
     }
 
+    .contact-info {
+        order: 2; /* Move contact info to bottom */
+    }
+
+    .contact-form {
+        order: 1; /* Keep contact form at top */
+    }
+
     .contact-form-container {
         padding: 30px 20px;
     }
@@ -1523,5 +1531,168 @@ img {
     .faq-toggle {
         font-size: 1.3rem;
         margin-left: 15px;
+    }
+}
+
+
+/* Mobile Contact Page Layout Fixes */
+@media (max-width: 768px) {
+    /* Contact form section mobile layout */
+    .contact-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+        grid-template-columns: none !important;
+    }
+
+    /* Contact form takes full width on mobile */
+    .contact-form {
+        order: 1;
+        width: 100% !important;
+    }
+
+    /* Contact info moves to bottom on mobile */
+    .contact-info {
+        order: 2;
+        width: 100% !important;
+        margin-top: 20px;
+    }
+
+    /* Form row becomes single column on mobile */
+    .form-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        grid-template-columns: none !important;
+    }
+
+    /* Contact hero section mobile adjustments */
+    .contact-hero h1 {
+        font-size: 2rem !important;
+    }
+
+    .contact-hero p {
+        font-size: 1rem !important;
+    }
+
+    /* Contact form section mobile padding */
+    .contact-form-section {
+        padding: 40px 0 !important;
+    }
+
+    /* Info items mobile spacing */
+    .info-item {
+        margin-bottom: 25px !important;
+    }
+
+    .info-content h3 {
+        font-size: 1.1rem !important;
+    }
+}
+
+
+/* Mobile Menu Dropdown Styles */
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: flex !important;
+        z-index: 1001;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: white;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 50px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu li {
+        margin: 15px 0;
+    }
+
+    .nav-menu a {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+        background: #4CAF50;
+        color: white;
+    }
+
+    .nav-contact {
+        display: none !important;
+    }
+}
+
+/* Book Page Mobile Header Fixes */
+@media (max-width: 768px) {
+    /* Fix book page header layout on mobile */
+    .nav-container {
+        height: 50px !important;
+        padding: 0 15px !important;
+    }
+
+    .nav-logo {
+        font-size: 1.1rem !important;
+    }
+
+    .nav-actions {
+        gap: 0.5rem !important;
+    }
+
+    .phone-link {
+        font-size: 0.9rem !important;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Ensure mobile menu toggle is visible on book page */
+    .mobile-menu-toggle {
+        display: flex !important;
+        position: relative;
+        z-index: 1002;
+    }
+
+    /* Hide desktop navigation on mobile for book page */
+    .nav-menu {
+        display: none;
+    }
+
+    .nav-menu.active {
+        display: flex !important;
+        position: fixed;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 50px);
+        background: white;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 30px;
+        z-index: 1001;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 }
