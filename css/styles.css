@@ -114,9 +114,9 @@ img {
     object-fit: contain;
 }
 
-/* Navigation Menu */
+/* Navigation Menu - Simple, reliable approach */
 .nav-menu {
-    display: flex; /* Show navigation on desktop */
+    display: flex; /* Always show on desktop by default */
     list-style: none !important;
     margin: 0 !important;
     padding: 0 !important;
