@@ -297,35 +297,50 @@
                     submitBtn.textContent = 'Sending...';
                     submitBtn.disabled = true;
 
-                    // Send to Google Sheets
-                    fetch('https://script.google.com/macros/s/AKfycbzZZSO-2s0Kz4HygsrlJaEtKEAZN8eAUOlSg_xaZHVBlrTef55-VJKMVPunGWTYwjs4_w/exec', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        // Reset button
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
+                    // Send to Google Sheets using iframe method (more reliable)
+                    const submitForm = document.createElement('form');
+                    submitForm.action = 'https://script.google.com/macros/s/AKfycbzZZSO-2s0Kz4HygsrlJaEtKEAZN8eAUOlSg_xaZHVBlrTef55-VJKMVPunGWTYwjs4_w/exec';
+                    submitForm.method = 'POST';
+                    submitForm.target = 'hidden_iframe';
 
-                        if (result.success) {
-                            alert('Thank you for your message! We have received your inquiry and will get back to you within 24 hours.');
-                            form.reset(); // Clear the form
-                        } else {
-                            throw new Error(result.error || 'Unknown error occurred');
-                        }
-                    })
-                    .catch(error => {
-                        // Reset button
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-
-                        console.error('Error:', error);
-                        alert('There was an error sending your message. Please try again or call us directly at (347) 759-2000.');
+                    // Add form fields
+                    Object.keys(data).forEach(key => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = key;
+                        input.value = data[key];
+                        submitForm.appendChild(input);
                     });
+
+                    // Create hidden iframe
+                    const iframe = document.createElement('iframe');
+                    iframe.name = 'hidden_iframe';
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    document.body.appendChild(submitForm);
+
+                    // Handle success
+                    iframe.onload = function() {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        alert('Thank you for your message! We have received your inquiry and will get back to you within 24 hours.');
+                        form.reset();
+                        document.body.removeChild(iframe);
+                        document.body.removeChild(submitForm);
+                    };
+
+                    // Handle timeout
+                    setTimeout(() => {
+                        if (submitBtn.disabled) {
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                            alert('There was an error sending your message. Please try again or call us directly at (347) 759-2000.');
+                            if (document.body.contains(iframe)) document.body.removeChild(iframe);
+                            if (document.body.contains(submitForm)) document.body.removeChild(submitForm);
+                        }
+                    }, 10000);
+
+                    submitForm.submit();
                 });
             }
         });

@@ -96,36 +96,49 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Request...';
         submitButton.disabled = true;
 
-        // Send to Google Sheets
-        fetch('https://script.google.com/macros/s/AKfycbw3DALh1ZCPmorjsSg6MCDOr25uXLB8pNbvDQsI8CzTi1PveaYqo7qWxi2auchIdbG4/exec', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(bookingData)
-        })
-        .then(response => response.json())
-        .then(result => {
-            // Reset button
-            submitButton.innerHTML = originalButtonText;
-            submitButton.disabled = false;
+        // Send to Google Sheets using iframe method (more reliable)
+        const submitForm = document.createElement('form');
+        submitForm.action = 'https://script.google.com/macros/s/AKfycbw3DALh1ZCPmorjsSg6MCDOr25uXLB8pNbvDQsI8CzTi1PveaYqo7qWxi2auchIdbG4/exec';
+        submitForm.method = 'POST';
+        submitForm.target = 'hidden_iframe_booking';
 
-            if (result.success) {
-                showNotification('Thank you! We\'ve received your booking request and will contact you within 2 hours with your personalized quote.', 'success');
-                // Optional: Reset form after successful submission
-                // bookingForm.reset();
-            } else {
-                throw new Error(result.error || 'Unknown error occurred');
-            }
-        })
-        .catch(error => {
-            // Reset button
-            submitButton.innerHTML = originalButtonText;
-            submitButton.disabled = false;
-
-            console.error('Error:', error);
-            showNotification('There was an error submitting your request. Please try again or call us directly at (347) 759-2000.', 'error');
+        // Add form fields
+        Object.keys(bookingData).forEach(key => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = Array.isArray(bookingData[key]) ? bookingData[key].join(', ') : bookingData[key];
+            submitForm.appendChild(input);
         });
+
+        // Create hidden iframe
+        const iframe = document.createElement('iframe');
+        iframe.name = 'hidden_iframe_booking';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        document.body.appendChild(submitForm);
+
+        // Handle success
+        iframe.onload = function() {
+            submitButton.innerHTML = originalButtonText;
+            submitButton.disabled = false;
+            showNotification('Thank you! We\'ve received your booking request and will contact you within 2 hours with your personalized quote.', 'success');
+            document.body.removeChild(iframe);
+            document.body.removeChild(submitForm);
+        };
+
+        // Handle timeout
+        setTimeout(() => {
+            if (submitButton.disabled) {
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+                showNotification('There was an error submitting your request. Please try again or call us directly at (347) 759-2000.', 'error');
+                if (document.body.contains(iframe)) document.body.removeChild(iframe);
+                if (document.body.contains(submitForm)) document.body.removeChild(submitForm);
+            }
+        }, 10000);
+
+        submitForm.submit();
     });
 
     // Phone number formatting
@@ -314,4 +327,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
