@@ -26,18 +26,13 @@
             <a href="tel:3477592000" class="phone-link">
                 <i class="fas fa-phone"></i> (347) 759-2000
             </a>
-            <a href="#contact" class="cta-button">BOOK NOW</a>
+            <a href="book-us.html" class="cta-button">BOOK NOW</a>
         </div>
         <div class="mobile-menu-toggle">
             <span></span>
             <span></span>
             <span></span>
         </div>
-    </div>
-    <span></span>
-    <span></span>
-    </div>
-    </div>
     </div>
 </header>
 
@@ -51,17 +46,15 @@
     </div>
 </section>
 
-<!-- Contact Section -->
-<section class="contact-section">
+<!-- Contact Form Section -->
+<section class="contact-form-section">
     <div class="container">
         <div class="contact-content">
-            <div class="contact-form-container">
-                <div class="contact-form-header">
-                    <h2>Send Us a Message</h2>
-                    <p>Got questions? Need more information? Drop us a line and we'll get back to you soon!</p>
-                </div>
+            <div class="contact-form">
+                <h2>Send Us a Message</h2>
+                <p>Got questions? Need more information? Drop us a line and we'll get back to you soon!</p>
 
-                <form class="contact-form" id="contactForm">
+                <form class="form" action="#" method="POST">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName">First Name *</label>
@@ -84,80 +77,68 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <select id="subject" name="subject">
-                            <option value="">Select a topic</option>
-                            <option value="general">General Inquiry</option>
-                            <option value="services">Questions About Services</option>
-                            <option value="pricing">Pricing Information</option>
-                            <option value="availability">Availability</option>
-                            <option value="feedback">Feedback</option>
-                            <option value="other">Other</option>
+                        <label for="service">Service Needed</label>
+                        <select id="service" name="service">
+                            <option value="">Select a service</option>
+                            <option value="house-cleaning">House Cleaning</option>
+                            <option value="deep-cleaning">Deep Cleaning</option>
+                            <option value="commercial-cleaning">Commercial Cleaning</option>
+                            <option value="move-in-out">Move In/Out Cleaning</option>
+                            <option value="airbnb-turnover">Airbnb Turnover</option>
+                            <option value="post-construction">Post-Construction Cleaning</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Tell us how we can help you..." required></textarea>
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your cleaning needs..."></textarea>
                     </div>
 
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        Send Message
-                    </button>
+                    <button type="submit" class="submit-btn">Send Message</button>
                 </form>
             </div>
 
-            <div class="contact-info-container">
-                <div class="contact-info-card">
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Service Area</h3>
-                            <p>Serving All NYC Boroughs<br>Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
-                        </div>
+            <div class="contact-info">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
                     </div>
-
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Phone</h3>
-                            <p><a href="tel:2125550123">(212) 555-0123</a></p>
-                        </div>
-                    </div>
-
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p><a href="mailto:info@cozynestcleaners.com">info@cozynestcleaners.com</a></p>
-                        </div>
-                    </div>
-
-                    <div class="contact-info-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Hours</h3>
-                            <p>Mon-Sat: 8am - 7pm<br>Sunday: 9am - 5pm</p>
-                        </div>
+                    <div class="info-content">
+                        <h3>Service Area</h3>
+                        <p>Serving All NYC Boroughs<br>
+                            Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
                     </div>
                 </div>
 
-                <div class="cta-card">
-                    <h3>Ready to Book?</h3>
-                    <p>If you're ready to schedule a cleaning service, use our booking form for faster service.</p>
-                    <a href="book-us.html" class="cta-link">
-                        <i class="fas fa-calendar-check"></i>
-                        Book Now
-                    </a>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Phone</h3>
+                        <p><a href="tel:3477592000">(347) 759-2000</a></p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Email</h3>
+                        <p><a href="mailto:orhans@maidforheavennyc.com">orhans@maidforheavennyc.com</a></p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Hours</h3>
+                        <p>Mon-Sat: 8am - 7pm<br>
+                            Sunday: 9am - 5pm</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -169,8 +150,8 @@
     <div class="container">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Cozy Nest Cleaners</h3>
-                <p>Professional cleaning services in NYC with GoPro transparency and eco-friendly options.</p>
+                <h3>Maid For Heaven NYC</h3>
+                <p>Professional cleaning services with GoPro transparency and eco-friendly products. Experience the difference of a truly clean home.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -184,38 +165,44 @@
                     <li><a href="index.html#services">House Cleaning</a></li>
                     <li><a href="index.html#services">Deep Cleaning</a></li>
                     <li><a href="index.html#services">Commercial Cleaning</a></li>
-                    <li><a href="index.html#services">Move In/Out Cleaning</a></li>
+                    <li><a href="index.html#services">Move In/Out</a></li>
+                    <li><a href="index.html#services">Airbnb Turnover</a></li>
+                    <li><a href="index.html#services">Post-Construction</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h4>Contact</h4>
+                <h4>Company</h4>
                 <ul>
-                    <li><i class="fas fa-phone"></i> (212) 555-0123</li>
-                    <li><i class="fas fa-envelope"></i> info@cozynestcleaners.com</li>
-                    <li><i class="fas fa-map-marker-alt"></i> Serving All NYC Boroughs</li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#services">Services</a></li>
-                    <li><a href="index.html#testimonials">Reviews</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
                     <li><a href="contact-us.html">Contact</a></li>
-                    <li><a href="book-us.html">Book Now</a></li>
                 </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-phone"></i> (347) 759-2000</p>
+                <p><i class="fas fa-envelope"></i> orhans@maidforheavennyc.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Serving All NYC Boroughs</p>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2024 Cozy Nest Cleaners. All rights reserved.</p>
+            <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
         </div>
     </div>
 </footer>
 
-<script src="js/script.js?v=2025c"></script>
+<script>
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
-
