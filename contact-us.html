@@ -10,143 +10,156 @@
     <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
 <!-- Header -->
-<header class="header">
-    <div class="container">
-        <div class="header-content">
-            <div class="logo">
-                <a href="index.html" class="logo-text">
-                    Maid For Heaven NYC
-                </a>
-            </div>
+<nav class="header">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="index.html">Maid For Heaven NYC</a>
+        </div>
 
-            <ul class="nav-menu">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="index.html#services">SERVICES</a></li>
-                <li><a href="index.html#about">ABOUT</a></li>
-                <li><a href="faq.html">FAQ</a></li>
-                <li><a href="contact-us.html" class="active">CONTACT</a></li>
-            </ul>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">HOME</a></li>
+            <li><a href="index.html#services" class="nav-link">SERVICES</a></li>
+            <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
+            <li><a href="faq.html" class="nav-link">FAQ</a></li>
+            <li><a href="contact-us.html" class="nav-link active">CONTACT</a></li>
+        </ul>
 
-            <div class="nav-contact">
-                <a href="tel:3477592000" class="phone-link"><i class="fas fa-phone"></i> (347) 759-2000</a>
-                <a href="book-us.html" class="cta-button">BOOK NOW</a>
-            </div>
-            <div class="mobile-menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+        <div class="nav-contact">
+            <a href="tel:3477592000" class="phone-link">
+                <i class="fas fa-phone"></i> (347) 759-2000
+            </a>
+            <a href="book-us.html" class="cta-button">BOOK NOW</a>
+        </div>
+
+        <div class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </div>
-</header>
+</nav>
 
 <!-- Contact Hero Section -->
-<section class="contact-hero" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); padding: 80px 0; text-align: center; color: white;">
+<section class="contact-hero">
     <div class="container">
         <div class="contact-hero-content">
-            <h1 style="font-size: 3rem; margin-bottom: 1rem; font-weight: 700;">Contact Us</h1>
-            <p style="font-size: 1.2rem; opacity: 0.9;">Have questions about our cleaning services? We'd love to hear from you!</p>
+            <h1>Contact Maid For Heaven NYC</h1>
+            <p>Get in touch with us for all your cleaning needs. We're here to help make your space spotless!</p>
         </div>
     </div>
 </section>
 
-<!-- Contact Form Section -->
-<section class="contact-form-section" style="padding: 80px 0; background: #f8f9fa;">
+<!-- Contact Content Section -->
+<section class="contact-content">
     <div class="container">
-        <div class="contact-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto;">
-            <div class="contact-form">
-                <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #333;">Send Us a Message</h2>
-                <p style="color: #666; margin-bottom: 2rem;">Got questions? Need more information? Drop us a line and we'll get back to you soon!</p>
-
-                <form class="form" action="#" method="POST" style="display: flex; flex-direction: column; gap: 20px;">
-                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+                <h2>Send Us a Message</h2>
+                <form class="form" id="contactForm">
+                    <div class="form-row">
                         <div class="form-group">
-                            <label for="firstName" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">First Name *</label>
-                            <input type="text" id="firstName" name="firstName" required style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
                         </div>
                         <div class="form-group">
-                            <label for="lastName" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Last Name *</label>
-                            <input type="text" id="lastName" name="lastName" required style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Email Address *</label>
-                        <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="service" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Service Needed</label>
-                        <select id="service" name="service" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
+                        <label for="service">Service Needed</label>
+                        <select id="service" name="service">
                             <option value="">Select a service</option>
                             <option value="house-cleaning">House Cleaning</option>
                             <option value="deep-cleaning">Deep Cleaning</option>
                             <option value="commercial-cleaning">Commercial Cleaning</option>
                             <option value="move-in-out">Move In/Out Cleaning</option>
                             <option value="airbnb-turnover">Airbnb Turnover</option>
-                            <option value="post-construction">Post-Construction Cleaning</option>
+                            <option value="post-construction">Post-Construction Cleanup</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="message" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your cleaning needs..." style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; resize: vertical;"></textarea>
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your cleaning needs..." required></textarea>
                     </div>
 
-                    <button type="submit" class="submit-btn" style="background: #4CAF50; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.3s;">Send Message</button>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
                 </form>
             </div>
 
-            <div class="contact-info">
-                <div class="info-item" style="display: flex; align-items: flex-start; margin-bottom: 30px;">
-                    <div class="info-icon" style="background: #4CAF50; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0;">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="info-content">
-                        <h3 style="margin: 0 0 8px 0; color: #333; font-size: 1.2rem;">Service Area</h3>
-                        <p style="margin: 0; color: #666;">Serving All NYC Boroughs<br>
-                            Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
-                    </div>
-                </div>
-
-                <div class="info-item" style="display: flex; align-items: flex-start; margin-bottom: 30px;">
-                    <div class="info-icon" style="background: #4CAF50; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0;">
+            <!-- Contact Information -->
+            <div class="contact-info-section">
+                <div class="contact-info-card">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-item">
                         <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p><a href="tel:3477592000">(347) 759-2000</a></p>
+                        </div>
                     </div>
-                    <div class="info-content">
-                        <h3 style="margin: 0 0 8px 0; color: #333; font-size: 1.2rem;">Phone</h3>
-                        <p style="margin: 0;"><a href="tel:3477592000" style="color: #4CAF50; text-decoration: none;">(347) 759-2000</a></p>
-                    </div>
-                </div>
 
-                <div class="info-item" style="display: flex; align-items: flex-start; margin-bottom: 30px;">
-                    <div class="info-icon" style="background: #4CAF50; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0;">
+                    <div class="contact-item">
                         <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:orhans@maidforheavennyc.com">orhans@maidforheavennyc.com</a></p>
+                        </div>
                     </div>
-                    <div class="info-content">
-                        <h3 style="margin: 0 0 8px 0; color: #333; font-size: 1.2rem;">Email</h3>
-                        <p style="margin: 0;"><a href="mailto:orhans@maidforheavennyc.com" style="color: #4CAF50; text-decoration: none;">orhans@maidforheavennyc.com</a></p>
+
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Service Area</h4>
+                            <p>All NYC Boroughs<br>Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="info-item" style="display: flex; align-items: flex-start; margin-bottom: 30px;">
-                    <div class="info-icon" style="background: #4CAF50; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0;">
-                        <i class="fas fa-clock"></i>
+                <div class="hours-card">
+                    <h3>Business Hours</h3>
+                    <div class="hours-list">
+                        <div class="hours-item">
+                            <span>Monday - Saturday</span>
+                            <span>8:00 AM - 8:00 PM</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>Sunday</span>
+                            <span>9:00 AM - 7:00 PM</span>
+                        </div>
                     </div>
-                    <div class="info-content">
-                        <h3 style="margin: 0 0 8px 0; color: #333; font-size: 1.2rem;">Hours</h3>
-                        <p style="margin: 0; color: #666;">Mon-Sat: 8am - 8pm<br>
-                            Sunday: 9am - 7pm</p>
-                    </div>
+                </div>
+
+                <div class="cta-card">
+                    <h3>Ready to Book?</h3>
+                    <p>Get your personalized quote today!</p>
+                    <a href="book-us.html" class="cta-button-large">
+                        <i class="fas fa-calendar-check"></i>
+                        Book Now
+                    </a>
                 </div>
             </div>
         </div>
@@ -155,15 +168,17 @@
 
 <!-- Footer -->
 <footer class="footer">
-    <div class="container">
+    <div class="footer-container">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Maid For Heaven NYC</h3>
+                <div class="footer-logo">
+                    <h3>Maid For Heaven NYC</h3>
+                </div>
                 <p>Professional cleaning services with GoPro transparency and eco-friendly products. Experience the difference of a truly clean home.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
 
@@ -185,6 +200,7 @@
                     <li><a href="index.html#about">About Us</a></li>
                     <li><a href="faq.html">FAQ</a></li>
                     <li><a href="contact-us.html">Contact</a></li>
+                    <li><a href="book-us.html">Book Now</a></li>
                 </ul>
             </div>
 
@@ -197,166 +213,9 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-
-<script>
-        // Mobile menu toggle - More robust version
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Contact page DOM loaded');
-
-            const mobileToggle = document.querySelector('.mobile-menu-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-
-            console.log('Elements found:', { mobileToggle: !!mobileToggle, navMenu: !!navMenu });
-
-            if (mobileToggle && navMenu) {
-                // Remove any existing event listeners
-                mobileToggle.replaceWith(mobileToggle.cloneNode(true));
-                const newMobileToggle = document.querySelector('.mobile-menu-toggle');
-
-                newMobileToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-
-                    console.log('Contact page mobile toggle clicked');
-
-                    const isActive = navMenu.classList.contains('active');
-
-                    if (isActive) {
-                        navMenu.classList.remove('active');
-                        newMobileToggle.classList.remove('active');
-                        console.log('Menu closed');
-                    } else {
-                        navMenu.classList.add('active');
-                        newMobileToggle.classList.add('active');
-                        console.log('Menu opened');
-                    }
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (!newMobileToggle.contains(e.target) && !navMenu.contains(e.target)) {
-                        navMenu.classList.remove('active');
-                        newMobileToggle.classList.remove('active');
-                    }
-                });
-
-                // Close menu when clicking nav links
-                const navLinks = navMenu.querySelectorAll('a');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        navMenu.classList.remove('active');
-                        newMobileToggle.classList.remove('active');
-                    });
-                });
-
-                console.log('Contact page mobile menu initialized');
-            } else {
-                console.error('Mobile menu elements not found on contact page');
-            }
-        });
-
-        // Form submission - Updated to send to Google Sheets
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('.form');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-
-                    // Get form data
-                    const formData = new FormData(form);
-                    const data = {
-                        firstName: formData.get('firstName') || '',
-                        lastName: formData.get('lastName') || '',
-                        email: formData.get('email') || '',
-                        phone: formData.get('phone') || '',
-                        service: formData.get('service') || '',
-                        message: formData.get('message') || ''
-                    };
-
-                    // Basic validation
-                    if (!data.firstName || !data.lastName || !data.email) {
-                        alert('Please fill in all required fields (First Name, Last Name, Email).');
-                        return;
-                    }
-
-                    // Email validation
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(data.email)) {
-                        alert('Please enter a valid email address.');
-                        return;
-                    }
-
-                    // Show loading state
-                    const submitBtn = form.querySelector('.submit-btn');
-                    const originalText = submitBtn.textContent;
-                    submitBtn.textContent = 'Sending...';
-                    submitBtn.disabled = true;
-
-                    // Send to Google Sheets using iframe method (more reliable)
-                    const submitForm = document.createElement('form');
-                    submitForm.action = 'https://script.google.com/macros/s/AKfycbzZZSO-2s0Kz4HygsrlJaEtKEAZN8eAUOlSg_xaZHVBlrTef55-VJKMVPunGWTYwjs4_w/exec';
-                    submitForm.method = 'POST';
-                    submitForm.target = 'hidden_iframe';
-
-                    // Add form fields
-                    Object.keys(data).forEach(key => {
-                        const input = document.createElement('input');
-                        input.type = 'hidden';
-                        input.name = key;
-                        input.value = data[key];
-                        submitForm.appendChild(input);
-                    });
-
-                    // Create hidden iframe
-                    const iframe = document.createElement('iframe');
-                    iframe.name = 'hidden_iframe';
-                    iframe.style.display = 'none';
-                    document.body.appendChild(iframe);
-                    document.body.appendChild(submitForm);
-
-                    // Handle success
-                    iframe.onload = function() {
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                        alert('Thank you for your message! We have received your inquiry and will get back to you within 24 hours.');
-                        form.reset();
-                        document.body.removeChild(iframe);
-                        document.body.removeChild(submitForm);
-                    };
-
-                    // Handle timeout
-                    setTimeout(() => {
-                        if (submitBtn.disabled) {
-                            submitBtn.textContent = originalText;
-                            submitBtn.disabled = false;
-                            alert('There was an error sending your message. Please try again or call us directly at (347) 759-2000.');
-                            if (document.body.contains(iframe)) document.body.removeChild(iframe);
-                            if (document.body.contains(submitForm)) document.body.removeChild(submitForm);
-                        }
-                    }, 10000);
-
-                    submitForm.submit();
-                });
-            }
-        });
-
-        // Button hover effect
-        const submitBtn = document.querySelector('.submit-btn');
-        if (submitBtn) {
-            submitBtn.addEventListener('mouseenter', function() {
-                this.style.background = '#45a049';
-            });
-            submitBtn.addEventListener('mouseleave', function() {
-                this.style.background = '#4CAF50';
-            });
-        }
-    </script>
-<script src="js/script.js?v=20250716mobile003"></script>
-</body>
-</html>
-
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="assets/Gmail-policy.pdf" target="_blank">Privacy Policy</a>
+                    <a href="assets/Gmail-policy.pdf" target="_blank">Terms of Service</a>
+                </div>
