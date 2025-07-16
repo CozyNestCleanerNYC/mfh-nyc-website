@@ -1,4 +1,4 @@
-// Mobile Menu Toggle for Book Page
+/ Mobile Menu Toggle for Book Page
 document.addEventListener('DOMContentLoaded', function() {
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');

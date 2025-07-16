@@ -252,18 +252,20 @@
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening Email...';
                 submitBtn.disabled = true;
 
-                // Create mailto link
-                const subject = encodeURIComponent('Contact Form Submission - Maid For Heaven NYC');
-                const body = encodeURIComponent(
-                    `New contact form submission:\n\n` +
-                    `Name: ${firstName} ${lastName}\n` +
-                    `Email: ${email}\n` +
-                    `Phone: ${phone || 'Not provided'}\n` +
-                    `Service Needed: ${service || 'Not specified'}\n\n` +
-                    `Message:\n${message}`
-                );
+                // Create mailto link with proper encoding
+                const emailAddress = 'orhans@maidforheavennyc.com';
+                const subject = 'Contact Form Submission - Maid For Heaven NYC';
+                const body = `New contact form submission:
 
-                const mailtoLink = `mailto:orhans@maidforheavennyc.com?subject=${subject}&body=${body}`;
+Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone || 'Not provided'}
+Service Needed: ${service || 'Not specified'}
+
+Message:
+${message}`;
+
+                const mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
                 // Open email client
                 window.location.href = mailtoLink;
@@ -417,3 +419,4 @@
 <script src="js/script.js?v=20250716mobile003"></script>
 </body>
 </html>
+
