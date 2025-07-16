@@ -86,11 +86,13 @@ img {
 .logo-text {
     text-decoration: none;
     font-family: 'Poppins', 'Arial', sans-serif;
-    font-size: 26px;
+    font-size: 18px; /* Further reduced for compact look */
     font-weight: 600;
     color: #2c3e50;
     letter-spacing: 0.5px;
     transition: color 0.3s ease;
+    white-space: nowrap; /* Prevent text wrapping */
+    display: inline-block; /* Ensure proper display */
 }
 
 .logo-text:hover {
@@ -183,6 +185,14 @@ img {
     align-items: center;
 }
 
+/* Navigation Contact Section */
+.nav-contact {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+    flex-direction: row !important;
+}
+
 .phone-link {
     margin-right: 20px;
     font-weight: 600;
@@ -191,10 +201,14 @@ img {
 .cta-button {
     background-color: #4CAF50;
     color: #fff;
-    padding: 10px 20px;
+    padding: 8px 16px; /* Reduced padding for more compact look */
     border-radius: 5px;
     font-weight: 600;
+    font-size: 14px; /* Slightly smaller font */
     transition: background-color 0.3s;
+    white-space: nowrap; /* Prevent text wrapping */
+    text-decoration: none;
+    margin-left: 10px; /* Add spacing from phone number */
 }
 
 .cta-button:hover {
