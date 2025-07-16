@@ -1639,7 +1639,7 @@ img {
         color: white;
     }
 
-    /* Show BOOK NOW button on mobile but hide phone number */
+    /* Show BOOK NOW button on mobile header but NOT in dropdown menu */
     .nav-contact {
         display: flex !important;
         align-items: center;
@@ -1655,6 +1655,17 @@ img {
         font-size: 12px;
         padding: 6px 12px;
         white-space: nowrap;
+    }
+
+    /* Hide BOOK NOW button when mobile menu is active (in dropdown) */
+    .nav-menu.active ~ .nav-contact .cta-button {
+        display: none !important;
+    }
+
+    /* Ensure BOOK NOW button doesn't appear inside mobile dropdown menu */
+    .nav-menu.active .nav-contact,
+    .nav-menu.active .cta-button {
+        display: none !important;
     }
 }
 
