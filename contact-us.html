@@ -60,9 +60,7 @@
             <!-- Contact Form -->
             <div class="contact-form-container">
                 <h2>Send Us a Message</h2>
-                <form class="form" action="https://formspree.io/f/manbyayo" method="POST">
-                    <input type="hidden" name="_next" value="https://maidforheavennyc.github.io/contact-us.html?success=true">
-                    <input type="hidden" name="_subject" value="New Contact Form Submission - Maid For Heaven NYC">
+                <form class="form" id="contactForm">
 
                     <div class="form-row">
                         <div class="form-group">
@@ -227,6 +225,49 @@
 </footer>
 
 <script>
+    // Contact Form mailto handling
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Get form data
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const service = document.getElementById('service').value;
+                const message = document.getElementById('message').value;
+
+                // Basic validation
+                if (!firstName || !lastName || !email || !message) {
+                    alert('Please fill in all required fields (First Name, Last Name, Email, Message).');
+                    return;
+                }
+
+                // Create mailto link
+                const subject = encodeURIComponent('Contact Form Submission - Maid For Heaven NYC');
+                const body = encodeURIComponent(
+                    `New contact form submission:\n\n` +
+                    `Name: ${firstName} ${lastName}\n` +
+                    `Email: ${email}\n` +
+                    `Phone: ${phone || 'Not provided'}\n` +
+                    `Service Needed: ${service || 'Not specified'}\n\n` +
+                    `Message:\n${message}`
+                );
+
+                const mailtoLink = `mailto:orhans@maidforheavennyc.com?subject=${subject}&body=${body}`;
+
+                // Open email client
+                window.location.href = mailtoLink;
+
+                // Show success message
+                alert('Your email client will open with the message pre-filled. Please send the email to complete your inquiry.');
+            });
+        }
+    });
+
     // Mobile menu toggle
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Contact page DOM loaded');

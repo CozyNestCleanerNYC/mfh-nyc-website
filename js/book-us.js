@@ -132,43 +132,42 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Request...';
         submitButton.disabled = true;
 
-        // Create FormData for Formspree submission
-        const formData = new FormData();
-        Object.keys(bookingData).forEach(key => {
-            if (Array.isArray(bookingData[key])) {
-                formData.append(key, bookingData[key].join(', '));
-            } else {
-                formData.append(key, bookingData[key] || '');
-            }
-        });
+        // Create mailto link with all booking data
+        const subject = encodeURIComponent('Booking Request - Maid For Heaven NYC');
+        const body = encodeURIComponent(
+            `New booking request:\n\n` +
+            `PERSONAL INFORMATION:\n` +
+            `Name: ${bookingData.firstName} ${bookingData.lastName}\n` +
+            `Email: ${bookingData.email}\n` +
+            `Phone: ${bookingData.phone}\n\n` +
+            `PROPERTY DETAILS:\n` +
+            `Address: ${bookingData.address}\n` +
+            `Property Type: ${bookingData.propertyType}\n` +
+            `Bedrooms: ${bookingData.bedrooms || 'Not specified'}\n` +
+            `Bathrooms: ${bookingData.bathrooms || 'Not specified'}\n` +
+            `Square Footage: ${bookingData.squareFootage || 'Not specified'}\n\n` +
+            `SERVICE DETAILS:\n` +
+            `Service Type: ${bookingData.serviceType}\n` +
+            `Frequency: ${bookingData.frequency || 'Not specified'}\n` +
+            `Preferred Date: ${bookingData.preferredDate || 'Not specified'}\n` +
+            `Preferred Time: ${bookingData.preferredTime || 'Not specified'}\n\n` +
+            `ADDITIONAL SERVICES:\n` +
+            `${bookingData.addons.length > 0 ? bookingData.addons.join(', ') : 'None'}\n\n` +
+            `SPECIAL INSTRUCTIONS:\n` +
+            `${bookingData.instructions || 'None'}`
+        );
 
-        // Send to Formspree
-        fetch('https://formspree.io/f/xzzvbybj', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            // Reset button
-            submitButton.innerHTML = originalButtonText;
-            submitButton.disabled = false;
+        const mailtoLink = `mailto:orhans@maidforheavennyc.com?subject=${subject}&body=${body}`;
 
-            if (response.ok) {
-                showNotification('Thank you! We\'ve received your booking request and will contact you within 2 hours with your personalized quote.', 'success');
-            } else {
-                throw new Error('Form submission failed');
-            }
-        })
-        .catch(error => {
-            // Reset button
-            submitButton.innerHTML = originalButtonText;
-            submitButton.disabled = false;
+        // Reset button
+        submitButton.innerHTML = originalButtonText;
+        submitButton.disabled = false;
 
-            console.error('Error:', error);
-            showNotification('There was an error submitting your request. Please try again or call us directly at (347) 759-2000.', 'error');
-        });
+        // Open email client
+        window.location.href = mailtoLink;
+
+        // Show success message
+        showNotification('Your email client will open with your booking request pre-filled. Please send the email to complete your booking request.', 'success');
     });
 
     // Phone number formatting
