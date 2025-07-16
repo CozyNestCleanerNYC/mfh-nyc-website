@@ -7,7 +7,6 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Contact Us - Maid For Heaven NYC</title>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -16,30 +15,30 @@
 <!-- Header -->
 <header class="header">
     <div class="container">
-        <div class="nav-brand">
-            <img src="https://i.imgur.com/YourLogo.png" alt="Maid For Heaven NYC" class="logo">
-            <span class="brand-text">Maid For Heaven NYC</span>
-        </div>
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html" class="logo-text">
+                    Maid For Heaven NYC
+                </a>
+            </div>
 
-        <nav class="nav-menu">
-            <a href="index.html">HOME</a>
-            <a href="index.html#services">SERVICES</a>
-            <a href="index.html#about">ABOUT</a>
-            <a href="faq.html">FAQ</a>
-            <a href="contact-us.html" class="active">CONTACT</a>
-        </nav>
+            <ul class="nav-menu">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.html#services">SERVICES</a></li>
+                <li><a href="index.html#about">ABOUT</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact-us.html" class="active">CONTACT</a></li>
+            </ul>
 
-        <div class="nav-contact">
-            <a href="tel:3477592000" class="phone-link">
-                <i class="fas fa-phone"></i> (347) 759-2000
-            </a>
-            <a href="book-us.html" class="cta-button">BOOK NOW</a>
-        </div>
-
-        <div class="mobile-menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
+            <div class="nav-contact">
+                <a href="tel:3477592000" class="phone-link"><i class="fas fa-phone"></i> (347) 759-2000</a>
+                <a href="book-us.html" class="cta-button">BOOK NOW</a>
+            </div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </div>
 </header>
@@ -186,72 +185,6 @@
 </footer>
 
 <script>
-    // Initialize EmailJS
-    emailjs.init("Uj7_8xJOdKgBJKfJN");
-
-    // Contact Form EmailJS handling
-    document.addEventListener('DOMContentLoaded', function() {
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Get form data
-                const firstName = document.getElementById('firstName').value;
-                const lastName = document.getElementById('lastName').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
-                const service = document.getElementById('service').value;
-                const message = document.getElementById('message').value;
-
-                // Basic validation
-                if (!firstName || !lastName || !email || !message) {
-                    alert('Please fill in all required fields (First Name, Last Name, Email, Message).');
-                    return;
-                }
-
-                // Get submit button and show loading state
-                const submitBtn = contactForm.querySelector('.submit-btn');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-
-                // Prepare email template parameters
-                const templateParams = {
-                    to_email: 'orhans@maidforheavennyc.com',
-                    from_name: `${firstName} ${lastName}`,
-                    from_email: email,
-                    phone: phone || 'Not provided',
-                    service: service || 'Not specified',
-                    message: message,
-                    subject: 'New Contact Form Submission - Maid For Heaven NYC'
-                };
-
-                // Send email using EmailJS
-                emailjs.send('service_maid4heaven', 'template_contact', templateParams)
-                    .then(function(response) {
-                        // Reset button
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-
-                        // Show success message
-                        alert('Thank you! Your message has been sent successfully. We will get back to you soon.');
-
-                        // Reset form
-                        contactForm.reset();
-                    })
-                    .catch(function(error) {
-                        // Reset button
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-
-                        console.error('EmailJS Error:', error);
-                        alert('There was an error sending your message. Please try again or call us directly at (347) 759-2000.');
-                    });
-            });
-        }
-    });
-
     // Mobile menu toggle
     document.addEventListener('DOMContentLoaded', function() {
         const mobileToggle = document.querySelector('.mobile-menu-toggle');
@@ -295,4 +228,3 @@
 
 </body>
 </html>
-
