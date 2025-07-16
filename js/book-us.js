@@ -1,4 +1,7 @@
-/ Mobile Menu Toggle for Book Page
+// Initialize EmailJS
+emailjs.init("Uj7_8xJOdKgBJKfJN");
+
+// Mobile Menu Toggle for Book Page
 document.addEventListener('DOMContentLoaded', function() {
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -132,42 +135,47 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Request...';
         submitButton.disabled = true;
 
-        // Create mailto link with all booking data
-        const subject = encodeURIComponent('Booking Request - Maid For Heaven NYC');
-        const body = encodeURIComponent(
-            `New booking request:\n\n` +
-            `PERSONAL INFORMATION:\n` +
-            `Name: ${bookingData.firstName} ${bookingData.lastName}\n` +
-            `Email: ${bookingData.email}\n` +
-            `Phone: ${bookingData.phone}\n\n` +
-            `PROPERTY DETAILS:\n` +
-            `Address: ${bookingData.address}\n` +
-            `Property Type: ${bookingData.propertyType}\n` +
-            `Bedrooms: ${bookingData.bedrooms || 'Not specified'}\n` +
-            `Bathrooms: ${bookingData.bathrooms || 'Not specified'}\n` +
-            `Square Footage: ${bookingData.squareFootage || 'Not specified'}\n\n` +
-            `SERVICE DETAILS:\n` +
-            `Service Type: ${bookingData.serviceType}\n` +
-            `Frequency: ${bookingData.frequency || 'Not specified'}\n` +
-            `Preferred Date: ${bookingData.preferredDate || 'Not specified'}\n` +
-            `Preferred Time: ${bookingData.preferredTime || 'Not specified'}\n\n` +
-            `ADDITIONAL SERVICES:\n` +
-            `${bookingData.addons.length > 0 ? bookingData.addons.join(', ') : 'None'}\n\n` +
-            `SPECIAL INSTRUCTIONS:\n` +
-            `${bookingData.instructions || 'None'}`
-        );
+        // Prepare email template parameters
+        const templateParams = {
+            to_email: 'orhans@maidforheavennyc.com',
+            from_name: `${bookingData.firstName} ${bookingData.lastName}`,
+            from_email: bookingData.email,
+            phone: bookingData.phone,
+            address: bookingData.address,
+            property_type: bookingData.propertyType,
+            bedrooms: bookingData.bedrooms || 'Not specified',
+            bathrooms: bookingData.bathrooms || 'Not specified',
+            square_footage: bookingData.squareFootage || 'Not specified',
+            service_type: bookingData.serviceType,
+            frequency: bookingData.frequency || 'Not specified',
+            preferred_date: bookingData.preferredDate || 'Not specified',
+            preferred_time: bookingData.preferredTime || 'Not specified',
+            additional_services: bookingData.addons.length > 0 ? bookingData.addons.join(', ') : 'None',
+            special_instructions: bookingData.instructions || 'None',
+            subject: 'New Booking Request - Maid For Heaven NYC'
+        };
 
-        const mailtoLink = `mailto:orhans@maidforheavennyc.com?subject=${subject}&body=${body}`;
+        // Send email using EmailJS
+        emailjs.send('service_maid4heaven', 'template_booking', templateParams)
+            .then(function(response) {
+                // Reset button
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
 
-        // Reset button
-        submitButton.innerHTML = originalButtonText;
-        submitButton.disabled = false;
+                // Show success message
+                showNotification('Thank you! We\'ve received your booking request and will contact you within 2 hours with your personalized quote.', 'success');
 
-        // Open email client
-        window.location.href = mailtoLink;
+                // Reset form
+                bookingForm.reset();
+            })
+            .catch(function(error) {
+                // Reset button
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
 
-        // Show success message
-        showNotification('Your email client will open with your booking request pre-filled. Please send the email to complete your booking request.', 'success');
+                console.error('EmailJS Error:', error);
+                showNotification('There was an error submitting your request. Please try again or call us directly at (347) 759-2000.', 'error');
+            });
     });
 
     // Phone number formatting
