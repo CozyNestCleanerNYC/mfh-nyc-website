@@ -188,8 +188,57 @@
             color: #4CAF50 !important;
         }
 
+        /* Desktop Layout - Side by Side */
+        @media (min-width: 769px) {
+            .contact-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+                align-items: start;
+            }
+
+            .contact-form-container {
+                background: #fff;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            }
+
+            .service-hours-container {
+                background: #fff;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            }
+        }
+
+        /* Basic Contact Info Section */
+        .basic-contact-section {
+            margin-top: 40px;
+            padding: 30px 0;
+            background: #f8f9fa;
+        }
+
+        .basic-contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         /* Mobile Responsive Adjustments */
         @media (max-width: 768px) {
+            .contact-grid {
+                display: block;
+            }
+
+            .contact-form-container,
+            .service-hours-container {
+                margin-bottom: 30px;
+                padding: 20px;
+            }
+
             .service-areas {
                 justify-content: center;
             }
@@ -307,26 +356,9 @@
                 </form>
             </div>
 
-            <!-- Contact Info -->
-            <div class="contact-info-container">
-                <div class="contact-info">
-                    <h3>Get In Touch</h3>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Phone</h4>
-                            <p><a href="tel:3477592000">(347) 759-2000</a></p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p><a href="mailto:orhans@maidforheavennyc.com">orhans@maidforheavennyc.com</a></p>
-                        </div>
-                    </div>
-
+            <!-- Service Area & Hours Info -->
+            <div class="service-hours-container">
+                <div class="service-hours-info">
                     <div class="contact-item service-area-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
@@ -364,6 +396,29 @@
                                 <i class="fas fa-info-circle"></i>
                                 Emergency cleaning services available upon request
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Basic Contact Info Section -->
+        <div class="basic-contact-section">
+            <div class="container">
+                <div class="basic-contact-grid">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p><a href="tel:3477592000">(347) 759-2000</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:orhans@maidforheavennyc.com">orhans@maidforheavennyc.com</a></p>
                         </div>
                     </div>
                 </div>
@@ -450,3 +505,4 @@
 
 </body>
 </html>
+
