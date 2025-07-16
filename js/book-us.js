@@ -1,6 +1,3 @@
-// Initialize EmailJS
-emailjs.init("Uj7_8xJOdKgBJKfJN");
-
 // Mobile Menu Toggle for Book Page
 document.addEventListener('DOMContentLoaded', function() {
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
@@ -128,43 +125,43 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Request...';
         submitButton.disabled = true;
 
-        // Prepare email template parameters
-        const templateParams = {
-            to_email: 'orhans@maidforheavennyc.com',
-            from_name: bookingData.firstName + ' ' + bookingData.lastName,
-            from_email: bookingData.email,
-            phone: bookingData.phone,
-            address: bookingData.address,
-            property_type: bookingData.propertyType,
-            bedrooms: bookingData.bedrooms || 'Not specified',
-            bathrooms: bookingData.bathrooms || 'Not specified',
-            square_footage: bookingData.squareFootage || 'Not specified',
-            service_type: bookingData.serviceType,
-            frequency: bookingData.frequency || 'Not specified',
-            preferred_date: bookingData.preferredDate || 'Not specified',
-            preferred_time: bookingData.preferredTime || 'Not specified',
-            additional_services: bookingData.addons.length > 0 ? bookingData.addons.join(', ') : 'None',
-            special_instructions: bookingData.instructions || 'None',
-            reply_to: bookingData.email
-        };
+        // Create FormData for Formspree submission
+        const formData = new FormData();
+        Object.keys(bookingData).forEach(key => {
+            if (Array.isArray(bookingData[key])) {
+                formData.append(key, bookingData[key].join(', '));
+            } else {
+                formData.append(key, bookingData[key] || '');
+            }
+        });
 
-        // Send email using EmailJS
-        emailjs.send('service_maid4heaven', 'template_booking', templateParams)
-            .then(function(response) {
-                // Reset button
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
+        // Send to Formspree
+        fetch('https://formspree.io/f/xzzvbybj', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            // Reset button
+            submitButton.innerHTML = originalButtonText;
+            submitButton.disabled = false;
 
+            if (response.ok) {
                 showNotification('Thank you! We\'ve received your booking request and will contact you within 2 hours with your personalized quote.', 'success');
-            })
-            .catch(function(error) {
-                // Reset button
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
+            } else {
+                throw new Error('Form submission failed');
+            }
+        })
+        .catch(error => {
+            // Reset button
+            submitButton.innerHTML = originalButtonText;
+            submitButton.disabled = false;
 
-                console.error('EmailJS Error:', error);
-                showNotification('There was an error submitting your request. Please try again or call us directly at (347) 759-2000.', 'error');
-            });
+            console.error('Error:', error);
+            showNotification('There was an error submitting your request. Please try again or call us directly at (347) 759-2000.', 'error');
+        });
     });
 
     // Phone number formatting

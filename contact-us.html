@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -61,7 +60,7 @@
             <!-- Contact Form -->
             <div class="contact-form-container">
                 <h2>Send Us a Message</h2>
-                <form class="form" id="contactForm">
+                <form class="form" action="https://formspree.io/f/manbyayo" method="POST">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName">First Name *</label>
@@ -225,9 +224,6 @@
 </footer>
 
 <script>
-    // Initialize EmailJS
-    emailjs.init("Uj7_8xJOdKgBJKfJN"); // Public key for EmailJS
-
     // Mobile menu toggle
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Contact page DOM loaded');
