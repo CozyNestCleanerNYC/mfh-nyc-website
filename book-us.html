@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Cleaning Service - Maid For Heaven NYC</title>
     <meta name="description" content="Book your professional cleaning service with Maid For Heaven NYC    <title>Book Your Cleaning Service - Maid For Heaven NYC</title>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">  <link rel="stylesheet" href="css/book-us.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -251,7 +250,9 @@
 <section class="booking-form-section">
     <div class="container">
         <div class="booking-form-container">
-            <form class="booking-form" id="bookingForm">
+            <form class="booking-form" action="https://formspree.io/f/xzzvbybj" method="POST">
+                <input type="hidden" name="_next" value="https://maidforheavennyc.github.io/book-us.html?success=true">
+                <input type="hidden" name="_subject" value="New Booking Request - Maid For Heaven NYC">
                 <!-- Personal Information -->
                 <div class="form-section">
                     <h3 class="section-title">Personal Information</h3>
@@ -538,4 +539,3 @@
 <script src="js/book-us.js"></script>
 </body>
 </html>
-
