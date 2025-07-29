@@ -5,50 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Now - Instant Quote & Payment | Maid For Heaven NYC</title>
     <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Clean Booking Page Styles */
-        .booking-page {
-            background: #f8f9fa;
-            min-height: 100vh;
-            padding: 40px 0;
-        }
-        
+        /* Booking Page Specific Styles */
         .booking-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
+            align-items: start;
         }
         
-        .booking-form-card {
+        .booking-form {
             background: white;
-            border-radius: 16px;
+            padding: 30px;
+            border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
         }
         
-        .form-header {
+        .booking-header {
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
             padding: 30px;
+            border-radius: 15px;
             text-align: center;
+            margin-bottom: 30px;
         }
         
-        .form-header h2 {
+        .booking-header h1 {
             margin: 0 0 10px 0;
-            font-size: 1.5rem;
-        }
-        
-        .form-header p {
-            margin: 0;
-            opacity: 0.9;
-        }
-        
-        .form-content {
-            padding: 30px;
+            font-size: 2rem;
         }
         
         .form-group {
@@ -57,87 +44,85 @@
         
         .form-group label {
             display: block;
+            margin-bottom: 8px;
             font-weight: 600;
-            margin-bottom: 10px;
-            color: #2c3e50;
+            color: #333;
+            font-size: 1.1rem;
         }
         
         .service-options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            display: grid;
+            gap: 15px;
         }
         
         .service-option {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         
         .service-option:hover {
             border-color: #4CAF50;
+            background-color: #f8f9fa;
         }
         
         .service-option.selected {
             border-color: #4CAF50;
-            background: #f8fff8;
+            background-color: #e8f5e8;
         }
         
         .service-icon {
-            width: 40px;
-            height: 40px;
-            background: #4CAF50;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            margin-right: 15px;
+            font-size: 2rem;
+            width: 60px;
+            text-align: center;
         }
         
         .service-info {
             flex: 1;
         }
         
-        .service-info h4 {
+        .service-info h3 {
             margin: 0 0 5px 0;
-            font-size: 1rem;
+            color: #333;
+            font-size: 1.2rem;
         }
         
         .service-info p {
             margin: 0;
-            font-size: 0.85rem;
-            color: #6c757d;
+            color: #666;
+            font-size: 0.9rem;
         }
         
         .service-price {
+            font-size: 1.3rem;
             font-weight: 700;
             color: #4CAF50;
         }
         
-        .form-input {
+        select, input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e9ecef;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 1rem;
             transition: border-color 0.3s ease;
         }
         
-        .form-input:focus {
+        select:focus, input:focus {
             outline: none;
             border-color: #4CAF50;
         }
         
-        .quote-card {
+        .quote-section {
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             position: sticky;
             top: 20px;
         }
@@ -147,32 +132,56 @@
             margin-bottom: 25px;
         }
         
-        .quote-header h3 {
+        .quote-header h2 {
             margin: 0 0 10px 0;
-            color: #2c3e50;
+            color: #333;
         }
         
         .quote-display {
-            border: 2px solid #4CAF50;
+            background: #f8f9fa;
             border-radius: 12px;
             padding: 20px;
-            background: #f8fff8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            display: none;
         }
         
-        .price-line {
+        .quote-line {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
         }
         
-        .price-line.total {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #4CAF50;
-            border-top: 2px solid #4CAF50;
-            padding-top: 15px;
+        .quote-line:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .quote-total {
+            background: #e8f5e8;
+            border-radius: 8px;
+            padding: 15px;
             margin-top: 15px;
+        }
+        
+        .quote-total .quote-line {
+            border-bottom: none;
+            margin-bottom: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #4CAF50;
+        }
+        
+        .quote-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .quote-details p {
+            margin: 5px 0;
+            color: #666;
         }
         
         .book-now-btn {
@@ -180,210 +189,191 @@
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.2rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-top: 20px;
         }
         
-        .book-now-btn:hover {
+        .book-now-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
         }
         
         .book-now-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
         }
         
-        .benefits {
+        .features-list {
             margin-top: 30px;
         }
         
-        .benefit {
+        .feature-item {
             display: flex;
             align-items: center;
+            gap: 10px;
             margin-bottom: 15px;
+            color: #666;
         }
         
-        .benefit-icon {
+        .feature-icon {
             font-size: 1.2rem;
-            margin-right: 10px;
-        }
-        
-        .benefit-text {
-            font-size: 0.9rem;
-            color: #6c757d;
         }
         
         @media (max-width: 768px) {
             .booking-container {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 20px;
+                padding: 15px;
             }
             
-            .quote-card {
-                position: static;
+            .booking-form, .quote-section {
+                padding: 20px;
+            }
+            
+            .service-option {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .service-info {
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
                 <a href="index.html">Maid For Heaven NYC</a>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link">HOME</a>
-                </li>
-                <li class="nav-item">
-                    <a href="services.html" class="nav-link">SERVICES</a>
-                </li>
-                <li class="nav-item">
-                    <a href="about.html" class="nav-link">ABOUT</a>
-                </li>
-                <li class="nav-item">
-                    <a href="faq.html" class="nav-link">FAQ</a>
-                </li>
-                <li class="nav-item">
-                    <a href="contact.html" class="nav-link">CONTACT</a>
-                </li>
-                <li class="nav-item">
-                    <a href="tel:(347) 759-2000" class="nav-link phone">(347) 759-2000</a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <nav class="nav-menu">
+                <a href="index.html">HOME</a>
+                <a href="services.html">SERVICES</a>
+                <a href="about.html">ABOUT</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">CONTACT</a>
+                <a href="tel:+13477592000" class="phone-link">(347) 759-2000</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <!-- Main Content -->
-    <div class="booking-page">
+    <main class="main-content">
         <div class="booking-container">
             <!-- Left Column - Booking Form -->
-            <div class="booking-form-card">
-                <div class="form-header">
-                    <h2><i class="fas fa-calendar-check"></i> Book Your Cleaning Service</h2>
+            <div class="booking-form">
+                <div class="booking-header">
+                    <h1>📅 Book Your Cleaning Service</h1>
                     <p>Get instant pricing with no hidden fees. Professional husband & wife team.</p>
                 </div>
-                
-                <div class="form-content">
-                    <!-- Service Type -->
-                    <div class="form-group">
-                        <label>Service Type</label>
-                        <div class="service-options">
-                            <div class="service-option" data-service="standard" data-rate="35">
-                                <div class="service-icon">
-                                    <i class="fas fa-home"></i>
-                                </div>
-                                <div class="service-info">
-                                    <h4>Standard Cleaning</h4>
-                                    <p>Regular cleaning of all rooms, dusting, vacuuming, mopping</p>
-                                </div>
-                                <div class="service-price">$35/hr</div>
+
+                <!-- Service Type -->
+                <div class="form-group">
+                    <label>Service Type</label>
+                    <div class="service-options">
+                        <div class="service-option" data-service="standard" data-rate="50">
+                            <div class="service-icon">🏠</div>
+                            <div class="service-info">
+                                <h3>Standard Cleaning</h3>
+                                <p>Regular cleaning of all rooms, dusting, vacuuming, mopping</p>
                             </div>
-                            
-                            <div class="service-option" data-service="deep" data-rate="45">
-                                <div class="service-icon">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="service-info">
-                                    <h4>Deep Cleaning</h4>
-                                    <p>Thorough cleaning including baseboards, inside appliances</p>
-                                </div>
-                                <div class="service-price">$45/hr</div>
+                            <div class="service-price">$50/hr</div>
+                        </div>
+                        
+                        <div class="service-option" data-service="deep" data-rate="55">
+                            <div class="service-icon">⭐</div>
+                            <div class="service-info">
+                                <h3>Deep Cleaning</h3>
+                                <p>Thorough cleaning including baseboards, inside appliances</p>
                             </div>
-                            
-                            <div class="service-option" data-service="moveout" data-rate="50">
-                                <div class="service-icon">
-                                    <i class="fas fa-box"></i>
-                                </div>
-                                <div class="service-info">
-                                    <h4>Move-Out Cleaning</h4>
-                                    <p>Complete cleaning for moving out, includes inside cabinets</p>
-                                </div>
-                                <div class="service-price">$50/hr</div>
+                            <div class="service-price">$55/hr</div>
+                        </div>
+                        
+                        <div class="service-option" data-service="moveout" data-rate="60">
+                            <div class="service-icon">📦</div>
+                            <div class="service-info">
+                                <h3>Move-Out Cleaning</h3>
+                                <p>Complete cleaning for moving out, includes inside cabinets</p>
                             </div>
+                            <div class="service-price">$60/hr</div>
                         </div>
                     </div>
-                    
-                    <!-- Home Size -->
-                    <div class="form-group">
-                        <label for="homeSize">Home Size</label>
-                        <select id="homeSize" class="form-input">
-                            <option value="">Select your home size</option>
-                            <option value="studio" data-hours="2">Studio/1BR (~2 hours)</option>
-                            <option value="2br" data-hours="3">2 Bedroom (~3 hours)</option>
-                            <option value="3br" data-hours="4">3 Bedroom (~4 hours)</option>
-                            <option value="4br" data-hours="5">4+ Bedroom (~5 hours)</option>
-                            <option value="large" data-hours="6">Large Home (5+ BR) (~6 hours)</option>
-                        </select>
-                    </div>
-                    
-                    <!-- Frequency -->
-                    <div class="form-group">
-                        <label for="frequency">Cleaning Frequency</label>
-                        <select id="frequency" class="form-input">
-                            <option value="">How often do you need cleaning?</option>
-                            <option value="one-time" data-discount="0">One-time</option>
-                            <option value="weekly" data-discount="15">Weekly (15% discount)</option>
-                            <option value="biweekly" data-discount="10">Bi-weekly (10% discount)</option>
-                            <option value="monthly" data-discount="5">Monthly (5% discount)</option>
-                        </select>
-                    </div>
-                    
-                    <!-- Address -->
-                    <div class="form-group">
-                        <label for="address">Service Address</label>
-                        <input type="text" id="address" class="form-input" placeholder="Enter your full address">
-                    </div>
-                    
-                    <!-- Contact Info -->
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" class="form-input" placeholder="Your full name">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" class="form-input" placeholder="your@email.com">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" class="form-input" placeholder="(555) 123-4567">
-                    </div>
+                </div>
+
+                <!-- Home Size -->
+                <div class="form-group">
+                    <label>Home Size</label>
+                    <select id="homeSize">
+                        <option value="">Select your home size</option>
+                        <option value="studio" data-hours="2">Studio/1BR (~2 hours)</option>
+                        <option value="2br" data-hours="3">2 Bedroom (~3 hours)</option>
+                        <option value="3br" data-hours="4">3 Bedroom (~4 hours)</option>
+                        <option value="4br" data-hours="5">4+ Bedroom (~5 hours)</option>
+                        <option value="large" data-hours="6">Large Home (5+ BR) (~6 hours)</option>
+                    </select>
+                </div>
+
+                <!-- Cleaning Frequency -->
+                <div class="form-group">
+                    <label>Cleaning Frequency</label>
+                    <select id="frequency">
+                        <option value="">How often do you need cleaning?</option>
+                        <option value="onetime" data-discount="0">One-time</option>
+                        <option value="weekly" data-discount="15">Weekly (15% discount)</option>
+                        <option value="biweekly" data-discount="10">Bi-weekly (10% discount)</option>
+                        <option value="monthly" data-discount="5">Monthly (5% discount)</option>
+                    </select>
+                </div>
+
+                <!-- Service Address -->
+                <div class="form-group">
+                    <label>Service Address</label>
+                    <input type="text" id="address" placeholder="Enter your full address">
+                </div>
+
+                <!-- Contact Information -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" placeholder="Your full name">
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" placeholder="(555) 123-4567">
                 </div>
             </div>
-            
-            <!-- Right Column - Quote -->
-            <div class="quote-card">
+
+            <!-- Right Column - Quote Section -->
+            <div class="quote-section">
                 <div class="quote-header">
-                    <h3>Your Instant Quote</h3>
+                    <h2>Your Instant Quote</h2>
                     <p>Select your options to see transparent pricing</p>
                 </div>
-                
-                <div id="quoteDisplay" style="display: none;">
-                    <div class="quote-display">
-                        <div class="price-line">
-                            <span id="serviceText">Service</span>
-                            <span id="servicePrice">$0</span>
-                        </div>
-                        <div id="discountLine" class="price-line" style="display: none;">
-                            <span>Frequency Discount</span>
-                            <span id="discountAmount">-$0</span>
-                        </div>
-                        <div class="price-line total">
+
+                <div id="quoteDisplay" class="quote-display">
+                    <div class="quote-line">
+                        <span id="serviceText">Service</span>
+                        <span id="servicePrice">$0</span>
+                    </div>
+                    <div id="discountLine" class="quote-line" style="display: none;">
+                        <span>Frequency Discount</span>
+                        <span id="discountAmount">-$0</span>
+                    </div>
+                    <div class="quote-total">
+                        <div class="quote-line">
                             <span>Total Price</span>
                             <span id="totalPrice">$0</span>
                         </div>
@@ -395,95 +385,120 @@
                     </div>
                 </div>
                 
-                <button id="bookNowBtn" class="book-now-btn" disabled>
-                    Complete Form to Book
-                </button>
-                
-                <div class="benefits">
-                    <div class="benefit">
-                        <span class="benefit-icon">👫</span>
-                        <span class="benefit-text">Professional husband & wife team</span>
+                <button id="bookNowBtn" class="book-now-btn" disabled>Complete Form to Book</button>
+
+                <div class="features-list">
+                    <div class="feature-item">
+                        <span class="feature-icon">👫</span>
+                        <span>Professional husband & wife team</span>
                     </div>
-                    <div class="benefit">
-                        <span class="benefit-icon">⚡</span>
-                        <span class="benefit-text">2-person team completes jobs in half the time</span>
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <span>2-person team completes jobs in half the time</span>
                     </div>
-                    <div class="benefit">
-                        <span class="benefit-icon">💰</span>
-                        <span class="benefit-text">Transparent pricing, no hidden fees</span>
+                    <div class="feature-item">
+                        <span class="feature-icon">💰</span>
+                        <span>Transparent pricing, no hidden fees</span>
                     </div>
-                    <div class="benefit">
-                        <span class="benefit-icon">🛡️</span>
-                        <span class="benefit-text">Fully insured and bonded</span>
+                    <div class="feature-item">
+                        <span class="feature-icon">🛡️</span>
+                        <span>Fully insured and bonded</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Maid For Heaven NYC</h3>
-                <p>Professional cleaning services in New York City. Husband & wife team providing reliable, insured cleaning services.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Maid For Heaven NYC</h3>
+                    <p>Professional cleaning services in New York City. Husband & wife team providing reliable, insured cleaning services.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>📞 (347) 759-2000</p>
+                    <p>✉️ info@maidforheavennyc.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Areas</h3>
+                    <p>Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
+                </div>
             </div>
-            <div class="footer-section">
-                <h3>Contact Info</h3>
-                <p><i class="fas fa-phone"></i> (347) 759-2000</p>
-                <p><i class="fas fa-envelope"></i> info@maidforheavennyc.com</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
             </div>
-            <div class="footer-section">
-                <h3>Service Areas</h3>
-                <p>Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="js/mobile-menu.js"></script>
     <script>
-        // Clean Booking System JavaScript
-        let selectedService = null;
+        // Booking system variables
+        let selectedService = '';
         let selectedRate = 0;
         let selectedHours = 0;
         let selectedDiscount = 0;
-        
+        let address = '';
+        let fullName = '';
+        let email = '';
+        let phone = '';
+
         // Service selection
         document.querySelectorAll('.service-option').forEach(option => {
             option.addEventListener('click', function() {
+                // Remove previous selection
                 document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selection to clicked option
                 this.classList.add('selected');
+                
+                // Update variables
                 selectedService = this.dataset.service;
                 selectedRate = parseInt(this.dataset.rate);
+                
                 updateQuote();
             });
         });
-        
+
         // Home size selection
         document.getElementById('homeSize').addEventListener('change', function() {
             const selectedOption = this.options[this.selectedIndex];
             selectedHours = selectedOption.dataset.hours ? parseInt(selectedOption.dataset.hours) : 0;
             updateQuote();
         });
-        
+
         // Frequency selection
         document.getElementById('frequency').addEventListener('change', function() {
             const selectedOption = this.options[this.selectedIndex];
             selectedDiscount = selectedOption.dataset.discount ? parseInt(selectedOption.dataset.discount) : 0;
             updateQuote();
         });
-        
-        // Form validation
-        function checkFormComplete() {
-            const address = document.getElementById('address').value;
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            
+
+        // Form inputs
+        document.getElementById('address').addEventListener('input', function() {
+            address = this.value;
+            updateQuote();
+        });
+
+        document.getElementById('fullName').addEventListener('input', function() {
+            fullName = this.value;
+            updateQuote();
+        });
+
+        document.getElementById('email').addEventListener('input', function() {
+            email = this.value;
+            updateQuote();
+        });
+
+        document.getElementById('phone').addEventListener('input', function() {
+            phone = this.value;
+            updateQuote();
+        });
+
+        // Check if form is complete
+        function isFormComplete() {
             return selectedService && selectedHours > 0 && selectedDiscount >= 0 && 
                    address && fullName && email && phone;
         }
@@ -513,7 +528,7 @@
             
             // Update button
             const bookBtn = document.getElementById('bookNowBtn');
-            if (checkFormComplete()) {
+            if (isFormComplete()) {
                 bookBtn.disabled = false;
                 bookBtn.textContent = 'Book Now & Pay Online';
             } else {
@@ -521,16 +536,11 @@
                 bookBtn.textContent = 'Complete Form to Book';
             }
         }
-        
-        // Form field listeners
-        ['address', 'fullName', 'email', 'phone'].forEach(fieldId => {
-            document.getElementById(fieldId).addEventListener('input', updateQuote);
-        });
-        
-        // Book now button
+
+        // Book now button click
         document.getElementById('bookNowBtn').addEventListener('click', function() {
-            if (checkFormComplete()) {
-                alert('Booking system ready! This would normally process payment and create the booking.');
+            if (isFormComplete()) {
+                alert(`Booking confirmed!\n\nService: ${selectedService} cleaning\nTotal: $${document.getElementById('totalPrice').textContent.replace('$', '')}\nDuration: ${document.getElementById('duration').textContent}\n\nWe'll contact you shortly to confirm the appointment.`);
             }
         });
     </script>
