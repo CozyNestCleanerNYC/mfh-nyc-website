@@ -9,59 +9,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">Maid For Heaven NYC</a>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link">HOME</a>
-                </li>
-                <li class="nav-item">
-                    <a href="services.html" class="nav-link">SERVICES</a>
-                </li>
-                <li class="nav-item">
-                    <a href="about.html" class="nav-link">ABOUT</a>
-                </li>
-                <li class="nav-item">
-                    <a href="faq.html" class="nav-link">FAQ</a>
-                </li>
-                <li class="nav-item">
-                    <a href="contact.html" class="nav-link">CONTACT</a>
-                </li>
-                <li class="nav-item">
-                    <a href="tel:(347) 759-2000" class="nav-link phone">(347) 759-2000</a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">Maid For Heaven NYC</a>
+                </div>
+                <nav class="nav-menu">
+                    <a href="index.html">HOME</a>
+                    <a href="index.html#services">SERVICES</a>
+                    <a href="index.html#about">ABOUT</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact-us.html">CONTACT</a>
+                </nav>
+                <div class="header-phone">
+                    <a href="tel:+13477592000">(347) 759-2000</a>
+                </div>
             </div>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/house-cleaning.jpg'); background-size: cover; background-position: center;">
-        <div class="hero-content">
+    <section class="hero">
+        <div class="container">
             <h1>Book Your Cleaning Service</h1>
             <p>Get instant pricing with no hidden fees. Professional husband & wife team.</p>
-            <div class="trust-indicators">
-                <div class="trust-item">
+            <div class="hero-features">
+                <div class="feature">
                     <i class="fas fa-users"></i>
                     <span>2-Person Team</span>
                 </div>
-                <div class="trust-item">
+                <div class="feature">
                     <i class="fas fa-shield-alt"></i>
                     <span>Insured</span>
                 </div>
-                <div class="trust-item">
+                <div class="feature">
                     <i class="fas fa-clock"></i>
                     <span>Faster Service</span>
                 </div>
-                <div class="trust-item">
+                <div class="feature">
                     <i class="fas fa-dollar-sign"></i>
                     <span>Transparent Pricing</span>
                 </div>
@@ -184,7 +171,7 @@
                     </div>
                     
                     <div id="quoteCard" class="quote-card" style="display: none;">
-                        <div id="worthItBadge" class="worth-it-badge">✅ Worth It Job!</div>
+                        <div id="worthItBadge" class="worth-it-badge">✅ Profitable Job</div>
                         
                         <div class="quote-header">
                             <h3>Your Instant Quote</h3>
@@ -296,32 +283,115 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Maid For Heaven NYC</h3>
-                <p>Professional cleaning services in New York City. Husband & wife team providing reliable, insured cleaning services.</p>
+    
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Complete Your Booking</h3>
+                <span id="closeModal" class="close">&times;</span>
             </div>
-            <div class="footer-section">
-                <h3>Contact Info</h3>
-                <p><i class="fas fa-phone"></i> (347) 759-2000</p>
-                <p><i class="fas fa-envelope"></i> info@maidforheavennyc.com</p>
+            
+            <div class="booking-summary">
+                <h4>Booking Summary</h4>
+                <div class="summary-item">
+                    <span>Service:</span>
+                    <span id="summaryService">Standard Cleaning</span>
+                </div>
+                <div class="summary-item">
+                    <span>Home Size:</span>
+                    <span id="summaryHomeSize">3 Bedroom</span>
+                </div>
+                <div class="summary-item">
+                    <span>Frequency:</span>
+                    <span id="summaryFrequency">One-time</span>
+                </div>
+                <div class="summary-item">
+                    <span>Address:</span>
+                    <span id="summaryAddress">123 Main St</span>
+                </div>
+                <div class="summary-item total">
+                    <span>Total Amount:</span>
+                    <span id="summaryTotal">$0</span>
+                </div>
             </div>
-            <div class="footer-section">
-                <h3>Service Areas</h3>
-                <p>Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
+            
+            <div class="payment-methods">
+                <h4>Choose Payment Method</h4>
+                <div class="payment-options">
+                    <div class="payment-option" data-method="card">
+                        <div class="payment-icon">💳</div>
+                        <span>Credit/Debit Card</span>
+                    </div>
+                    <div class="payment-option" data-method="paypal">
+                        <div class="payment-icon">🅿️</div>
+                        <span>PayPal</span>
+                    </div>
+                    <div class="payment-option" data-method="venmo">
+                        <div class="payment-icon">📱</div>
+                        <span>Venmo</span>
+                    </div>
+                    <div class="payment-option" data-method="cash">
+                        <div class="payment-icon">💵</div>
+                        <span>Cash on Service</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button id="cancelPayment" class="btn-secondary">Cancel</button>
+                <button id="processPayment" class="btn-primary" disabled>Complete Booking</button>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
+    </div>
+    
+    <!-- Success Modal -->
+    <div id="successModal" class="modal" style="display: none;">
+        <div class="modal-content success">
+            <div class="success-icon">✅</div>
+            <h3>Booking Confirmed!</h3>
+            <p>Thank you for choosing Maid For Heaven NYC. We'll contact you within 24 hours to schedule your cleaning service.</p>
+            <div class="confirmation-details">
+                <p><strong>Confirmation #:</strong> <span id="confirmationNumber">MFH-2025-001</span></p>
+                <p><strong>Total Amount:</strong> <span id="confirmationTotal">$0</span></p>
+            </div>
+            <button id="closeSuccess" class="btn-primary">Close</button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Maid For Heaven NYC</h3>
+                    <p>Professional cleaning services in New York City. Husband & wife team providing reliable, insured cleaning services.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> (347) 759-2000</p>
+                    <p><i class="fas fa-envelope"></i> info@maidforheavennyc.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Service Areas</h4>
+                    <p>Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="js/mobile-menu.js"></script>
     <script src="js/book-now.js"></script>
+    <script src="js/mobile-menu.js"></script>
+    <script>
+        // Initialize booking system when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing booking system...');
+            window.bookingSystem = new BookingSystem();
+        });
+    </script>
 </body>
 </html>
 

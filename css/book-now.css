@@ -1,78 +1,29 @@
 /* Book Now Page Styles */
 
-/* Booking Hero Section */
-.booking-hero {
-    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-    color: white;
-    padding: 80px 0 60px;
-    text-align: center;
-}
-
-.booking-hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.booking-title {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.booking-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    opacity: 0.95;
-}
-
-.trust-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.trust-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.1);
-    padding: 12px 20px;
-    border-radius: 25px;
-    backdrop-filter: blur(10px);
-}
-
-.trust-item i {
-    font-size: 1.1rem;
-}
-
-/* Main Booking Section */
-.booking-main {
-    padding: 60px 0;
-    background: #f8f9fa;
-}
-
-.booking-grid {
+/* Booking Container Layout */
+.booking-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
     max-width: 1400px;
     margin: 0 auto;
+    padding: 40px 20px;
 }
 
-/* Form Container */
-.booking-form-container {
+.left-column {
     background: white;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     overflow: hidden;
 }
 
-.form-card {
-    padding: 0;
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
+/* Form Header */
 .form-header {
     background: linear-gradient(135deg, #4CAF50, #45a049);
     color: white;
@@ -94,6 +45,7 @@
     font-size: 1rem;
 }
 
+/* Booking Form */
 .booking-form {
     padding: 30px;
 }
@@ -103,7 +55,7 @@
     margin-bottom: 30px;
 }
 
-.section-label {
+.form-section label {
     display: block;
     font-weight: 600;
     font-size: 1.1rem;
@@ -148,6 +100,253 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.service-info {
+    flex: 1;
+}
+
+.service-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.service-info p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.service-price {
+    text-align: right;
+}
+
+.service-price .price {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #4CAF50;
+}
+
+.service-price .price-note {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Form Inputs */
+.form-section select,
+.form-section input,
+.form-section textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.form-section select:focus,
+.form-section input:focus,
+.form-section textarea:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.form-section textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Quote Section */
+.quote-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 30px;
+    position: sticky;
+    top: 20px;
+}
+
+.default-quote {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.default-quote h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.default-quote p {
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.quote-card {
+    border: 2px solid #4CAF50;
+    border-radius: 12px;
+    padding: 25px;
+    background: #f8fff8;
+}
+
+.worth-it-badge {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.quote-header h3 {
+    margin: 0 0 20px 0;
+    color: #2c3e50;
+    font-size: 1.3rem;
+}
+
+.price-breakdown {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.price-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.price-line.total {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #4CAF50;
+    border-top: 2px solid #4CAF50;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.price-line.discount {
+    color: #28a745;
+}
+
+.service-details {
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.detail-label {
+    color: #6c757d;
+}
+
+.detail-value {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.cost-breakdown h4 {
+    margin: 0 0 15px 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.cost-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.cost-item.profit {
+    color: #4CAF50;
+    font-weight: 600;
+    border-top: 1px solid #e9ecef;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+/* Why Choose Section */
+.why-choose {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 30px;
+}
+
+.why-choose h3 {
+    margin: 0 0 25px 0;
+    color: #2c3e50;
+    font-size: 1.3rem;
+}
+
+.benefit {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.benefit-icon {
+    font-size: 1.5rem;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.benefit-content h4 {
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+.benefit-content p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .booking-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 20px 15px;
+    }
+    
+    .quote-section {
+        position: static;
+    }
+    
+    .service-option {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .service-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .service-price {
+        text-align: center;
+        margin-top: 10px;
+    }
+}
     color: white;
     font-size: 1.2rem;
     margin-right: 20px;
@@ -1126,5 +1325,81 @@
 .confirmation-details p {
     margin: 5px 0;
     color: #333;
+}
+
+
+
+/* Booking Actions */
+.booking-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.book-now-btn {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.book-now-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+}
+
+.booking-note {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 0;
+}
+
+/* Trust Indicators */
+.trust-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    padding: 12px 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    color: white;
+}
+
+.trust-item i {
+    font-size: 1.1rem;
+}
+
+/* Hero Section */
+.hero {
+    padding: 100px 0;
+    text-align: center;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.95;
 }
 
