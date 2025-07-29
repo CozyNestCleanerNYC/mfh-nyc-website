@@ -51,7 +51,8 @@
         }
         
         .service-options {
-            display: grid;
+            display: flex;
+            flex-direction: column;
             gap: 15px;
         }
         
@@ -64,22 +65,30 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            background: white;
         }
         
         .service-option:hover {
             border-color: #4CAF50;
-            background-color: #f8f9fa;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
         }
         
         .service-option.selected {
             border-color: #4CAF50;
-            background-color: #e8f5e8;
+            background: #f8fff8;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
         }
         
         .service-icon {
             font-size: 2rem;
+            background: #4CAF50;
+            color: white;
             width: 60px;
-            text-align: center;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .service-info {
@@ -89,24 +98,24 @@
         .service-info h3 {
             margin: 0 0 5px 0;
             color: #333;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
         
         .service-info p {
             margin: 0;
             color: #666;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         
         .service-price {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: bold;
             color: #4CAF50;
         }
         
         select, input {
             width: 100%;
-            padding: 15px;
+            padding: 12px 15px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 1rem;
@@ -128,121 +137,215 @@
         }
         
         .quote-header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
             text-align: center;
             margin-bottom: 25px;
         }
         
         .quote-header h2 {
-            margin: 0 0 10px 0;
-            color: #333;
+            margin: 0 0 8px 0;
+            font-size: 1.8rem;
         }
         
         .quote-display {
             background: #f8f9fa;
-            border-radius: 12px;
             padding: 20px;
+            border-radius: 10px;
             margin-bottom: 20px;
-            display: none;
         }
         
         .quote-line {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .quote-line:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
+            font-size: 1.1rem;
         }
         
         .quote-total {
-            background: #e8f5e8;
-            border-radius: 8px;
-            padding: 15px;
+            border-top: 2px solid #4CAF50;
+            padding-top: 15px;
             margin-top: 15px;
-        }
-        
-        .quote-total .quote-line {
-            border-bottom: none;
-            margin-bottom: 0;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #4CAF50;
         }
         
         .quote-details {
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid #e0e0e0;
-        }
-        
-        .quote-details p {
-            margin: 5px 0;
             color: #666;
         }
         
         .book-now-btn {
             width: 100%;
+            padding: 15px;
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
             border: none;
-            padding: 18px;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 1.2rem;
-            font-weight: 600;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 20px;
+            margin-bottom: 25px;
         }
         
         .book-now-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
         }
         
         .book-now-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         .features-list {
             margin-top: 30px;
         }
         
+        .features-list h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
         .feature-item {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            align-items: flex-start;
+            gap: 12px;
             margin-bottom: 15px;
-            color: #666;
         }
         
         .feature-icon {
+            font-size: 1.5rem;
+            margin-top: 2px;
+        }
+        
+        .feature-item strong {
+            color: #333;
+            display: block;
+            margin-bottom: 3px;
+        }
+        
+        .feature-item p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Payment Modal Styles */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .payment-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .payment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .close-modal {
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .payment-booking-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .total-line {
             font-size: 1.2rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        
+        .payment-methods {
+            margin-bottom: 25px;
+        }
+        
+        .payment-method {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method.selected {
+            border-color: #4CAF50;
+            background: #f8fff8;
+        }
+        
+        .pay-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
         }
         
         @media (max-width: 768px) {
             .booking-container {
                 grid-template-columns: 1fr;
                 gap: 20px;
-                padding: 15px;
             }
             
-            .booking-form, .quote-section {
-                padding: 20px;
-            }
-            
-            .service-option {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            
-            .service-info {
-                text-align: center;
+            .quote-section {
+                position: static;
             }
         }
     </style>
@@ -313,12 +416,12 @@
                     <label>Bedrooms</label>
                     <select id="bedrooms">
                         <option value="">Select number of bedrooms</option>
-                        <option value="studio" data-hours="2.5">Studio</option>
-                        <option value="1br" data-hours="3">1 Bedroom</option>
-                        <option value="2br" data-hours="4">2 Bedrooms</option>
-                        <option value="3br" data-hours="5">3 Bedrooms</option>
-                        <option value="4br" data-hours="6">4 Bedrooms</option>
-                        <option value="5br" data-hours="7">5+ Bedrooms</option>
+                        <option value="studio">Studio</option>
+                        <option value="1br">1 Bedroom</option>
+                        <option value="2br">2 Bedrooms</option>
+                        <option value="3br">3 Bedrooms</option>
+                        <option value="4br">4 Bedrooms</option>
+                        <option value="5br">5+ Bedrooms</option>
                     </select>
                 </div>
 
@@ -327,13 +430,13 @@
                     <label>Bathrooms</label>
                     <select id="bathrooms">
                         <option value="">Select number of bathrooms</option>
-                        <option value="0" data-hours="0">0 Bathrooms</option>
-                        <option value="1" data-hours="0.5">1 Bathroom</option>
-                        <option value="2" data-hours="1">2 Bathrooms</option>
-                        <option value="3" data-hours="1.5">3 Bathrooms</option>
-                        <option value="4" data-hours="2">4 Bathrooms</option>
-                        <option value="5" data-hours="2.5">5 Bathrooms</option>
-                        <option value="6" data-hours="3">6+ Bathrooms</option>
+                        <option value="0">0 Bathrooms</option>
+                        <option value="1">1 Bathroom</option>
+                        <option value="2">2 Bathrooms</option>
+                        <option value="3">3 Bathrooms</option>
+                        <option value="4">4 Bathrooms</option>
+                        <option value="5">5 Bathrooms</option>
+                        <option value="6">6+ Bathrooms</option>
                     </select>
                 </div>
 
@@ -342,114 +445,106 @@
                     <label>Cleaning Frequency</label>
                     <select id="frequency">
                         <option value="">How often do you need cleaning?</option>
-                        <option value="onetime" data-discount="15">One-time (15% discount)</option>
-                        <option value="monthly" data-discount="15">Monthly (15% discount)</option>
-                        <option value="biweekly" data-discount="25">Bi-weekly (25% discount)</option>
-                        <option value="weekly" data-discount="30">Weekly (30% discount)</option>
+                        <option value="onetime">One-time (15% discount)</option>
+                        <option value="monthly">Monthly (15% discount)</option>
+                        <option value="biweekly">Bi-weekly (25% discount)</option>
+                        <option value="weekly">Weekly (30% discount)</option>
                     </select>
                 </div>
 
                 <!-- Service Address -->
                 <div class="form-group">
                     <label>Service Address</label>
-                    <input type="text" id="address" placeholder="Enter your full address">
+                    <input type="text" id="address" placeholder="Enter your full address" required>
                 </div>
 
                 <!-- Contact Information -->
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" id="fullName" placeholder="Your full name">
+                    <input type="text" id="fullName" placeholder="Your full name" required>
                 </div>
 
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" id="email" placeholder="your@email.com">
+                    <input type="email" id="email" placeholder="your@email.com" required>
                 </div>
 
                 <div class="form-group">
                     <label>Phone Number</label>
-                    <input type="tel" id="phone" placeholder="(555) 123-4567">
+                    <input type="tel" id="phone" placeholder="(555) 123-4567" required>
                 </div>
             </div>
 
-            <!-- Right Column - Quote Section -->
+            <!-- Right Column - Quote -->
             <div class="quote-section">
                 <div class="quote-header">
                     <h2>Your Instant Quote</h2>
                     <p>Select your options to see transparent pricing</p>
                 </div>
 
-                <div id="quoteDisplay" class="quote-display">
+                <div id="quoteDisplay" class="quote-display" style="display: none;">
                     <div class="quote-line">
                         <span id="serviceText">Service</span>
                         <span id="servicePrice">$0</span>
                     </div>
-                    <div id="discountLine" class="quote-line" style="display: none;">
-                        <span>Frequency Discount</span>
-                        <span id="discountAmount">-$0</span>
+                    <div class="quote-line discount-line" id="discountLine" style="display: none;">
+                        <span>Discount</span>
+                        <span id="discountAmount" style="color: #28a745;">-$0</span>
                     </div>
                     <div class="quote-total">
                         <div class="quote-line">
-                            <span>Total Price</span>
-                            <span id="totalPrice">$0</span>
+                            <span><strong>Total Price</strong></span>
+                            <span><strong id="totalPrice">$0</strong></span>
                         </div>
                     </div>
-                    
                     <div class="quote-details">
-                        <p><strong>Duration:</strong> <span id="duration">0 hours</span></p>
-                        <p><strong>Service:</strong> Professional cleaning team</p>
+                        <p id="duration">Duration: Select options above</p>
+                        <p>Service: Professional cleaning team</p>
                     </div>
                 </div>
-                
-                <button id="bookNowBtn" class="book-now-btn" disabled>Complete Form to Book</button>
 
+                <button id="bookNowBtn" class="book-now-btn" disabled>
+                    Complete Form to Book
+                </button>
+
+                <!-- Why Choose Our Service -->
                 <div class="features-list">
+                    <h3>Why Choose Our Service?</h3>
                     <div class="feature-item">
-                        <span class="feature-icon">👥</span>
-                        <span>Professional cleaning team</span>
+                        <span class="feature-icon">👫</span>
+                        <div>
+                            <strong>Professional cleaning team</strong>
+                            <p>Consistent, reliable service you can trust</p>
+                        </div>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">⚡</span>
-                        <span>2-person team completes jobs efficiently</span>
+                        <div>
+                            <strong>Faster Service</strong>
+                            <p>2-person team completes jobs efficiently</p>
+                        </div>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">💰</span>
-                        <span>Transparent pricing, no hidden fees</span>
+                        <div>
+                            <strong>Transparent Pricing</strong>
+                            <p>No hidden fees, see exact costs upfront</p>
+                        </div>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">🛡️</span>
-                        <span>Fully insured and bonded</span>
+                        <div>
+                            <strong>Fully Insured</strong>
+                            <p>Licensed, bonded, and insured for your peace of mind</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Maid For Heaven NYC</h3>
-                    <p>Professional cleaning services in New York City. Husband & wife team providing reliable, insured cleaning services.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <p>📞 (347) 759-2000</p>
-                    <p>✉️ info@maidforheavennyc.com</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Service Areas</h3>
-                    <p>Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
-              </div>
-    </div>
-
     <!-- Payment Modal -->
-    <div id="paymentModal" class="payment-modal" style="display: none;">
+    <div id="paymentModal" class="payment-modal">
         <div class="payment-modal-content">
             <div class="payment-header">
                 <h2>Complete Your Payment</h2>
@@ -499,33 +594,12 @@
                 </div>
             </div>
             
-            <!-- Stripe Card Element -->
-            <div id="stripeContainer">
-                <h3>Card Information</h3>
-                <div id="cardElement" class="card-element">
-                    <!-- Stripe Elements will create form elements here -->
-                </div>
-            </div>
-            
-            <!-- PayPal Container -->
-            <div id="paypalContainer" class="paypal-container" style="display: none;">
-                <h3>PayPal Payment</h3>
-                <div id="paypalButtonContainer"></div>
-            </div>
-            
-            <!-- Loading State -->
-            <div class="payment-loading" id="paymentLoading" style="display: none;">
-                <div class="payment-spinner"></div>
-                <p>Processing your payment...</p>
-            </div>
-            
             <!-- Pay Button -->
             <button id="payButton" class="pay-button">
                 Pay Now
             </button>
             
-            <!-- Error/Success Messages -->
-            <div id="paymentError" class="payment-error" style="display: none;"></div>
+            <!-- Success Messages -->
             <div id="paymentSuccess" class="payment-success" style="display: none;"></div>
         </div>
     </div>
@@ -534,7 +608,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3 style="color: #4CAF50;">Maid For Heaven NYC</h3>
-                <p>Professional cleaning services in New York City. Husband & wife team providing reliable, insured cleaning services.</p>
+                <p>Professional cleaning services in New York City. Professional cleaning team providing reliable, insured cleaning services.</p>
             </div>
             <div class="footer-section">
                 <h4 style="color: #4CAF50;">Contact Info</h4>
@@ -552,9 +626,8 @@
     </footer>
 
     <script src="js/mobile-menu.js"></script>
-    <script src="https://js.stripe.com/v3/"></script>
     <script>
-        // Booking system variables
+        // Initialize variables
         let selectedService = '';
         let selectedRate = 0;
         let selectedBedroomHours = 0;
@@ -565,55 +638,109 @@
         let email = '';
         let phone = '';
 
-        // Service selection
-        document.querySelectorAll('.service-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove previous selection
-                document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
-                
-                // Add selection to clicked option
-                this.classList.add('selected');
-                
-                // Update variables
-                selectedService = this.dataset.service;
-                selectedRate = parseInt(this.dataset.rate);
-                
-                // Recalculate bedroom hours based on new service type
-                const bedroomsSelect = document.getElementById('bedrooms');
-                if (bedroomsSelect.value) {
-                    const value = bedroomsSelect.value;
-                    let hoursMap;
-                    if (selectedService === 'deep' || selectedService === 'moveout') {
-                        hoursMap = {
-                            'studio': 3,
-                            '1br': 4,
-                            '2br': 5,
-                            '3br': 6,
-                            '4br': 7,
-                            '5br': 8
-                        };
-                    } else {
-                        hoursMap = {
-                            'studio': 2.5,
-                            '1br': 3,
-                            '2br': 4,
-                            '3br': 5,
-                            '4br': 6,
-                            '5br': 7
-                        };
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing booking system...');
+            
+            // Service selection
+            document.querySelectorAll('.service-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    console.log('Service clicked:', this.dataset.service);
+                    
+                    // Remove previous selection
+                    document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selection to clicked option
+                    this.classList.add('selected');
+                    
+                    // Update variables
+                    selectedService = this.dataset.service;
+                    selectedRate = parseInt(this.dataset.rate);
+                    
+                    console.log('Selected service:', selectedService, 'Rate:', selectedRate);
+                    
+                    // Recalculate bedroom hours based on new service type
+                    const bedroomsSelect = document.getElementById('bedrooms');
+                    if (bedroomsSelect.value) {
+                        updateBedroomHours(bedroomsSelect.value);
                     }
-                    selectedBedroomHours = hoursMap[value] || 0;
-                }
-                
+                    
+                    updateQuote();
+                });
+            });
+
+            // Bedroom selection
+            document.getElementById('bedrooms').addEventListener('change', function() {
+                updateBedroomHours(this.value);
                 updateQuote();
+            });
+
+            // Bathroom selection
+            document.getElementById('bathrooms').addEventListener('change', function() {
+                const bathroomCount = parseInt(this.value) || 0;
+                selectedBathroomHours = bathroomCount * 0.5; // 0.5 hours per bathroom
+                console.log('Bathroom hours:', selectedBathroomHours);
+                updateQuote();
+            });
+
+            // Frequency selection
+            document.getElementById('frequency').addEventListener('change', function() {
+                const discountMap = {
+                    'onetime': 15,
+                    'monthly': 15,
+                    'biweekly': 25,
+                    'weekly': 30
+                };
+                selectedDiscount = discountMap[this.value] || 0;
+                console.log('Discount:', selectedDiscount);
+                updateQuote();
+            });
+
+            // Form inputs
+            document.getElementById('address').addEventListener('input', function() {
+                address = this.value;
+                updateQuote();
+            });
+
+            document.getElementById('fullName').addEventListener('input', function() {
+                fullName = this.value;
+                updateQuote();
+            });
+
+            document.getElementById('email').addEventListener('input', function() {
+                email = this.value;
+                updateQuote();
+            });
+
+            document.getElementById('phone').addEventListener('input', function() {
+                phone = this.value;
+                updateQuote();
+            });
+
+            // Book Now button
+            document.getElementById('bookNowBtn').addEventListener('click', function() {
+                if (isFormComplete()) {
+                    openPaymentModal();
+                }
+            });
+
+            // Payment method selection
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                    this.classList.add('selected');
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                });
+            });
+
+            // Pay button
+            document.getElementById('payButton').addEventListener('click', function() {
+                simulatePayment();
             });
         });
 
-        // Bedroom selection
-        document.getElementById('bedrooms').addEventListener('change', function() {
-            const value = this.value;
-            
-            // Different base hours for different service types
+        function updateBedroomHours(value) {
             let hoursMap;
             if (selectedService === 'deep' || selectedService === 'moveout') {
                 // Deep cleaning and move-out have different base hours
@@ -638,118 +765,82 @@
             }
             
             selectedBedroomHours = hoursMap[value] || 0;
-            updateQuote();
-        });
-
-        // Bathroom selection
-        document.getElementById('bathrooms').addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            selectedBathroomHours = selectedOption.dataset.hours ? parseFloat(selectedOption.dataset.hours) : 0;
-            updateQuote();
-        });
-
-        // Frequency selection
-        document.getElementById('frequency').addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            selectedDiscount = selectedOption.dataset.discount ? parseInt(selectedOption.dataset.discount) : 0;
-            updateQuote();
-        });
-
-        // Form inputs
-        document.getElementById('address').addEventListener('input', function() {
-            address = this.value;
-            updateQuote();
-        });
-
-        document.getElementById('fullName').addEventListener('input', function() {
-            fullName = this.value;
-            updateQuote();
-        });
-
-        document.getElementById('email').addEventListener('input', function() {
-            email = this.value;
-            updateQuote();
-        });
-
-        document.getElementById('phone').addEventListener('input', function() {
-            phone = this.value;
-            updateQuote();
-        });
-
-        // Check if form is complete
-        function isFormComplete() {
-            return selectedService && selectedBedroomHours > 0 && selectedBathroomHours >= 0 && selectedDiscount >= 0 && 
-                   address && fullName && email && phone;
+            console.log('Bedroom hours:', selectedBedroomHours, 'for', value, 'with service', selectedService);
         }
-        
-        // Update quote display
+
         function updateQuote() {
-            if (selectedService && selectedRate > 0 && selectedBedroomHours > 0) {
-                let totalHours = selectedBedroomHours + selectedBathroomHours;
-                
-                const basePrice = selectedRate * totalHours;
-                const discountAmount = Math.round(basePrice * selectedDiscount / 100);
-                const totalPrice = basePrice - discountAmount;
-                
-                // Calculate duration based on cleaner count
-                let duration;
-                let teamInfo;
-                if (selectedService === 'standard' && (selectedBedroomHours === 2.5 || selectedBedroomHours === 3)) {
-                    // Studio (2.5h) or 1BR (3h) - send 1 cleaner
-                    duration = totalHours;
-                    teamInfo = '(1 cleaner)';
-                } else {
-                    // All other cases - send 2 cleaners
-                    duration = totalHours / 2;
-                    teamInfo = '(2-person team)';
-                }
-                
-                // Update display
-                document.getElementById('serviceText').textContent = `${selectedService.charAt(0).toUpperCase() + selectedService.slice(1)} Cleaning (${totalHours}h)`;
-                document.getElementById('servicePrice').textContent = `$${basePrice}`;
-                document.getElementById('totalPrice').textContent = `$${totalPrice}`;
-                document.getElementById('duration').textContent = `${duration} hours ${teamInfo}`;
-                
-                if (selectedDiscount > 0) {
-                    document.getElementById('discountLine').style.display = 'flex';
-                    document.getElementById('discountAmount').textContent = `-$${discountAmount}`;
-                } else {
-                    document.getElementById('discountLine').style.display = 'none';
-                }
-                
-                document.getElementById('quoteDisplay').style.display = 'block';
-            }
+            console.log('Updating quote...');
             
-            // Update button
+            if (!selectedService || !selectedBedroomHours) {
+                document.getElementById('quoteDisplay').style.display = 'none';
+                updateBookButton();
+                return;
+            }
+
+            const totalHours = selectedBedroomHours + selectedBathroomHours;
+            const basePrice = totalHours * selectedRate;
+            const discountAmount = basePrice * (selectedDiscount / 100);
+            const finalPrice = basePrice - discountAmount;
+
+            console.log('Quote calculation:', {
+                totalHours,
+                basePrice,
+                discountAmount,
+                finalPrice
+            });
+
+            // Update service text
+            const bedroomText = document.querySelector('#bedrooms option:checked')?.textContent || '';
+            const serviceText = `${selectedService.charAt(0).toUpperCase() + selectedService.slice(1)} Cleaning (${bedroomText})`;
+            
+            document.getElementById('serviceText').textContent = serviceText;
+            document.getElementById('servicePrice').textContent = `$${basePrice.toFixed(2)}`;
+
+            // Update discount
+            if (selectedDiscount > 0) {
+                document.getElementById('discountLine').style.display = 'flex';
+                document.getElementById('discountAmount').textContent = `-$${discountAmount.toFixed(2)}`;
+            } else {
+                document.getElementById('discountLine').style.display = 'none';
+            }
+
+            // Update total
+            document.getElementById('totalPrice').textContent = `$${finalPrice.toFixed(2)}`;
+
+            // Update duration
+            const isSmallJob = (selectedService === 'standard' && (bedroomText.includes('Studio') || bedroomText.includes('1 Bedroom')));
+            const duration = isSmallJob ? totalHours : totalHours / 2;
+            const teamText = isSmallJob ? '1 cleaner' : '2-person team';
+            document.getElementById('duration').textContent = `Duration: ${duration} hours (${teamText})`;
+
+            // Show quote
+            document.getElementById('quoteDisplay').style.display = 'block';
+
+            // Update book button
+            updateBookButton();
+        }
+
+        function isFormComplete() {
+            return selectedService && selectedBedroomHours && address && fullName && email && phone;
+        }
+
+        function updateBookButton() {
             const bookBtn = document.getElementById('bookNowBtn');
             if (isFormComplete()) {
                 bookBtn.disabled = false;
                 bookBtn.textContent = 'Book Now & Pay Online';
+                bookBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
             } else {
                 bookBtn.disabled = true;
                 bookBtn.textContent = 'Complete Form to Book';
-            }
-             // Book Now button functionality
-        function showBookNowButton() {
-            const bookButton = document.getElementById('bookButton');
-            if (bookButton) {
-                bookButton.style.display = 'block';
-                bookButton.onclick = function() {
-                    openPaymentModal();
-                };
+                bookBtn.style.background = '#ccc';
             }
         }
 
         // Payment Modal Functions
         function openPaymentModal() {
-            // Update modal with booking details
             updatePaymentModal();
-            
-            // Show modal
             document.getElementById('paymentModal').style.display = 'flex';
-            
-            // Initialize Stripe
-            initializeStripe();
         }
 
         function closePaymentModal() {
@@ -764,7 +855,7 @@
             
             // Update service text
             const bedroomText = document.querySelector('#bedrooms option:checked')?.textContent || '';
-            const serviceText = `${selectedService} (${bedroomText})`;
+            const serviceText = `${selectedService.charAt(0).toUpperCase() + selectedService.slice(1)} Cleaning (${bedroomText})`;
             document.getElementById('modalServiceText').textContent = serviceText;
             document.getElementById('modalServicePrice').textContent = `$${basePrice.toFixed(2)}`;
             
@@ -780,7 +871,7 @@
             document.getElementById('modalTotalPrice').textContent = `$${finalPrice.toFixed(2)}`;
             
             // Update duration
-            const isSmallJob = (selectedService === 'Standard Cleaning' && (bedroomText.includes('Studio') || bedroomText.includes('1 Bedroom')));
+            const isSmallJob = (selectedService === 'standard' && (bedroomText.includes('Studio') || bedroomText.includes('1 Bedroom')));
             const duration = isSmallJob ? totalHours : totalHours / 2;
             const teamText = isSmallJob ? '1 cleaner' : '2-person team';
             document.getElementById('modalDuration').textContent = `Duration: ${duration} hours (${teamText})`;
@@ -789,165 +880,25 @@
             document.getElementById('payButton').textContent = `Pay $${finalPrice.toFixed(2)} Now`;
         }
 
-        // Stripe Integration
-        let stripe, elements, cardElement;
-
-        function initializeStripe() {
-            // Initialize Stripe (using test key for demo)
-            stripe = Stripe('pk_test_51234567890abcdef'); // Replace with your actual publishable key
-            elements = stripe.elements();
-            
-            // Create card element
-            cardElement = elements.create('card', {
-                style: {
-                    base: {
-                        fontSize: '16px',
-                        color: '#424770',
-                        '::placeholder': {
-                            color: '#aab7c4',
-                        },
-                    },
-                },
-            });
-            
-            // Mount card element
-            cardElement.mount('#cardElement');
-            
-            // Handle card element changes
-            cardElement.on('change', function(event) {
-                const errorDiv = document.getElementById('paymentError');
-                if (event.error) {
-                    errorDiv.textContent = event.error.message;
-                    errorDiv.style.display = 'block';
-                } else {
-                    errorDiv.style.display = 'none';
-                }
-            });
-        }
-
-        // Payment method selection
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.payment-method').forEach(method => {
-                method.addEventListener('click', function() {
-                    // Remove selected class from all methods
-                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
-                    
-                    // Add selected class to clicked method
-                    this.classList.add('selected');
-                    
-                    // Update radio button
-                    const radio = this.querySelector('input[type="radio"]');
-                    radio.checked = true;
-                    
-                    // Show/hide payment containers
-                    const selectedMethod = radio.value;
-                    if (selectedMethod === 'stripe') {
-                        document.getElementById('stripeContainer').style.display = 'block';
-                        document.getElementById('paypalContainer').style.display = 'none';
-                        document.getElementById('payButton').style.display = 'block';
-                    } else if (selectedMethod === 'paypal') {
-                        document.getElementById('stripeContainer').style.display = 'none';
-                        document.getElementById('paypalContainer').style.display = 'block';
-                        document.getElementById('payButton').style.display = 'none';
-                        initializePayPal();
-                    }
-                });
-            });
-
-            // Pay button click handler
-            document.getElementById('payButton').addEventListener('click', async function() {
-                const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-                
-                if (selectedMethod === 'stripe') {
-                    await handleStripePayment();
-                }
-            });
-        });
-
-        // Stripe payment handling
-        async function handleStripePayment() {
-            const button = document.getElementById('payButton');
-            const loading = document.getElementById('paymentLoading');
-            const errorDiv = document.getElementById('paymentError');
+        function simulatePayment() {
             const successDiv = document.getElementById('paymentSuccess');
-            
-            // Show loading state
-            button.disabled = true;
-            loading.style.display = 'block';
-            errorDiv.style.display = 'none';
-            successDiv.style.display = 'none';
-            
-            try {
-                // Simulate payment processing (in real implementation, you would create payment intent on server)
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                
-                // Simulate successful payment
-                loading.style.display = 'none';
-                
-                const totalHours = selectedBedroomHours + selectedBathroomHours;
-                const basePrice = totalHours * selectedRate;
-                const discountAmount = basePrice * (selectedDiscount / 100);
-                const finalPrice = basePrice - discountAmount;
-                
-                successDiv.innerHTML = `
-                    <strong>Payment Successful! 🎉</strong><br>
-                    Booking confirmed for ${selectedService}.<br>
-                    Total paid: $${finalPrice.toFixed(2)}<br>
-                    Confirmation email sent to ${email}<br>
-                    Booking ID: #MFH${Date.now()}
-                `;
-                successDiv.style.display = 'block';
-                
-                // Hide payment form
-                document.querySelector('.payment-methods').style.display = 'none';
-                document.getElementById('stripeContainer').style.display = 'none';
-                button.style.display = 'none';
-                
-            } catch (error) {
-                loading.style.display = 'none';
-                button.disabled = false;
-                errorDiv.innerHTML = `Payment failed: ${error.message}`;
-                errorDiv.style.display = 'block';
-            }
-        }
-
-        // PayPal integration
-        function initializePayPal() {
-            const totalHours = selectedBedroomHours + selectedBathroomHours;
-            const basePrice = totalHours * selectedRate;
-            const discountAmount = basePrice * (selectedDiscount / 100);
-            const finalPrice = basePrice - discountAmount;
-            
-            document.getElementById('paypalButtonContainer').innerHTML = `
-                <div style="padding: 20px; text-align: center; background: #f8f9fa; border-radius: 8px;">
-                    <p>PayPal integration would be initialized here</p>
-                    <button onclick="simulatePayPalPayment()" style="background: #0070ba; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 16px;">
-                        Pay $${finalPrice.toFixed(2)} with PayPal
-                    </button>
-                </div>
-            `;
-        }
-
-        function simulatePayPalPayment() {
-            const successDiv = document.getElementById('paymentSuccess');
-            
             const totalHours = selectedBedroomHours + selectedBathroomHours;
             const basePrice = totalHours * selectedRate;
             const discountAmount = basePrice * (selectedDiscount / 100);
             const finalPrice = basePrice - discountAmount;
             
             successDiv.innerHTML = `
-                <strong>PayPal Payment Successful! 🎉</strong><br>
-                Booking confirmed for ${selectedService}.<br>
+                <strong>Payment Successful! 🎉</strong><br>
+                Booking confirmed for ${selectedService} cleaning.<br>
                 Total paid: $${finalPrice.toFixed(2)}<br>
-                Confirmation email sent to your PayPal address.<br>
+                Confirmation email sent to ${email}<br>
                 Booking ID: #MFH${Date.now()}
             `;
             successDiv.style.display = 'block';
             
             // Hide payment form
             document.querySelector('.payment-methods').style.display = 'none';
-            document.getElementById('paypalContainer').style.display = 'none';
+            document.getElementById('payButton').style.display = 'none';
         }
 
         // Close modal when clicking outside
@@ -955,13 +906,6 @@
             const modal = document.getElementById('paymentModal');
             if (event.target === modal) {
                 closePaymentModal();
-            }
-        });
-
-        // Update the existing updateQuote function to show Book Now button
-        document.getElementById('bookNowBtn').addEventListener('click', function() {
-            if (isFormComplete()) {
-                openPaymentModal();
             }
         });
     </script>
