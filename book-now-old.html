@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now - Instant Quote & Payment | Maid For Heaven NYC</title>
+    <meta name="description" content="Get instant pricing and book your cleaning service online. Transparent pricing, no hidden fees. Professional husband & wife team.">
+    <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">
+    <link rel="stylesheet" href="css/book-now.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html" class="logo-text">
+                    Maid For Heaven NYC
+                </a>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.html#services">SERVICES</a></li>
+                <li><a href="index.html#about">ABOUT</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact-us.html">CONTACT</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="tel:3477592000" class="phone-link">
+                    <i class="fas fa-phone"></i> (347) 759-2000
+                </a>
+            </div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Booking Hero Section -->
+<section class="booking-hero">
+    <div class="container">
+        <div class="booking-hero-content">
+            <h1 class="booking-title">Book Your Cleaning Service</h1>
+            <p class="booking-subtitle">Get instant pricing with no hidden fees. Professional husband & wife team.</p>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <i class="fas fa-users"></i>
+                    <span>2-Person Team</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Insured</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Faster Service</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-dollar-sign"></i>
+                    <span>Transparent Pricing</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Booking Section -->
+<section class="booking-main">
+    <div class="container">
+        <div class="booking-grid">
+            <!-- Booking Form -->
+            <div class="booking-form-container">
+                <div class="form-card">
+                    <div class="form-header">
+                        <h2><i class="fas fa-check-circle"></i> Book Your Cleaning Service</h2>
+                        <p>Get instant pricing with no hidden fees. Professional husband & wife team.</p>
+                    </div>
+                    
+                    <form id="bookingForm" class="booking-form">
+                        <!-- Service Type -->
+                        <div class="form-section">
+                            <label class="section-label">Service Type</label>
+                            <div class="service-options">
+                                <div class="service-option" data-service="standard">
+                                    <div class="service-icon">
+                                        <i class="fas fa-sparkles"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <h4>Standard Cleaning</h4>
+                                        <p>Regular cleaning of all rooms, dusting, vacuuming, mopping</p>
+                                    </div>
+                                    <div class="service-price">
+                                        <span class="price">$35/hr</span>
+                                        <span class="price-label">base rate</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="service-option" data-service="deep">
+                                    <div class="service-icon">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <h4>Deep Cleaning</h4>
+                                        <p>Thorough cleaning including baseboards, inside appliances, detailed work</p>
+                                    </div>
+                                    <div class="service-price">
+                                        <span class="price">$45/hr</span>
+                                        <span class="price-label">base rate</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="service-option" data-service="moveout">
+                                    <div class="service-icon">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <h4>Move-Out Cleaning</h4>
+                                        <p>Complete cleaning for moving out, includes inside cabinets, oven, fridge</p>
+                                    </div>
+                                    <div class="service-price">
+                                        <span class="price">$50/hr</span>
+                                        <span class="price-label">base rate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Home Size -->
+                        <div class="form-section">
+                            <label class="section-label">Home Size</label>
+                            <select id="homeSize" name="homeSize" required>
+                                <option value="">Select your home size</option>
+                                <option value="studio">Studio/1BR (~2 hours)</option>
+                                <option value="2br">2 Bedroom (~3 hours)</option>
+                                <option value="3br">3 Bedroom (~4 hours)</option>
+                                <option value="4br">4+ Bedroom (~5 hours)</option>
+                                <option value="large">Large Home (5+ BR) (~6 hours)</option>
+                            </select>
+                        </div>
+
+                        <!-- Frequency -->
+                        <div class="form-section">
+                            <label class="section-label">Cleaning Frequency</label>
+                            <select id="frequency" name="frequency" required>
+                                <option value="">How often do you need cleaning?</option>
+                                <option value="one-time">One-time</option>
+                                <option value="weekly">Weekly (15% discount)</option>
+                                <option value="biweekly">Bi-weekly (10% discount)</option>
+                                <option value="monthly">Monthly (5% discount)</option>
+                            </select>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="form-section">
+                            <label class="section-label">Service Address</label>
+                            <div class="address-input">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" id="address" name="address" placeholder="Enter your full address" required>
+                            </div>
+                            <div id="distanceInfo" class="distance-info" style="display: none;">
+                                <span id="distanceText"></span>
+                            </div>
+                        </div>
+
+                        <!-- Special Requests -->
+                        <div class="form-section">
+                            <label class="section-label">Special Requests (Optional)</label>
+                            <textarea id="specialRequests" name="specialRequests" placeholder="Any specific areas of focus, special instructions, or additional services needed?" rows="3"></textarea>
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div class="form-section">
+                            <label class="section-label">Contact Information</label>
+                            <div class="contact-grid">
+                                <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
+                                <input type="email" id="email" name="email" placeholder="Email Address" required>
+                                <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Quote Display -->
+            <div class="quote-container">
+                <div id="quoteCard" class="quote-card" style="display: none;">
+                    <div class="quote-header">
+                        <h3><i class="fas fa-dollar-sign"></i> Instant Quote</h3>
+                        <div id="worthItBadge" class="worth-it-badge"></div>
+                    </div>
+                    <p class="quote-subtitle">Professional 2-person team • Transparent pricing • No hidden fees</p>
+                    
+                    <div class="price-breakdown">
+                        <div class="price-line">
+                            <span id="baseServiceText">Base Service</span>
+                            <span id="basePrice">$0</span>
+                        </div>
+                        <div class="price-line distance-line" id="distanceLine" style="display: none;">
+                            <span id="distanceSurchargeText">Distance Surcharge</span>
+                            <span id="distanceSurcharge">+$0</span>
+                        </div>
+                        <div class="price-line discount-line" id="discountLine" style="display: none;">
+                            <span>Frequency Discount</span>
+                            <span id="discountAmount">-$0</span>
+                        </div>
+                        <div class="price-separator"></div>
+                        <div class="price-line total-line">
+                            <span>Total Price</span>
+                            <span id="totalPrice">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="service-details">
+                        <h4><i class="fas fa-clock"></i> Service Details</h4>
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Team Size</span>
+                                <span class="detail-value">2 Professional Cleaners</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Estimated Time</span>
+                                <span class="detail-value" id="totalTime">0 hours total</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Work Time</span>
+                                <span class="detail-value" id="workTime">0 hours cleaning</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Profit Margin</span>
+                                <span class="detail-value" id="profitMargin">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cost-breakdown">
+                        <h4>Cost Breakdown</h4>
+                        <div class="breakdown-items">
+                            <div class="breakdown-item">
+                                <span id="laborText">Labor</span>
+                                <span id="laborCost">$0</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Gas & Travel</span>
+                                <span id="gasCost">$0</span>
+                            </div>
+                            <div class="breakdown-item" id="tollsItem" style="display: none;">
+                                <span>Tolls (estimated)</span>
+                                <span id="tollCost">$0</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span>Supplies</span>
+                                <span id="suppliesCost">$15</span>
+                            </div>
+                            <div class="breakdown-separator"></div>
+                            <div class="breakdown-item profit-item">
+                                <span>Our Profit</span>
+                                <span id="ourProfit">$0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="whats-included">
+                        <h4>What's Included</h4>
+                        <div class="included-items">
+                            <div class="included-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Professional husband & wife team</span>
+                            </div>
+                            <div class="included-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>All cleaning supplies included</span>
+                            </div>
+                            <div class="included-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Insured and bonded service</span>
+                            </div>
+                            <div class="included-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Satisfaction guarantee</span>
+                            </div>
+                            <div class="included-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Travel time and gas included</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="bookingActions" class="booking-actions" style="display: none;">
+                        <button type="button" id="bookNowBtn" class="book-now-btn">
+                            <i class="fas fa-credit-card"></i>
+                            <span id="bookNowText">Book Now & Pay Online - $0</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Default Quote Card -->
+                <div id="defaultQuote" class="quote-card default-quote">
+                    <div class="default-content">
+                        <i class="fas fa-dollar-sign quote-icon"></i>
+                        <h3>Get Your Instant Quote</h3>
+                        <p>Select your service type, home size, and frequency to see transparent pricing</p>
+                    </div>
+                </div>
+
+                <!-- Why Choose Us -->
+                <div class="why-choose-card">
+                    <h3>Why Choose Our Service?</h3>
+                    <div class="benefits">
+                        <div class="benefit">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Professional Husband & Wife Team</h4>
+                                <p>Consistent, reliable service you can trust</p>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Faster Service</h4>
+                                <p>2-person team completes jobs in half the time</p>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div>
+                                <h4>Transparent Pricing</h4>
+                                <p>No hidden fees, see exact costs upfront</p>
+                            </div>
+                        </div>
+                        <div class="benefit">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>Fully Insured</h4>
+                                <p>Licensed, bonded, and insured for your peace of mind</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Payment Modal -->
+<div id="paymentModal" class="payment-modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-credit-card"></i> Secure Payment</h3>
+            <button type="button" class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="payment-summary">
+                <div class="summary-header">
+                    <span>Total Amount</span>
+                    <span id="paymentTotal" class="payment-amount">$0</span>
+                </div>
+                <div class="summary-details">
+                    <p id="paymentServiceType">Service Type</p>
+                    <p id="paymentAddress">Address</p>
+                </div>
+            </div>
+            
+            <div class="payment-methods">
+                <h4>Payment Method</h4>
+                <div class="payment-options">
+                    <button type="button" class="payment-option" data-method="card">
+                        <i class="fas fa-credit-card"></i>
+                        Credit/Debit Card
+                    </button>
+                    <button type="button" class="payment-option" data-method="bank">
+                        <i class="fas fa-university"></i>
+                        Bank Transfer
+                    </button>
+                    <button type="button" class="payment-option" data-method="paypal">
+                        <i class="fab fa-paypal"></i>
+                        PayPal
+                    </button>
+                </div>
+            </div>
+
+            <div class="security-info">
+                <i class="fas fa-shield-alt"></i>
+                <span>Secure payment processing with 256-bit SSL encryption</span>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="cancelPayment">Cancel</button>
+            <button type="button" class="btn-primary" id="processPayment">
+                <span id="paymentBtnText">Pay Now</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div id="successModal" class="payment-modal" style="display: none;">
+    <div class="modal-content success-modal">
+        <div class="success-content">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h3>Booking Confirmed!</h3>
+            <p>Your cleaning service has been booked successfully. You'll receive a confirmation email shortly.</p>
+            <div class="confirmation-details">
+                <p><strong>Confirmation #:</strong> <span id="confirmationNumber">CLN-0001</span></p>
+                <p><strong>Service Date:</strong> We'll contact you within 24 hours to schedule</p>
+            </div>
+            <button type="button" class="btn-primary" id="closeSuccess">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Maid For Heaven NYC</h3>
+                <p>Professional cleaning services in New York City. Husband & wife team providing reliable, insured cleaning services.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-phone"></i> (347) 759-2000</p>
+                <p><i class="fas fa-envelope"></i> info@maidforheavennyc.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>Service Areas</h4>
+                <p>Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="js/book-now.js"></script>
+<script src="js/mobile-menu.js"></script>
+</body>
+</html>
+

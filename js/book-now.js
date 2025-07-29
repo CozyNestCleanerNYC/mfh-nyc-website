@@ -44,75 +44,117 @@ class BookingSystem {
     }
     
     init() {
+        console.log('BookingSystem initializing...');
         this.bindEvents();
         this.updateQuote();
     }
     
     bindEvents() {
+        console.log('Binding events...');
+        
         // Service type selection
         document.querySelectorAll('.service-option').forEach(option => {
             option.addEventListener('click', (e) => {
                 const serviceType = e.currentTarget.dataset.service;
+                console.log('Service selected:', serviceType);
                 this.selectService(serviceType);
             });
         });
         
         // Form inputs
-        document.getElementById('homeSize').addEventListener('change', (e) => {
-            this.formData.homeSize = e.target.value;
-            this.updateQuote();
-        });
+        const homeSizeSelect = document.getElementById('homeSize');
+        if (homeSizeSelect) {
+            homeSizeSelect.addEventListener('change', (e) => {
+                this.formData.homeSize = e.target.value;
+                console.log('Home size selected:', e.target.value);
+                this.updateQuote();
+            });
+        }
         
-        document.getElementById('frequency').addEventListener('change', (e) => {
-            this.formData.frequency = e.target.value;
-            this.updateQuote();
-        });
+        const frequencySelect = document.getElementById('frequency');
+        if (frequencySelect) {
+            frequencySelect.addEventListener('change', (e) => {
+                this.formData.frequency = e.target.value;
+                console.log('Frequency selected:', e.target.value);
+                this.updateQuote();
+            });
+        }
         
-        document.getElementById('address').addEventListener('input', (e) => {
-            this.handleAddressChange(e.target.value);
-        });
+        const addressInput = document.getElementById('address');
+        if (addressInput) {
+            addressInput.addEventListener('input', (e) => {
+                this.handleAddressChange(e.target.value);
+            });
+        }
         
         // Contact info
-        document.getElementById('fullName').addEventListener('input', (e) => {
-            this.formData.contactInfo.name = e.target.value;
-            this.updateQuote();
-        });
+        const nameInput = document.getElementById('fullName');
+        if (nameInput) {
+            nameInput.addEventListener('input', (e) => {
+                this.formData.contactInfo.name = e.target.value;
+                this.updateQuote();
+            });
+        }
         
-        document.getElementById('email').addEventListener('input', (e) => {
-            this.formData.contactInfo.email = e.target.value;
-            this.updateQuote();
-        });
+        const emailInput = document.getElementById('email');
+        if (emailInput) {
+            emailInput.addEventListener('input', (e) => {
+                this.formData.contactInfo.email = e.target.value;
+                this.updateQuote();
+            });
+        }
         
-        document.getElementById('phone').addEventListener('input', (e) => {
-            this.formData.contactInfo.phone = e.target.value;
-            this.updateQuote();
-        });
+        const phoneInput = document.getElementById('phone');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', (e) => {
+                this.formData.contactInfo.phone = e.target.value;
+                this.updateQuote();
+            });
+        }
         
-        document.getElementById('specialRequests').addEventListener('input', (e) => {
-            this.formData.specialRequests = e.target.value;
-        });
+        const specialRequestsInput = document.getElementById('specialRequests');
+        if (specialRequestsInput) {
+            specialRequestsInput.addEventListener('input', (e) => {
+                this.formData.specialRequests = e.target.value;
+            });
+        }
         
         // Book now button
-        document.getElementById('bookNowBtn').addEventListener('click', () => {
-            this.handleBookNow();
-        });
+        const bookNowBtn = document.getElementById('bookNowBtn');
+        if (bookNowBtn) {
+            bookNowBtn.addEventListener('click', () => {
+                this.handleBookNow();
+            });
+        }
         
         // Payment modal events
-        document.getElementById('closeModal').addEventListener('click', () => {
-            this.closePaymentModal();
-        });
+        const closeModal = document.getElementById('closeModal');
+        if (closeModal) {
+            closeModal.addEventListener('click', () => {
+                this.closePaymentModal();
+            });
+        }
         
-        document.getElementById('cancelPayment').addEventListener('click', () => {
-            this.closePaymentModal();
-        });
+        const cancelPayment = document.getElementById('cancelPayment');
+        if (cancelPayment) {
+            cancelPayment.addEventListener('click', () => {
+                this.closePaymentModal();
+            });
+        }
         
-        document.getElementById('processPayment').addEventListener('click', () => {
-            this.processPayment();
-        });
+        const processPayment = document.getElementById('processPayment');
+        if (processPayment) {
+            processPayment.addEventListener('click', () => {
+                this.processPayment();
+            });
+        }
         
-        document.getElementById('closeSuccess').addEventListener('click', () => {
-            this.closeSuccessModal();
-        });
+        const closeSuccess = document.getElementById('closeSuccess');
+        if (closeSuccess) {
+            closeSuccess.addEventListener('click', () => {
+                this.closeSuccessModal();
+            });
+        }
         
         // Payment method selection
         document.querySelectorAll('.payment-option').forEach(option => {
@@ -122,17 +164,25 @@ class BookingSystem {
         });
         
         // Close modal on backdrop click
-        document.getElementById('paymentModal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) {
-                this.closePaymentModal();
-            }
-        });
+        const paymentModal = document.getElementById('paymentModal');
+        if (paymentModal) {
+            paymentModal.addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    this.closePaymentModal();
+                }
+            });
+        }
         
-        document.getElementById('successModal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) {
-                this.closeSuccessModal();
-            }
-        });
+        const successModal = document.getElementById('successModal');
+        if (successModal) {
+            successModal.addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    this.closeSuccessModal();
+                }
+            });
+        }
+        
+        console.log('Events bound successfully');
     }
     
     selectService(serviceType) {
@@ -252,13 +302,16 @@ class BookingSystem {
     }
     
     updateQuote() {
+        console.log('Updating quote with data:', this.formData);
         const newQuote = this.calculateQuote();
         this.quote = newQuote;
         
         const quoteCard = document.getElementById('quoteCard');
         const defaultQuote = document.getElementById('defaultQuote');
         
-        if (newQuote) {
+        console.log('Quote calculated:', newQuote);
+        
+        if (newQuote && quoteCard && defaultQuote) {
             // Show quote card
             quoteCard.style.display = 'block';
             defaultQuote.style.display = 'none';
@@ -268,77 +321,121 @@ class BookingSystem {
             
             // Update worth it badge
             const worthItBadge = document.getElementById('worthItBadge');
-            worthItBadge.className = 'worth-it-badge ' + (newQuote.worthIt ? 'profitable' : 'needs-review');
-            worthItBadge.textContent = newQuote.worthIt ? '✅ Profitable Job' : '⚠️ Needs Review';
+            if (worthItBadge) {
+                worthItBadge.className = 'worth-it-badge ' + (newQuote.worthIt ? 'profitable' : 'needs-review');
+                worthItBadge.textContent = newQuote.worthIt ? '✅ Profitable Job' : '⚠️ Needs Review';
+            }
             
             // Update price breakdown
-            document.getElementById('baseServiceText').textContent = 
-                `Base Service (${newQuote.breakdown.baseHours} hrs × $${newQuote.breakdown.hourlyRate}/hr)`;
-            document.getElementById('basePrice').textContent = `$${newQuote.basePrice}`;
+            const baseServiceText = document.getElementById('baseServiceText');
+            const basePrice = document.getElementById('basePrice');
+            if (baseServiceText && basePrice) {
+                baseServiceText.textContent = 
+                    `Base Service (${newQuote.breakdown.baseHours} hrs × $${newQuote.breakdown.hourlyRate}/hr)`;
+                basePrice.textContent = `$${newQuote.basePrice}`;
+            }
             
             // Distance surcharge
             const distanceLine = document.getElementById('distanceLine');
-            if (newQuote.distanceSurcharge > 0) {
-                distanceLine.style.display = 'flex';
-                document.getElementById('distanceSurchargeText').textContent = 
-                    `Distance Surcharge (${this.formData.distance} miles)`;
-                document.getElementById('distanceSurcharge').textContent = `+$${newQuote.distanceSurcharge}`;
-            } else {
-                distanceLine.style.display = 'none';
+            if (distanceLine) {
+                if (newQuote.distanceSurcharge > 0) {
+                    distanceLine.style.display = 'flex';
+                    const distanceSurchargeText = document.getElementById('distanceSurchargeText');
+                    const distanceSurcharge = document.getElementById('distanceSurcharge');
+                    if (distanceSurchargeText && distanceSurcharge) {
+                        distanceSurchargeText.textContent = 
+                            `Distance Surcharge (${this.formData.distance} miles)`;
+                        distanceSurcharge.textContent = `+$${newQuote.distanceSurcharge}`;
+                    }
+                } else {
+                    distanceLine.style.display = 'none';
+                }
             }
             
             // Frequency discount
             const discountLine = document.getElementById('discountLine');
-            if (newQuote.discountAmount > 0) {
-                discountLine.style.display = 'flex';
-                document.getElementById('discountAmount').textContent = `-$${newQuote.discountAmount.toFixed(2)}`;
-            } else {
-                discountLine.style.display = 'none';
+            if (discountLine) {
+                if (newQuote.discountAmount > 0) {
+                    discountLine.style.display = 'flex';
+                    const discountAmount = document.getElementById('discountAmount');
+                    if (discountAmount) {
+                        discountAmount.textContent = `-$${newQuote.discountAmount.toFixed(2)}`;
+                    }
+                } else {
+                    discountLine.style.display = 'none';
+                }
             }
             
             // Total price
-            document.getElementById('totalPrice').textContent = `$${newQuote.subtotal.toFixed(2)}`;
-            
-            // Service details
-            document.getElementById('totalTime').textContent = `${newQuote.totalTime} hours total`;
-            document.getElementById('workTime').textContent = `${newQuote.teamHours} hours cleaning`;
-            document.getElementById('profitMargin').textContent = `${newQuote.profitMargin.toFixed(1)}%`;
-            document.getElementById('profitMargin').className = 'detail-value ' + 
-                (newQuote.worthIt ? 'profitable' : 'needs-review');
-            
-            // Cost breakdown
-            document.getElementById('laborText').textContent = 
-                `Labor (${newQuote.breakdown.teamHours} hrs × $22)`;
-            document.getElementById('laborCost').textContent = `$${newQuote.breakdown.laborCost}`;
-            document.getElementById('gasCost').textContent = `$${newQuote.breakdown.gasCost.toFixed(2)}`;
-            
-            const tollsItem = document.getElementById('tollsItem');
-            if (newQuote.breakdown.tollEstimate > 0) {
-                tollsItem.style.display = 'flex';
-                document.getElementById('tollCost').textContent = `$${newQuote.breakdown.tollEstimate}`;
-            } else {
-                tollsItem.style.display = 'none';
+            const totalPrice = document.getElementById('totalPrice');
+            if (totalPrice) {
+                totalPrice.textContent = `$${newQuote.subtotal.toFixed(2)}`;
             }
             
-            document.getElementById('ourProfit').textContent = `$${newQuote.breakdown.profit.toFixed(2)}`;
+            // Service details
+            const totalTime = document.getElementById('totalTime');
+            const workTime = document.getElementById('workTime');
+            const profitMargin = document.getElementById('profitMargin');
+            
+            if (totalTime) totalTime.textContent = `${newQuote.totalTime} hours total`;
+            if (workTime) workTime.textContent = `${newQuote.teamHours} hours cleaning`;
+            if (profitMargin) {
+                profitMargin.textContent = `${newQuote.profitMargin.toFixed(1)}%`;
+                profitMargin.className = 'detail-value ' + 
+                    (newQuote.worthIt ? 'profitable' : 'needs-review');
+            }
+            
+            // Cost breakdown
+            const laborText = document.getElementById('laborText');
+            const laborCost = document.getElementById('laborCost');
+            const gasCost = document.getElementById('gasCost');
+            
+            if (laborText && laborCost) {
+                laborText.textContent = `Labor (${newQuote.breakdown.teamHours} hrs × $22)`;
+                laborCost.textContent = `$${newQuote.breakdown.laborCost}`;
+            }
+            if (gasCost) {
+                gasCost.textContent = `$${newQuote.breakdown.gasCost.toFixed(2)}`;
+            }
+            
+            const tollsItem = document.getElementById('tollsItem');
+            if (tollsItem) {
+                if (newQuote.breakdown.tollEstimate > 0) {
+                    tollsItem.style.display = 'flex';
+                    const tollCost = document.getElementById('tollCost');
+                    if (tollCost) {
+                        tollCost.textContent = `$${newQuote.breakdown.tollEstimate}`;
+                    }
+                } else {
+                    tollsItem.style.display = 'none';
+                }
+            }
+            
+            const ourProfit = document.getElementById('ourProfit');
+            if (ourProfit) {
+                ourProfit.textContent = `$${newQuote.breakdown.profit.toFixed(2)}`;
+            }
             
             // Update book now button
             const bookingActions = document.getElementById('bookingActions');
             const bookNowBtn = document.getElementById('bookNowBtn');
             const bookNowText = document.getElementById('bookNowText');
             
-            if (this.isFormComplete()) {
+            if (this.isFormComplete() && bookingActions && bookNowBtn && bookNowText) {
                 bookingActions.style.display = 'block';
                 bookNowText.textContent = `Book Now & Pay Online - $${newQuote.subtotal.toFixed(2)}`;
                 bookNowBtn.disabled = false;
+                console.log('Book Now button should be visible');
             } else {
-                bookingActions.style.display = 'none';
+                if (bookingActions) bookingActions.style.display = 'none';
+                console.log('Form not complete, hiding Book Now button');
             }
             
         } else {
             // Show default quote
-            quoteCard.style.display = 'none';
-            defaultQuote.style.display = 'block';
+            if (quoteCard) quoteCard.style.display = 'none';
+            if (defaultQuote) defaultQuote.style.display = 'block';
+            console.log('Showing default quote');
         }
     }
     
