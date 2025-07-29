@@ -272,7 +272,7 @@
             <div class="booking-form">
                 <div class="booking-header">
                     <h1>📅 Book Your Cleaning Service</h1>
-                    <p>Get instant pricing with no hidden fees. Professional husband & wife team.</p>
+                    <p>Get instant pricing with no hidden fees. Professional cleaning team.</p>
                 </div>
 
                 <!-- Service Type -->
@@ -308,16 +308,32 @@
                     </div>
                 </div>
 
-                <!-- Home Size -->
+                <!-- Bedrooms -->
                 <div class="form-group">
-                    <label>Home Size</label>
-                    <select id="homeSize">
-                        <option value="">Select your home size</option>
-                        <option value="studio" data-hours="2">Studio/1BR</option>
-                        <option value="2br" data-hours="3">2 Bedroom</option>
-                        <option value="3br" data-hours="4">3 Bedroom</option>
-                        <option value="4br" data-hours="5">4+ Bedroom</option>
-                        <option value="large" data-hours="6">Large Home (5+ BR)</option>
+                    <label>Bedrooms</label>
+                    <select id="bedrooms">
+                        <option value="">Select number of bedrooms</option>
+                        <option value="studio" data-hours="2.5">Studio</option>
+                        <option value="1br" data-hours="3">1 Bedroom</option>
+                        <option value="2br" data-hours="4">2 Bedrooms</option>
+                        <option value="3br" data-hours="5">3 Bedrooms</option>
+                        <option value="4br" data-hours="6">4 Bedrooms</option>
+                        <option value="5br" data-hours="7">5+ Bedrooms</option>
+                    </select>
+                </div>
+
+                <!-- Bathrooms -->
+                <div class="form-group">
+                    <label>Bathrooms</label>
+                    <select id="bathrooms">
+                        <option value="">Select number of bathrooms</option>
+                        <option value="0" data-hours="0">0 Bathrooms</option>
+                        <option value="1" data-hours="0.5">1 Bathroom</option>
+                        <option value="2" data-hours="1">2 Bathrooms</option>
+                        <option value="3" data-hours="1.5">3 Bathrooms</option>
+                        <option value="4" data-hours="2">4 Bathrooms</option>
+                        <option value="5" data-hours="2.5">5 Bathrooms</option>
+                        <option value="6" data-hours="3">6+ Bathrooms</option>
                     </select>
                 </div>
 
@@ -381,7 +397,7 @@
                     
                     <div class="quote-details">
                         <p><strong>Duration:</strong> <span id="duration">0 hours</span> (2-person team)</p>
-                        <p><strong>Service:</strong> Professional husband & wife team</p>
+                        <p><strong>Service:</strong> Professional cleaning team</p>
                     </div>
                 </div>
                 
@@ -389,12 +405,12 @@
 
                 <div class="features-list">
                     <div class="feature-item">
-                        <span class="feature-icon">👫</span>
-                        <span>Professional husband & wife team</span>
+                        <span class="feature-icon">👥</span>
+                        <span>Professional cleaning team</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">⚡</span>
-                        <span>2-person team completes jobs in half the time</span>
+                        <span>2-person team completes jobs efficiently</span>
                     </div>
                     <div class="feature-item">
                         <span class="feature-icon">💰</span>
@@ -438,7 +454,8 @@
         // Booking system variables
         let selectedService = '';
         let selectedRate = 0;
-        let selectedHours = 0;
+        let selectedBedroomHours = 0;
+        let selectedBathroomHours = 0;
         let selectedDiscount = 0;
         let address = '';
         let fullName = '';
@@ -462,10 +479,17 @@
             });
         });
 
-        // Home size selection
-        document.getElementById('homeSize').addEventListener('change', function() {
+        // Bedroom selection
+        document.getElementById('bedrooms').addEventListener('change', function() {
             const selectedOption = this.options[this.selectedIndex];
-            selectedHours = selectedOption.dataset.hours ? parseInt(selectedOption.dataset.hours) : 0;
+            selectedBedroomHours = selectedOption.dataset.hours ? parseFloat(selectedOption.dataset.hours) : 0;
+            updateQuote();
+        });
+
+        // Bathroom selection
+        document.getElementById('bathrooms').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            selectedBathroomHours = selectedOption.dataset.hours ? parseFloat(selectedOption.dataset.hours) : 0;
             updateQuote();
         });
 
@@ -499,22 +523,23 @@
 
         // Check if form is complete
         function isFormComplete() {
-            return selectedService && selectedHours > 0 && selectedDiscount >= 0 && 
+            return selectedService && selectedBedroomHours > 0 && selectedBathroomHours >= 0 && selectedDiscount >= 0 && 
                    address && fullName && email && phone;
         }
         
         // Update quote display
         function updateQuote() {
-            if (selectedService && selectedRate > 0 && selectedHours > 0) {
-                const basePrice = selectedRate * selectedHours;
+            if (selectedService && selectedRate > 0 && selectedBedroomHours > 0) {
+                const totalHours = selectedBedroomHours + selectedBathroomHours;
+                const basePrice = selectedRate * totalHours;
                 const discountAmount = Math.round(basePrice * selectedDiscount / 100);
                 const totalPrice = basePrice - discountAmount;
                 
                 // Update display
-                document.getElementById('serviceText').textContent = `${selectedService.charAt(0).toUpperCase() + selectedService.slice(1)} Cleaning (${selectedHours}h)`;
+                document.getElementById('serviceText').textContent = `${selectedService.charAt(0).toUpperCase() + selectedService.slice(1)} Cleaning (${totalHours}h)`;
                 document.getElementById('servicePrice').textContent = `$${basePrice}`;
                 document.getElementById('totalPrice').textContent = `$${totalPrice}`;
-                document.getElementById('duration').textContent = `${selectedHours / 2} hours`;
+                document.getElementById('duration').textContent = `${totalHours / 2} hours`;
                 
                 if (selectedDiscount > 0) {
                     document.getElementById('discountLine').style.display = 'flex';
@@ -540,6 +565,7 @@
         // Book now button click
         document.getElementById('bookNowBtn').addEventListener('click', function() {
             if (isFormComplete()) {
+                const totalHours = selectedBedroomHours + selectedBathroomHours;
                 alert(`Booking confirmed!\n\nService: ${selectedService} cleaning\nTotal: $${document.getElementById('totalPrice').textContent.replace('$', '')}\nDuration: ${document.getElementById('duration').textContent}\n\nWe'll contact you shortly to confirm the appointment.`);
             }
         });
