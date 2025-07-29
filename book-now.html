@@ -391,8 +391,7 @@
                     
                     <div class="quote-details">
                         <p><strong>Duration:</strong> <span id="duration">0 hours</span> (2-person team)</p>
-                        <p><strong>Profit Margin:</strong> <span id="profitMargin">0%</span></p>
-                        <p id="worthIt" style="color: #4CAF50; font-weight: 600;"></p>
+                        <p><strong>Service:</strong> Professional husband & wife team</p>
                     </div>
                 </div>
                 
@@ -496,36 +495,17 @@
                 const discountAmount = Math.round(basePrice * selectedDiscount / 100);
                 const totalPrice = basePrice - discountAmount;
                 
-                // Calculate profit margin (simplified)
-                const laborCost = 22 * (selectedHours / 2); // Team of 2, half time
-                const supplies = 15;
-                const gas = 10; // Estimated
-                const totalCosts = laborCost + supplies + gas;
-                const profit = totalPrice - totalCosts;
-                const profitMargin = Math.round((profit / totalPrice) * 100);
-                
                 // Update display
                 document.getElementById('serviceText').textContent = `${selectedService.charAt(0).toUpperCase() + selectedService.slice(1)} Cleaning (${selectedHours}h)`;
                 document.getElementById('servicePrice').textContent = `$${basePrice}`;
                 document.getElementById('totalPrice').textContent = `$${totalPrice}`;
                 document.getElementById('duration').textContent = `${selectedHours / 2} hours`;
-                document.getElementById('profitMargin').textContent = `${profitMargin}%`;
                 
                 if (selectedDiscount > 0) {
                     document.getElementById('discountLine').style.display = 'flex';
                     document.getElementById('discountAmount').textContent = `-$${discountAmount}`;
                 } else {
                     document.getElementById('discountLine').style.display = 'none';
-                }
-                
-                // Worth it indicator
-                const worthItElement = document.getElementById('worthIt');
-                if (profitMargin >= 35) {
-                    worthItElement.textContent = '✅ Worth It! (35%+ margin)';
-                    worthItElement.style.color = '#4CAF50';
-                } else {
-                    worthItElement.textContent = '❌ Below 35% margin threshold';
-                    worthItElement.style.color = '#dc3545';
                 }
                 
                 document.getElementById('quoteDisplay').style.display = 'block';
