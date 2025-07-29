@@ -396,7 +396,7 @@
                     </div>
                     
                     <div class="quote-details">
-                        <p><strong>Duration:</strong> <span id="duration">0 hours</span> (2-person team)</p>
+                        <p><strong>Duration:</strong> <span id="duration">0 hours</span></p>
                         <p><strong>Service:</strong> Professional cleaning team</p>
                     </div>
                 </div>
@@ -530,16 +530,36 @@
         // Update quote display
         function updateQuote() {
             if (selectedService && selectedRate > 0 && selectedBedroomHours > 0) {
-                const totalHours = selectedBedroomHours + selectedBathroomHours;
+                let totalHours = selectedBedroomHours + selectedBathroomHours;
+                
+                // Add extra hours for deep cleaning (1 hour per bedroom)
+                if (selectedService === 'deep') {
+                    const bedroomCount = getBedrooomCount();
+                    totalHours += bedroomCount;
+                }
+                
                 const basePrice = selectedRate * totalHours;
                 const discountAmount = Math.round(basePrice * selectedDiscount / 100);
                 const totalPrice = basePrice - discountAmount;
+                
+                // Calculate duration based on cleaner count
+                let duration;
+                let teamInfo;
+                if (selectedService === 'standard' && (selectedBedroomHours === 2.5 || selectedBedroomHours === 3)) {
+                    // Studio (2.5h) or 1BR (3h) - send 1 cleaner
+                    duration = totalHours;
+                    teamInfo = '(1 cleaner)';
+                } else {
+                    // All other cases - send 2 cleaners
+                    duration = totalHours / 2;
+                    teamInfo = '(2-person team)';
+                }
                 
                 // Update display
                 document.getElementById('serviceText').textContent = `${selectedService.charAt(0).toUpperCase() + selectedService.slice(1)} Cleaning (${totalHours}h)`;
                 document.getElementById('servicePrice').textContent = `$${basePrice}`;
                 document.getElementById('totalPrice').textContent = `$${totalPrice}`;
-                document.getElementById('duration').textContent = `${totalHours / 2} hours`;
+                document.getElementById('duration').textContent = `${duration} hours ${teamInfo}`;
                 
                 if (selectedDiscount > 0) {
                     document.getElementById('discountLine').style.display = 'flex';
@@ -559,6 +579,22 @@
             } else {
                 bookBtn.disabled = true;
                 bookBtn.textContent = 'Complete Form to Book';
+            }
+        }
+
+        // Helper function to get bedroom count for deep cleaning calculations
+        function getBedrooomCount() {
+            const bedroomsSelect = document.getElementById('bedrooms');
+            const selectedValue = bedroomsSelect.value;
+            
+            switch(selectedValue) {
+                case 'studio': return 1;
+                case '1br': return 1;
+                case '2br': return 2;
+                case '3br': return 3;
+                case '4br': return 4;
+                case '5br': return 5;
+                default: return 0;
             }
         }
 
