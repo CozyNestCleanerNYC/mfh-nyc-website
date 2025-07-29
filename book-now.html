@@ -475,14 +475,66 @@
                 selectedService = this.dataset.service;
                 selectedRate = parseInt(this.dataset.rate);
                 
+                // Recalculate bedroom hours based on new service type
+                const bedroomsSelect = document.getElementById('bedrooms');
+                if (bedroomsSelect.value) {
+                    const value = bedroomsSelect.value;
+                    let hoursMap;
+                    if (selectedService === 'deep' || selectedService === 'moveout') {
+                        hoursMap = {
+                            'studio': 3,
+                            '1br': 4,
+                            '2br': 5,
+                            '3br': 6,
+                            '4br': 7,
+                            '5br': 8
+                        };
+                    } else {
+                        hoursMap = {
+                            'studio': 2.5,
+                            '1br': 3,
+                            '2br': 4,
+                            '3br': 5,
+                            '4br': 6,
+                            '5br': 7
+                        };
+                    }
+                    selectedBedroomHours = hoursMap[value] || 0;
+                }
+                
                 updateQuote();
             });
         });
 
         // Bedroom selection
         document.getElementById('bedrooms').addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            selectedBedroomHours = selectedOption.dataset.hours ? parseFloat(selectedOption.dataset.hours) : 0;
+            const value = this.value;
+            
+            // Different base hours for different service types
+            let hoursMap;
+            if (selectedService === 'deep' || selectedService === 'moveout') {
+                // Deep cleaning and move-out have different base hours
+                hoursMap = {
+                    'studio': 3,    // 3 hours for studio
+                    '1br': 4,       // 4 hours minimum for 1BR
+                    '2br': 5,       // Continue normal progression
+                    '3br': 6,
+                    '4br': 7,
+                    '5br': 8
+                };
+            } else {
+                // Standard cleaning hours
+                hoursMap = {
+                    'studio': 2.5,
+                    '1br': 3,
+                    '2br': 4,
+                    '3br': 5,
+                    '4br': 6,
+                    '5br': 7
+                };
+            }
+            
+            selectedBedroomHours = hoursMap[value] || 0;
             updateQuote();
         });
 
@@ -532,12 +584,6 @@
             if (selectedService && selectedRate > 0 && selectedBedroomHours > 0) {
                 let totalHours = selectedBedroomHours + selectedBathroomHours;
                 
-                // Add extra hours for deep cleaning (1 hour per bedroom)
-                if (selectedService === 'deep') {
-                    const bedroomCount = getBedrooomCount();
-                    totalHours += bedroomCount;
-                }
-                
                 const basePrice = selectedRate * totalHours;
                 const discountAmount = Math.round(basePrice * selectedDiscount / 100);
                 const totalPrice = basePrice - discountAmount;
@@ -579,22 +625,6 @@
             } else {
                 bookBtn.disabled = true;
                 bookBtn.textContent = 'Complete Form to Book';
-            }
-        }
-
-        // Helper function to get bedroom count for deep cleaning calculations
-        function getBedrooomCount() {
-            const bedroomsSelect = document.getElementById('bedrooms');
-            const selectedValue = bedroomsSelect.value;
-            
-            switch(selectedValue) {
-                case 'studio': return 1;
-                case '1br': return 1;
-                case '2br': return 2;
-                case '3br': return 3;
-                case '4br': return 4;
-                case '5br': return 5;
-                default: return 0;
             }
         }
 
