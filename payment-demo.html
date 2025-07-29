@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Demo - Maid For Heaven NYC</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .payment-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .booking-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .payment-methods {
+            margin-bottom: 30px;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-method:hover {
+            border-color: #007bff;
+        }
+        
+        .payment-method.selected {
+            border-color: #007bff;
+            background-color: #f8f9ff;
+        }
+        
+        .payment-method input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .card-element {
+            background: white;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .pay-button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .pay-button:hover {
+            background: #218838;
+        }
+        
+        .pay-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8d7da;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .success-message {
+            color: #155724;
+            margin-top: 10px;
+            padding: 10px;
+            background: #d4edda;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .paypal-container {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Complete Your Booking Payment</h1>
+        
+        <!-- Booking Summary -->
+        <div class="booking-summary">
+            <h3>Booking Summary</h3>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span>Deep Cleaning (3 Bedrooms)</span>
+                <span>$330.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span>Weekly Service Discount (30%)</span>
+                <span style="color: #28a745;">-$99.00</span>
+            </div>
+            <hr>
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px;">
+                <span>Total Amount</span>
+                <span>$231.00</span>
+            </div>
+            <div style="margin-top: 10px; color: #666; font-size: 14px;">
+                Duration: 3 hours (2-person team)<br>
+                Service: Professional cleaning team
+            </div>
+        </div>
+        
+        <!-- Payment Methods -->
+        <div class="payment-methods">
+            <h3>Choose Payment Method</h3>
+            
+            <div class="payment-method selected" data-method="stripe">
+                <input type="radio" name="payment" value="stripe" checked>
+                <div>
+                    <strong>💳 Credit/Debit Card</strong>
+                    <div style="font-size: 12px; color: #666;">Visa, Mastercard, American Express</div>
+                </div>
+            </div>
+            
+            <div class="payment-method" data-method="paypal">
+                <input type="radio" name="payment" value="paypal">
+                <div>
+                    <strong>🅿️ PayPal</strong>
+                    <div style="font-size: 12px; color: #666;">Pay with your PayPal account</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stripe Card Element -->
+        <div id="stripe-container">
+            <h3>Card Information</h3>
+            <div id="card-element" class="card-element">
+                <!-- Stripe Elements will create form elements here -->
+            </div>
+        </div>
+        
+        <!-- PayPal Container -->
+        <div id="paypal-container" class="paypal-container">
+            <h3>PayPal Payment</h3>
+            <div id="paypal-button-container"></div>
+        </div>
+        
+        <!-- Loading State -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Processing your payment...</p>
+        </div>
+        
+        <!-- Pay Button -->
+        <button id="pay-button" class="pay-button">
+            Pay $231.00 Now
+        </button>
+        
+        <!-- Error/Success Messages -->
+        <div id="error-message" class="error-message"></div>
+        <div id="success-message" class="success-message"></div>
+    </div>
+
+    <script>
+        // Initialize Stripe
+        const stripe = Stripe('pk_test_51234567890abcdef'); // Demo public key
+        const elements = stripe.elements();
+        
+        // Create card element
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    fontSize: '16px',
+                    color: '#424770',
+                    '::placeholder': {
+                        color: '#aab7c4',
+                    },
+                },
+            },
+        });
+        
+        cardElement.mount('#card-element');
+        
+        // Payment method selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                // Remove selected class from all methods
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                
+                // Add selected class to clicked method
+                this.classList.add('selected');
+                
+                // Update radio button
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                
+                // Show/hide payment containers
+                const selectedMethod = radio.value;
+                if (selectedMethod === 'stripe') {
+                    document.getElementById('stripe-container').style.display = 'block';
+                    document.getElementById('paypal-container').style.display = 'none';
+                    document.getElementById('pay-button').style.display = 'block';
+                } else if (selectedMethod === 'paypal') {
+                    document.getElementById('stripe-container').style.display = 'none';
+                    document.getElementById('paypal-container').style.display = 'block';
+                    document.getElementById('pay-button').style.display = 'none';
+                    initializePayPal();
+                }
+            });
+        });
+        
+        // Stripe payment handling
+        document.getElementById('pay-button').addEventListener('click', async function() {
+            const selectedMethod = document.querySelector('input[name="payment"]:checked').value;
+            
+            if (selectedMethod === 'stripe') {
+                await handleStripePayment();
+            }
+        });
+        
+        async function handleStripePayment() {
+            const button = document.getElementById('pay-button');
+            const loading = document.getElementById('loading');
+            const errorDiv = document.getElementById('error-message');
+            const successDiv = document.getElementById('success-message');
+            
+            // Show loading state
+            button.disabled = true;
+            loading.style.display = 'block';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            try {
+                // In a real implementation, you would:
+                // 1. Create payment intent on your server
+                // 2. Confirm payment with Stripe
+                // 3. Handle the result
+                
+                // Demo simulation
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Simulate successful payment
+                loading.style.display = 'none';
+                successDiv.innerHTML = `
+                    <strong>Payment Successful! 🎉</strong><br>
+                    Booking confirmed for Deep Cleaning service.<br>
+                    Confirmation email sent to your address.<br>
+                    Booking ID: #MFH${Date.now()}
+                `;
+                successDiv.style.display = 'block';
+                
+                // Hide payment form
+                document.querySelector('.payment-methods').style.display = 'none';
+                document.getElementById('stripe-container').style.display = 'none';
+                button.style.display = 'none';
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                button.disabled = false;
+                errorDiv.innerHTML = `Payment failed: ${error.message}`;
+                errorDiv.style.display = 'block';
+            }
+        }
+        
+        function initializePayPal() {
+            // PayPal integration would go here
+            document.getElementById('paypal-button-container').innerHTML = `
+                <div style="padding: 20px; text-align: center; background: #f8f9fa; border-radius: 8px;">
+                    <p>PayPal integration would be initialized here</p>
+                    <button onclick="simulatePayPalPayment()" style="background: #0070ba; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+                        Demo PayPal Payment
+                    </button>
+                </div>
+            `;
+        }
+        
+        function simulatePayPalPayment() {
+            const successDiv = document.getElementById('success-message');
+            successDiv.innerHTML = `
+                <strong>PayPal Payment Successful! 🎉</strong><br>
+                Booking confirmed for Deep Cleaning service.<br>
+                Confirmation email sent to your PayPal address.<br>
+                Booking ID: #MFH${Date.now()}
+            `;
+            successDiv.style.display = 'block';
+            
+            // Hide payment form
+            document.querySelector('.payment-methods').style.display = 'none';
+            document.getElementById('paypal-container').style.display = 'none';
+        }
+        
+        // Handle card element changes
+        cardElement.on('change', function(event) {
+            const errorDiv = document.getElementById('error-message');
+            if (event.error) {
+                errorDiv.textContent = event.error.message;
+                errorDiv.style.display = 'block';
+            } else {
+                errorDiv.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+

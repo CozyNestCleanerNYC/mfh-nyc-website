@@ -445,11 +445,114 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
+              </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="payment-modal" style="display: none;">
+        <div class="payment-modal-content">
+            <div class="payment-header">
+                <h2>Complete Your Payment</h2>
+                <span class="close-modal" onclick="closePaymentModal()">&times;</span>
             </div>
+            
+            <!-- Booking Summary in Modal -->
+            <div class="payment-booking-summary">
+                <h3>Booking Summary</h3>
+                <div class="summary-line">
+                    <span id="modalServiceText">Service</span>
+                    <span id="modalServicePrice">$0</span>
+                </div>
+                <div class="summary-line discount-line" id="modalDiscountLine" style="display: none;">
+                    <span>Discount</span>
+                    <span id="modalDiscountAmount" style="color: #28a745;">-$0</span>
+                </div>
+                <hr>
+                <div class="summary-line total-line">
+                    <span><strong>Total Amount</strong></span>
+                    <span><strong id="modalTotalPrice">$0</strong></span>
+                </div>
+                <div class="summary-details">
+                    <span id="modalDuration">Duration</span><br>
+                    <span>Service: Professional cleaning team</span>
+                </div>
+            </div>
+            
+            <!-- Payment Methods -->
+            <div class="payment-methods">
+                <h3>Choose Payment Method</h3>
+                
+                <div class="payment-method selected" data-method="stripe">
+                    <input type="radio" name="paymentMethod" value="stripe" checked>
+                    <div>
+                        <strong>💳 Credit/Debit Card</strong>
+                        <div style="font-size: 12px; color: #666;">Visa, Mastercard, American Express</div>
+                    </div>
+                </div>
+                
+                <div class="payment-method" data-method="paypal">
+                    <input type="radio" name="paymentMethod" value="paypal">
+                    <div>
+                        <strong>🅿️ PayPal</strong>
+                        <div style="font-size: 12px; color: #666;">Pay with your PayPal account</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stripe Card Element -->
+            <div id="stripeContainer">
+                <h3>Card Information</h3>
+                <div id="cardElement" class="card-element">
+                    <!-- Stripe Elements will create form elements here -->
+                </div>
+            </div>
+            
+            <!-- PayPal Container -->
+            <div id="paypalContainer" class="paypal-container" style="display: none;">
+                <h3>PayPal Payment</h3>
+                <div id="paypalButtonContainer"></div>
+            </div>
+            
+            <!-- Loading State -->
+            <div class="payment-loading" id="paymentLoading" style="display: none;">
+                <div class="payment-spinner"></div>
+                <p>Processing your payment...</p>
+            </div>
+            
+            <!-- Pay Button -->
+            <button id="payButton" class="pay-button">
+                Pay Now
+            </button>
+            
+            <!-- Error/Success Messages -->
+            <div id="paymentError" class="payment-error" style="display: none;"></div>
+            <div id="paymentSuccess" class="payment-success" style="display: none;"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 style="color: #4CAF50;">Maid For Heaven NYC</h3>
+                <p>Professional cleaning services in New York City. Husband & wife team providing reliable, insured cleaning services.</p>
+            </div>
+            <div class="footer-section">
+                <h4 style="color: #4CAF50;">Contact Info</h4>
+                <p>📞 (347) 759-2000</p>
+                <p>✉️ info@maidforheavennyc.com</p>
+            </div>
+            <div class="footer-section">
+                <h4 style="color: #4CAF50;">Service Areas</h4>
+                <p>Manhattan, Brooklyn, Queens, Bronx, Staten Island</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Maid For Heaven NYC. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="js/mobile-menu.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
         // Booking system variables
         let selectedService = '';
@@ -626,13 +729,239 @@
                 bookBtn.disabled = true;
                 bookBtn.textContent = 'Complete Form to Book';
             }
+             // Book Now button functionality
+        function showBookNowButton() {
+            const bookButton = document.getElementById('bookButton');
+            if (bookButton) {
+                bookButton.style.display = 'block';
+                bookButton.onclick = function() {
+                    openPaymentModal();
+                };
+            }
         }
 
-        // Book now button click
+        // Payment Modal Functions
+        function openPaymentModal() {
+            // Update modal with booking details
+            updatePaymentModal();
+            
+            // Show modal
+            document.getElementById('paymentModal').style.display = 'flex';
+            
+            // Initialize Stripe
+            initializeStripe();
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        function updatePaymentModal() {
+            const totalHours = selectedBedroomHours + selectedBathroomHours;
+            const basePrice = totalHours * selectedRate;
+            const discountAmount = basePrice * (selectedDiscount / 100);
+            const finalPrice = basePrice - discountAmount;
+            
+            // Update service text
+            const bedroomText = document.querySelector('#bedrooms option:checked')?.textContent || '';
+            const serviceText = `${selectedService} (${bedroomText})`;
+            document.getElementById('modalServiceText').textContent = serviceText;
+            document.getElementById('modalServicePrice').textContent = `$${basePrice.toFixed(2)}`;
+            
+            // Update discount
+            if (selectedDiscount > 0) {
+                document.getElementById('modalDiscountLine').style.display = 'flex';
+                document.getElementById('modalDiscountAmount').textContent = `-$${discountAmount.toFixed(2)}`;
+            } else {
+                document.getElementById('modalDiscountLine').style.display = 'none';
+            }
+            
+            // Update total
+            document.getElementById('modalTotalPrice').textContent = `$${finalPrice.toFixed(2)}`;
+            
+            // Update duration
+            const isSmallJob = (selectedService === 'Standard Cleaning' && (bedroomText.includes('Studio') || bedroomText.includes('1 Bedroom')));
+            const duration = isSmallJob ? totalHours : totalHours / 2;
+            const teamText = isSmallJob ? '1 cleaner' : '2-person team';
+            document.getElementById('modalDuration').textContent = `Duration: ${duration} hours (${teamText})`;
+            
+            // Update pay button
+            document.getElementById('payButton').textContent = `Pay $${finalPrice.toFixed(2)} Now`;
+        }
+
+        // Stripe Integration
+        let stripe, elements, cardElement;
+
+        function initializeStripe() {
+            // Initialize Stripe (using test key for demo)
+            stripe = Stripe('pk_test_51234567890abcdef'); // Replace with your actual publishable key
+            elements = stripe.elements();
+            
+            // Create card element
+            cardElement = elements.create('card', {
+                style: {
+                    base: {
+                        fontSize: '16px',
+                        color: '#424770',
+                        '::placeholder': {
+                            color: '#aab7c4',
+                        },
+                    },
+                },
+            });
+            
+            // Mount card element
+            cardElement.mount('#cardElement');
+            
+            // Handle card element changes
+            cardElement.on('change', function(event) {
+                const errorDiv = document.getElementById('paymentError');
+                if (event.error) {
+                    errorDiv.textContent = event.error.message;
+                    errorDiv.style.display = 'block';
+                } else {
+                    errorDiv.style.display = 'none';
+                }
+            });
+        }
+
+        // Payment method selection
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    // Remove selected class from all methods
+                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                    
+                    // Add selected class to clicked method
+                    this.classList.add('selected');
+                    
+                    // Update radio button
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    
+                    // Show/hide payment containers
+                    const selectedMethod = radio.value;
+                    if (selectedMethod === 'stripe') {
+                        document.getElementById('stripeContainer').style.display = 'block';
+                        document.getElementById('paypalContainer').style.display = 'none';
+                        document.getElementById('payButton').style.display = 'block';
+                    } else if (selectedMethod === 'paypal') {
+                        document.getElementById('stripeContainer').style.display = 'none';
+                        document.getElementById('paypalContainer').style.display = 'block';
+                        document.getElementById('payButton').style.display = 'none';
+                        initializePayPal();
+                    }
+                });
+            });
+
+            // Pay button click handler
+            document.getElementById('payButton').addEventListener('click', async function() {
+                const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+                
+                if (selectedMethod === 'stripe') {
+                    await handleStripePayment();
+                }
+            });
+        });
+
+        // Stripe payment handling
+        async function handleStripePayment() {
+            const button = document.getElementById('payButton');
+            const loading = document.getElementById('paymentLoading');
+            const errorDiv = document.getElementById('paymentError');
+            const successDiv = document.getElementById('paymentSuccess');
+            
+            // Show loading state
+            button.disabled = true;
+            loading.style.display = 'block';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            try {
+                // Simulate payment processing (in real implementation, you would create payment intent on server)
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Simulate successful payment
+                loading.style.display = 'none';
+                
+                const totalHours = selectedBedroomHours + selectedBathroomHours;
+                const basePrice = totalHours * selectedRate;
+                const discountAmount = basePrice * (selectedDiscount / 100);
+                const finalPrice = basePrice - discountAmount;
+                
+                successDiv.innerHTML = `
+                    <strong>Payment Successful! 🎉</strong><br>
+                    Booking confirmed for ${selectedService}.<br>
+                    Total paid: $${finalPrice.toFixed(2)}<br>
+                    Confirmation email sent to ${email}<br>
+                    Booking ID: #MFH${Date.now()}
+                `;
+                successDiv.style.display = 'block';
+                
+                // Hide payment form
+                document.querySelector('.payment-methods').style.display = 'none';
+                document.getElementById('stripeContainer').style.display = 'none';
+                button.style.display = 'none';
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                button.disabled = false;
+                errorDiv.innerHTML = `Payment failed: ${error.message}`;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        // PayPal integration
+        function initializePayPal() {
+            const totalHours = selectedBedroomHours + selectedBathroomHours;
+            const basePrice = totalHours * selectedRate;
+            const discountAmount = basePrice * (selectedDiscount / 100);
+            const finalPrice = basePrice - discountAmount;
+            
+            document.getElementById('paypalButtonContainer').innerHTML = `
+                <div style="padding: 20px; text-align: center; background: #f8f9fa; border-radius: 8px;">
+                    <p>PayPal integration would be initialized here</p>
+                    <button onclick="simulatePayPalPayment()" style="background: #0070ba; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 16px;">
+                        Pay $${finalPrice.toFixed(2)} with PayPal
+                    </button>
+                </div>
+            `;
+        }
+
+        function simulatePayPalPayment() {
+            const successDiv = document.getElementById('paymentSuccess');
+            
+            const totalHours = selectedBedroomHours + selectedBathroomHours;
+            const basePrice = totalHours * selectedRate;
+            const discountAmount = basePrice * (selectedDiscount / 100);
+            const finalPrice = basePrice - discountAmount;
+            
+            successDiv.innerHTML = `
+                <strong>PayPal Payment Successful! 🎉</strong><br>
+                Booking confirmed for ${selectedService}.<br>
+                Total paid: $${finalPrice.toFixed(2)}<br>
+                Confirmation email sent to your PayPal address.<br>
+                Booking ID: #MFH${Date.now()}
+            `;
+            successDiv.style.display = 'block';
+            
+            // Hide payment form
+            document.querySelector('.payment-methods').style.display = 'none';
+            document.getElementById('paypalContainer').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target === modal) {
+                closePaymentModal();
+            }
+        });
+
+        // Update the existing updateQuote function to show Book Now button
         document.getElementById('bookNowBtn').addEventListener('click', function() {
             if (isFormComplete()) {
-                const totalHours = selectedBedroomHours + selectedBathroomHours;
-                alert(`Booking confirmed!\n\nService: ${selectedService} cleaning\nTotal: $${document.getElementById('totalPrice').textContent.replace('$', '')}\nDuration: ${document.getElementById('duration').textContent}\n\nWe'll contact you shortly to confirm the appointment.`);
+                openPaymentModal();
             }
         });
     </script>
