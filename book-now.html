@@ -627,20 +627,20 @@
 
     <script src="js/mobile-menu.js"></script>
     <script>
-        // Initialize variables
-        let selectedService = '';
-        let selectedRate = 0;
-        let selectedBedroomHours = 0;
-        let selectedBathroomHours = 0;
-        let selectedDiscount = 0;
-        let address = '';
-        let fullName = '';
-        let email = '';
-        let phone = '';
+        // Initialize variables globally
+        window.selectedService = '';
+        window.selectedRate = 0;
+        window.selectedBedroomHours = 0;
+        window.selectedBathroomHours = 0;
+        window.selectedDiscount = 0;
+        window.address = '';
+        window.fullName = '';
+        window.email = '';
+        window.phone = '';
 
-        // Wait for DOM to load
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing booking system...');
+        // Initialize immediately and also on DOM load
+        function initializeBookingSystem() {
+            console.log('Initializing booking system...');
             
             // Service selection
             document.querySelectorAll('.service-option').forEach(option => {
@@ -653,11 +653,11 @@
                     // Add selection to clicked option
                     this.classList.add('selected');
                     
-                    // Update variables
-                    selectedService = this.dataset.service;
-                    selectedRate = parseInt(this.dataset.rate);
+                    // Update global variables
+                    window.selectedService = this.dataset.service;
+                    window.selectedRate = parseInt(this.dataset.rate);
                     
-                    console.log('Selected service:', selectedService, 'Rate:', selectedRate);
+                    console.log('Selected service:', window.selectedService, 'Rate:', window.selectedRate);
                     
                     // Recalculate bedroom hours based on new service type
                     const bedroomsSelect = document.getElementById('bedrooms');
@@ -678,8 +678,8 @@
             // Bathroom selection
             document.getElementById('bathrooms').addEventListener('change', function() {
                 const bathroomCount = parseInt(this.value) || 0;
-                selectedBathroomHours = bathroomCount * 0.5; // 0.5 hours per bathroom
-                console.log('Bathroom hours:', selectedBathroomHours);
+                window.selectedBathroomHours = bathroomCount * 0.5; // 0.5 hours per bathroom
+                console.log('Bathroom hours:', window.selectedBathroomHours);
                 updateQuote();
             });
 
@@ -691,29 +691,29 @@
                     'biweekly': 25,
                     'weekly': 30
                 };
-                selectedDiscount = discountMap[this.value] || 0;
-                console.log('Discount:', selectedDiscount);
+                window.selectedDiscount = discountMap[this.value] || 0;
+                console.log('Discount:', window.selectedDiscount);
                 updateQuote();
             });
 
             // Form inputs
             document.getElementById('address').addEventListener('input', function() {
-                address = this.value;
+                window.address = this.value;
                 updateQuote();
             });
 
             document.getElementById('fullName').addEventListener('input', function() {
-                fullName = this.value;
+                window.fullName = this.value;
                 updateQuote();
             });
 
             document.getElementById('email').addEventListener('input', function() {
-                email = this.value;
+                window.email = this.value;
                 updateQuote();
             });
 
             document.getElementById('phone').addEventListener('input', function() {
-                phone = this.value;
+                window.phone = this.value;
                 updateQuote();
             });
 
@@ -738,11 +738,18 @@
             document.getElementById('payButton').addEventListener('click', function() {
                 simulatePayment();
             });
-        });
+        }
+
+        // Initialize immediately if DOM is already loaded, otherwise wait for DOM load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeBookingSystem);
+        } else {
+            initializeBookingSystem();
+        }
 
         function updateBedroomHours(value) {
             let hoursMap;
-            if (selectedService === 'deep' || selectedService === 'moveout') {
+            if (window.selectedService === 'deep' || window.selectedService === 'moveout') {
                 // Deep cleaning and move-out have different base hours
                 hoursMap = {
                     'studio': 3,    // 3 hours for studio
@@ -764,22 +771,22 @@
                 };
             }
             
-            selectedBedroomHours = hoursMap[value] || 0;
-            console.log('Bedroom hours:', selectedBedroomHours, 'for', value, 'with service', selectedService);
+            window.selectedBedroomHours = hoursMap[value] || 0;
+            console.log('Bedroom hours:', window.selectedBedroomHours, 'for', value, 'with service', window.selectedService);
         }
 
         function updateQuote() {
             console.log('Updating quote...');
             
-            if (!selectedService || !selectedBedroomHours) {
+            if (!window.selectedService || !window.selectedBedroomHours) {
                 document.getElementById('quoteDisplay').style.display = 'none';
                 updateBookButton();
                 return;
             }
 
-            const totalHours = selectedBedroomHours + selectedBathroomHours;
-            const basePrice = totalHours * selectedRate;
-            const discountAmount = basePrice * (selectedDiscount / 100);
+            const totalHours = window.selectedBedroomHours + window.selectedBathroomHours;
+            const basePrice = totalHours * window.selectedRate;
+            const discountAmount = basePrice * (window.selectedDiscount / 100);
             const finalPrice = basePrice - discountAmount;
 
             console.log('Quote calculation:', {
@@ -791,13 +798,13 @@
 
             // Update service text
             const bedroomText = document.querySelector('#bedrooms option:checked')?.textContent || '';
-            const serviceText = `${selectedService.charAt(0).toUpperCase() + selectedService.slice(1)} Cleaning (${bedroomText})`;
+            const serviceText = `${window.selectedService.charAt(0).toUpperCase() + window.selectedService.slice(1)} Cleaning (${bedroomText})`;
             
             document.getElementById('serviceText').textContent = serviceText;
             document.getElementById('servicePrice').textContent = `$${basePrice.toFixed(2)}`;
 
             // Update discount
-            if (selectedDiscount > 0) {
+            if (window.selectedDiscount > 0) {
                 document.getElementById('discountLine').style.display = 'flex';
                 document.getElementById('discountAmount').textContent = `-$${discountAmount.toFixed(2)}`;
             } else {
@@ -808,7 +815,7 @@
             document.getElementById('totalPrice').textContent = `$${finalPrice.toFixed(2)}`;
 
             // Update duration
-            const isSmallJob = (selectedService === 'standard' && (bedroomText.includes('Studio') || bedroomText.includes('1 Bedroom')));
+            const isSmallJob = (window.selectedService === 'standard' && (bedroomText.includes('Studio') || bedroomText.includes('1 Bedroom')));
             const duration = isSmallJob ? totalHours : totalHours / 2;
             const teamText = isSmallJob ? '1 cleaner' : '2-person team';
             document.getElementById('duration').textContent = `Duration: ${duration} hours (${teamText})`;
@@ -821,7 +828,7 @@
         }
 
         function isFormComplete() {
-            return selectedService && selectedBedroomHours && address && fullName && email && phone;
+            return window.selectedService && window.selectedBedroomHours && window.address && window.fullName && window.email && window.phone;
         }
 
         function updateBookButton() {
