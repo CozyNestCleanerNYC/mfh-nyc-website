@@ -440,6 +440,23 @@
                     </select>
                 </div>
 
+                <!-- Preferred Date -->
+                <div class="form-group">
+                    <label>Preferred Date</label>
+                    <input type="date" id="preferredDate" min="" required>
+                </div>
+
+                <!-- Preferred Time -->
+                <div class="form-group">
+                    <label>Preferred Time</label>
+                    <select id="preferredTime" required>
+                        <option value="">Select preferred time</option>
+                        <option value="morning">Morning (9 AM - 12 PM)</option>
+                        <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+                        <option value="evening">Evening (5 PM - 8 PM)</option>
+                    </select>
+                </div>
+
                 <!-- Cleaning Frequency -->
                 <div class="form-group">
                     <label>Cleaning Frequency</label>
@@ -499,6 +516,7 @@
                     </div>
                     <div class="quote-details">
                         <p id="duration">Duration: Select options above</p>
+                        <p id="scheduledDateTime" style="display: none;">Scheduled: <span id="dateTimeText"></span></p>
                         <p>Service: Professional cleaning team</p>
                     </div>
                 </div>
@@ -633,6 +651,8 @@
         window.selectedBedroomHours = 0;
         window.selectedBathroomHours = 0;
         window.selectedDiscount = 0;
+        window.preferredDate = '';
+        window.preferredTime = '';
         window.address = '';
         window.fullName = '';
         window.email = '';
@@ -641,6 +661,10 @@
         // Initialize immediately and also on DOM load
         function initializeBookingSystem() {
             console.log('Initializing booking system...');
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('preferredDate').min = today;
             
             // Service selection
             document.querySelectorAll('.service-option').forEach(option => {
@@ -693,6 +717,19 @@
                 };
                 window.selectedDiscount = discountMap[this.value] || 0;
                 console.log('Discount:', window.selectedDiscount);
+                updateQuote();
+            });
+
+            // Date and Time selection
+            document.getElementById('preferredDate').addEventListener('change', function() {
+                window.preferredDate = this.value;
+                console.log('Preferred date:', window.preferredDate);
+                updateQuote();
+            });
+
+            document.getElementById('preferredTime').addEventListener('change', function() {
+                window.preferredTime = this.value;
+                console.log('Preferred time:', window.preferredTime);
                 updateQuote();
             });
 
@@ -820,6 +857,27 @@
             const teamText = isSmallJob ? '1 cleaner' : '2-person team';
             document.getElementById('duration').textContent = `Duration: ${duration} hours (${teamText})`;
 
+            // Update scheduling information
+            if (window.preferredDate && window.preferredTime) {
+                const dateObj = new Date(window.preferredDate);
+                const dateStr = dateObj.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                const timeMap = {
+                    'morning': 'Morning (9 AM - 12 PM)',
+                    'afternoon': 'Afternoon (12 PM - 5 PM)',
+                    'evening': 'Evening (5 PM - 8 PM)'
+                };
+                const timeStr = timeMap[window.preferredTime] || window.preferredTime;
+                document.getElementById('dateTimeText').textContent = `${dateStr}, ${timeStr}`;
+                document.getElementById('scheduledDateTime').style.display = 'block';
+            } else {
+                document.getElementById('scheduledDateTime').style.display = 'none';
+            }
+
             // Show quote
             document.getElementById('quoteDisplay').style.display = 'block';
 
@@ -828,7 +886,7 @@
         }
 
         function isFormComplete() {
-            return window.selectedService && window.selectedBedroomHours && window.address && window.fullName && window.email && window.phone;
+            return window.selectedService && window.selectedBedroomHours && window.preferredDate && window.preferredTime && window.address && window.fullName && window.email && window.phone;
         }
 
         function updateBookButton() {
