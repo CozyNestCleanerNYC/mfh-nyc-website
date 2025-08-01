@@ -1363,8 +1363,24 @@
                 bookBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
             } else {
                 bookBtn.disabled = true;
-                bookBtn.textContent = 'Complete Form to Book';
-                bookBtn.style.background = '#ccc';
+                
+                // Provide specific feedback about what's missing
+                let missingItems = [];
+                if (!window.selectedService) missingItems.push('Service Type');
+                if (!window.selectedBedroomHours) missingItems.push('Bedrooms');
+                if (!window.preferredDate) missingItems.push('Date');
+                if (!window.preferredTime) missingItems.push('Time');
+                if (!window.address) missingItems.push('Address');
+                if (!window.fullName) missingItems.push('Name');
+                if (!window.email) missingItems.push('Email');
+                if (!window.phone) missingItems.push('Phone');
+                
+                if (missingItems.length > 0) {
+                    bookBtn.textContent = `Complete: ${missingItems.join(', ')}`;
+                } else {
+                    bookBtn.textContent = 'Complete Form to Book';
+                }
+                bookBtn.style.background = '#cccccc';
             }
         }
 
