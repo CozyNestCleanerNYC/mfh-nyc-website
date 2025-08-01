@@ -1299,6 +1299,9 @@
 
             // Update total
             document.getElementById('totalPrice').textContent = `$${finalPrice.toFixed(2)}`;
+            
+            // Store the actual price value for use in payment button
+            window.totalPrice = finalPrice;
 
             // Update duration
             const isSmallJob = (window.selectedService === 'standard' && (bedroomText.includes('Studio') || bedroomText.includes('1 Bedroom')));
@@ -1391,7 +1394,12 @@
             document.getElementById('modalDuration').textContent = `Duration: ${duration} hours (${teamText})`;
             
             // Update pay button
-            document.getElementById('payButton').textContent = `Pay $${finalPrice.toFixed(2)} Now`;
+            const selectedPaymentMethod = document.querySelector('input[name="payment"]:checked');
+            if (selectedPaymentMethod && selectedPaymentMethod.value === 'venmo-zelle') {
+                document.getElementById('payButton').textContent = 'Book Now and Pay Later';
+            } else {
+                document.getElementById('payButton').textContent = `Pay $${finalPrice.toFixed(2)} Now`;
+            }
         }
 
         async function simulatePayment() {
