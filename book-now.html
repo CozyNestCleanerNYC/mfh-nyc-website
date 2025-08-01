@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Now - Instant Quote & Payment | Maid For Heaven NYC</title>
     <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">
-    <script src="calendar-integration.js"></script>
     <style>
         /* Booking Page Specific Styles */
         .booking-container {
@@ -1223,6 +1222,20 @@
             const modal = document.getElementById('paymentModal');
             if (event.target === modal) {
                 closePaymentModal();
+            }
+        });
+    </script>
+    
+    <!-- Calendar Integration Script -->
+    <script src="calendar-integration.js" defer></script>
+    <script>
+        // Ensure calendar integration is loaded before initializing
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.calendarIntegration) {
+                console.log('Calendar integration loaded successfully');
+                window.calendarIntegration.initialize();
+            } else {
+                console.error('Calendar integration failed to load');
             }
         });
     </script>

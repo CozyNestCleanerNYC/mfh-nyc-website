@@ -63,29 +63,28 @@ class CalendarIntegration {
     initializeMockData() {
         console.log('Using mock calendar data for testing');
         
-        // Mock existing appointments - replace with your actual calendar data
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
+        // Mock existing appointments - August 2, 2025 (tomorrow)
+        const tomorrow = new Date('2025-08-02');
         
         this.existingAppointments = [
             {
                 id: 'mock-1',
                 summary: 'Cleaning Appointment',
                 start: {
-                    dateTime: new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 16, 0).toISOString() // 4 PM EST tomorrow
+                    dateTime: new Date(2025, 7, 2, 16, 0).toISOString() // 4 PM EST August 2, 2025
                 },
                 end: {
-                    dateTime: new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 19, 0).toISOString() // 7 PM EST tomorrow
+                    dateTime: new Date(2025, 7, 2, 19, 0).toISOString() // 7 PM EST August 2, 2025
                 }
             },
             {
                 id: 'mock-2',
                 summary: 'Deep Cleaning Service',
                 start: {
-                    dateTime: new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 9, 0).toISOString() // 9 AM EST tomorrow
+                    dateTime: new Date(2025, 7, 2, 9, 0).toISOString() // 9 AM EST August 2, 2025
                 },
                 end: {
-                    dateTime: new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 12, 0).toISOString() // 12 PM EST tomorrow
+                    dateTime: new Date(2025, 7, 2, 12, 0).toISOString() // 12 PM EST August 2, 2025
                 }
             }
         ];
