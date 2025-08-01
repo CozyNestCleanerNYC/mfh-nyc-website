@@ -29,8 +29,8 @@ class CalendarIntegration {
                 gapi.load('client:auth2', async () => {
                     try {
                         await gapi.client.init({
-                            // Using a demo client ID for quick setup - in production, you'd use your own
-                            clientId: '407408718192.apps.googleusercontent.com', // Google's demo client ID
+                            apiKey: window.GOOGLE_CALENDAR_API_KEY || 'YOUR_API_KEY_HERE', // Set via environment or config
+                            clientId: window.GOOGLE_CALENDAR_CLIENT_ID || 'YOUR_CLIENT_ID_HERE', // Set via environment or config
                             discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
                             scope: 'https://www.googleapis.com/auth/calendar.readonly'
                         });
