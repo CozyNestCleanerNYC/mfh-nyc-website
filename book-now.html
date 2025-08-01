@@ -1036,6 +1036,16 @@
                     this.style.background = '#f8fff8';
                     const radio = this.querySelector('input[type="radio"]');
                     radio.checked = true;
+                    
+                    // Update pay button text based on payment method
+                    const payButton = document.getElementById('payButton');
+                    if (radio.value === 'venmo-zelle') {
+                        payButton.textContent = 'Book Now and Pay Later';
+                        payButton.style.background = '#2196F3'; // Blue color for "pay later"
+                    } else {
+                        payButton.textContent = `Pay $${window.totalPrice || '148.75'} Now`;
+                        payButton.style.background = '#4CAF50'; // Green color for immediate payment
+                    }
                 });
             });
 
@@ -1367,19 +1377,36 @@
         }
 
         function simulatePayment() {
+            const selectedPaymentMethod = document.querySelector('input[name="payment"]:checked');
             const successDiv = document.getElementById('paymentSuccess');
             const totalHours = selectedBedroomHours + selectedBathroomHours;
             const basePrice = totalHours * selectedRate;
             const discountAmount = basePrice * (selectedDiscount / 100);
             const finalPrice = basePrice - discountAmount;
             
-            successDiv.innerHTML = `
-                <strong>Payment Successful! 🎉</strong><br>
-                Booking confirmed for ${selectedService} cleaning.<br>
-                Total paid: $${finalPrice.toFixed(2)}<br>
-                Confirmation email sent to ${email}<br>
-                Booking ID: #MFH${Date.now()}
-            `;
+            if (selectedPaymentMethod && selectedPaymentMethod.value === 'venmo-zelle') {
+                // Handle Venmo/Zelle - Book now, pay later
+                successDiv.innerHTML = `
+                    <strong>Booking Confirmed! 📅</strong><br>
+                    Your ${selectedService} cleaning is scheduled.<br>
+                    <strong>Payment Instructions:</strong><br>
+                    Please send $${finalPrice.toFixed(2)} via Venmo or Zelle to:<br>
+                    <strong>Venmo:</strong> @MaidForHeavenNYC<br>
+                    <strong>Zelle:</strong> payments@maidforheavennyc.com<br>
+                    Confirmation email sent to ${email}<br>
+                    Booking ID: #MFH${Date.now()}
+                `;
+            } else {
+                // Handle Credit Card/PayPal - Immediate payment
+                successDiv.innerHTML = `
+                    <strong>Payment Successful! 🎉</strong><br>
+                    Booking confirmed for ${selectedService} cleaning.<br>
+                    Total paid: $${finalPrice.toFixed(2)}<br>
+                    Confirmation email sent to ${email}<br>
+                    Booking ID: #MFH${Date.now()}
+                `;
+            }
+            
             successDiv.style.display = 'block';
             
             // Hide payment form
