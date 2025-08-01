@@ -198,6 +198,83 @@
         }
         
         /* Calendar Conflict Detection Styles */
+        /* Payment Method Styles */
+        .payment-methods {
+            margin: 25px 0;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+        
+        .payment-method:hover {
+            border-color: #4CAF50 !important;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .payment-method.selected {
+            border-color: #4CAF50 !important;
+            background: #f8fff8 !important;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .payment-method input[type="radio"] {
+            width: auto;
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+        
+        /* Payment Modal Styles */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .payment-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .pay-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .pay-button:hover {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
         .conflict-container {
             margin: 15px 0;
         }
@@ -749,21 +826,38 @@
             
             <!-- Payment Methods -->
             <div class="payment-methods">
-                <h3>Choose Payment Method</h3>
+                <h3 style="margin-bottom: 20px; color: #333; font-size: 1.3rem;">Choose Payment Method</h3>
                 
-                <div class="payment-method selected" data-method="stripe">
-                    <input type="radio" name="paymentMethod" value="stripe" checked>
-                    <div>
-                        <strong>💳 Credit/Debit Card</strong>
-                        <div style="font-size: 12px; color: #666;">Visa, Mastercard, American Express</div>
+                <div class="payment-method selected" data-method="stripe" style="border: 2px solid #4CAF50; background: #f8fff8;">
+                    <input type="radio" name="paymentMethod" value="stripe" checked style="margin-right: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="font-size: 2rem;">💳</div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 1.1rem; color: #333;">Credit/Debit Card</div>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 2px;">Visa, Mastercard, American Express</div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="payment-method" data-method="paypal">
-                    <input type="radio" name="paymentMethod" value="paypal">
-                    <div>
-                        <strong>🅿️ PayPal</strong>
-                        <div style="font-size: 12px; color: #666;">Pay with your PayPal account</div>
+                <div class="payment-method" data-method="paypal" style="border: 2px solid #ddd; background: white; margin-top: 15px;">
+                    <input type="radio" name="paymentMethod" value="paypal" style="margin-right: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="font-size: 2rem;">🅿️</div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 1.1rem; color: #333;">PayPal</div>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 2px;">Pay with your PayPal account</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="payment-method" data-method="venmo-zelle" style="border: 2px solid #ddd; background: white; margin-top: 15px;">
+                    <input type="radio" name="paymentMethod" value="venmo-zelle" style="margin-right: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="font-size: 2rem;">📱</div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 1.1rem; color: #333;">Venmo / Zelle</div>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 2px;">Quick mobile payment options</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -932,8 +1026,14 @@
             // Payment method selection
             document.querySelectorAll('.payment-method').forEach(method => {
                 method.addEventListener('click', function() {
-                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                    document.querySelectorAll('.payment-method').forEach(m => {
+                        m.classList.remove('selected');
+                        m.style.border = '2px solid #ddd';
+                        m.style.background = 'white';
+                    });
                     this.classList.add('selected');
+                    this.style.border = '2px solid #4CAF50';
+                    this.style.background = '#f8fff8';
                     const radio = this.querySelector('input[type="radio"]');
                     radio.checked = true;
                 });
