@@ -47,28 +47,22 @@
         }
         
         if (result.has_conflicts) {
-            let html = `<div style="background: #fff3cd; padding: 15px; border: 1px solid #ffeaa7; border-radius: 5px;">
-                <h4 style="margin: 0 0 10px 0; color: #856404;">⚠️ Time slot conflict detected!</h4>
-                <p style="margin: 0 0 10px 0;">You already have ${result.conflicts.length} appointment(s) during this time:</p>
-                <ul style="margin: 0 0 15px 0;">`;
+            console.log('🚨 Conflict detected!');
             
-            result.conflicts.forEach(conflict => {
-                html += `<li><strong>${conflict.summary}</strong> (${conflict.start} - ${conflict.end})</li>`;
-            });
-            
-            html += '</ul>';
-            
-            if (result.alternatives && result.alternatives.length > 0) {
-                html += '<p style="margin: 0 0 10px 0; color: #155724;"><strong>✅ Available alternative time slots for this date:</strong></p>';
-                result.alternatives.forEach(alt => {
-                    if (alt.available) {
-                        html += `<button onclick="selectAlternativeTime('${alt.slot}')" style="margin: 5px 5px 5px 0; padding: 8px 12px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">${alt.display}</button>`;
-                    }
-                });
-            }
-            
-            html += '</div>';
-            container.innerHTML = html;
+            // Show generic conflict warning without private details
+            container.innerHTML = `
+                <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                    <h4 style="color: #856404; margin: 0 0 10px 0;">⚠️ Time slot conflict detected!</h4>
+                    <p>This time slot is not available. Please select an alternative time.</p>
+                    <p style="margin-top: 15px;"><strong>✅ Available alternative time slots for this date:</strong></p>
+                    ${result.alternatives.map(alt => `
+                        <button onclick="selectAlternativeTime('${alt.slot}')" style="margin: 5px; padding: 8px 15px; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer;">
+                            ${alt.display}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            container.style.display = 'block';
             
             // Disable booking button
             const bookButton = document.querySelector('button[type="submit"], button:contains("Book"), .book-button, #payButton');
