@@ -49,6 +49,30 @@
             font-weight: 600;
         }
 
+        /* Contact Person Styling */
+        .contact-person-item .person-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .person-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .person-email {
+            color: #4CAF50;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .person-email:hover {
+            text-decoration: underline;
+        }
+
         .contact-item p {
             margin: 0;
             color: #666;
@@ -387,6 +411,20 @@
                                 <i class="fas fa-info-circle"></i>
                                 Emergency cleaning services available upon request
                             </p>
+                        </div>
+                    </div>
+
+                    <!-- Contact Person Info -->
+                    <div class="contact-item contact-person-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h4>Contact Person</h4>
+                            <div class="contact-person-details">
+                                <div class="person-info">
+                                    <span class="person-name">Orhans Cleaning Manager</span>
+                                    <span class="person-email">orhans@maidforheavennyc.com</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
