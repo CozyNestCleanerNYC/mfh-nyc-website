@@ -1424,33 +1424,46 @@
     <script>
         // Initialize backend calendar integration
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🔑 Backend calendar integration initialized');
+            alert('🔑 Calendar integration starting...');
             
             // Add conflict detection to date and time changes
             const dateInput = document.getElementById('preferredDate');
             const timeSelect = document.getElementById('preferredTime');
+            
+            alert(`Found elements - Date: ${!!dateInput}, Time: ${!!timeSelect}`);
             
             if (dateInput && timeSelect) {
                 const checkConflicts = async function() {
                     const date = dateInput.value;
                     const timeSlot = timeSelect.value;
                     
-                    console.log(`🔍 Checking conflicts for date: ${date}, time: ${timeSlot}`);
+                    alert(`🔍 Checking conflicts for date: ${date}, time: ${timeSlot}`);
                     
                     if (date && timeSlot) {
-                        const result = await window.checkCalendarConflicts(date, timeSlot);
-                        window.displayConflictResults(result);
+                        try {
+                            alert('📞 Calling backend API...');
+                            const result = await window.checkCalendarConflicts(date, timeSlot);
+                            alert(`📋 API Result: ${JSON.stringify(result)}`);
+                            window.displayConflictResults(result);
+                        } catch (error) {
+                            alert(`❌ Error: ${error.message}`);
+                        }
                     }
                 };
                 
-                dateInput.addEventListener('change', checkConflicts);
-                timeSelect.addEventListener('change', checkConflicts);
+                dateInput.addEventListener('change', function() {
+                    alert('📅 Date changed!');
+                    checkConflicts();
+                });
                 
-                console.log('✅ Calendar conflict detection enabled for preferredDate and preferredTime');
+                timeSelect.addEventListener('change', function() {
+                    alert('⏰ Time changed!');
+                    checkConflicts();
+                });
+                
+                alert('✅ Event listeners attached successfully');
             } else {
-                console.error('❌ Could not find date or time input fields');
-                console.log('Date input:', dateInput);
-                console.log('Time select:', timeSelect);
+                alert('❌ Could not find date or time input fields');
             }
         });
     </script>
