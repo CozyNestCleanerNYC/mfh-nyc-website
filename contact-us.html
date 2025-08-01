@@ -49,27 +49,17 @@
             font-weight: 600;
         }
 
-        /* Contact Person Styling */
-        .contact-person-item .person-info {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .person-name {
-            font-weight: 600;
-            color: #333;
-            font-size: 1rem;
-        }
-
-        .person-email {
+        /* Clean Contact Link Styling */
+        .contact-link {
             color: #4CAF50;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 1rem;
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
-        .person-email:hover {
+        .contact-link:hover {
+            color: #45a049;
             text-decoration: underline;
         }
 
@@ -414,17 +404,21 @@
                         </div>
                     </div>
 
-                    <!-- Contact Person Info -->
-                    <div class="contact-item contact-person-item">
-                        <i class="fas fa-user"></i>
+                    <!-- Phone Contact Info -->
+                    <div class="contact-item phone-contact-item">
+                        <i class="fas fa-phone"></i>
                         <div>
-                            <h4>Contact Person</h4>
-                            <div class="contact-person-details">
-                                <div class="person-info">
-                                    <span class="person-name">Orhans Cleaning Manager</span>
-                                    <span class="person-email">orhans@maidforheavennyc.com</span>
-                                </div>
-                            </div>
+                            <h4>Phone</h4>
+                            <a href="tel:+13477592000" class="contact-link">(347) 759-2000</a>
+                        </div>
+                    </div>
+
+                    <!-- Email Contact Info -->
+                    <div class="contact-item email-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:orhans@maidforheavennyc.com" class="contact-link">orhans@maidforheavennyc.com</a>
                         </div>
                     </div>
                 </div>
