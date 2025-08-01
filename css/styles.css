@@ -82,7 +82,11 @@ img {
     position: relative;
 }
 
-/* Logo Styling */
+/* Logo Styling - Left aligned */
+.nav-brand {
+    flex: 0 0 auto;
+}
+
 .nav-brand a {
     text-decoration: none;
     font-family: 'Poppins', 'Arial', sans-serif;
@@ -99,22 +103,7 @@ img {
     color: #4CAF50;
 }
 
-.footer-logo-text {
-    color: white !important;
-    font-size: 22px;
-}
-
-.footer-logo-text:hover {
-    color: #4CAF50 !important;
-}
-
-.logo img {
-    height: 80px;
-    max-width: 300px;
-    object-fit: contain;
-}
-
-/* Navigation Menu - Improved alignment */
+/* Navigation Menu - Center aligned */
 .nav-menu {
     display: flex;
     list-style: none !important;
@@ -122,12 +111,8 @@ img {
     padding: 0 !important;
     gap: 25px !important;
     align-items: center !important;
-}
-
-.nav-menu li {
-    margin: 0 !important;
-    padding: 0 !important;
-    display: inline-block !important;
+    flex: 1;
+    justify-content: center;
 }
 
 .nav-menu a {
@@ -166,7 +151,11 @@ img {
     width: 80% !important;
 }
 
-/* Phone link styling */
+/* Contact section - Right aligned */
+.nav-contact {
+    flex: 0 0 auto;
+}
+
 .phone-link {
     background: linear-gradient(135deg, #4CAF50, #45a049) !important;
     color: white !important;
@@ -184,6 +173,23 @@ img {
     transform: translateY(-1px) !important;
     box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3) !important;
 }
+
+.footer-logo-text {
+    color: white !important;
+    font-size: 22px;
+}
+
+.footer-logo-text:hover {
+    color: #4CAF50 !important;
+}
+
+.logo img {
+    height: 80px;
+    max-width: 300px;
+    object-fit: contain;
+}
+
+
 
 .nav-list {
     display: flex;
