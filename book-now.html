@@ -198,6 +198,70 @@
         }
         
         /* Calendar Conflict Detection Styles */
+        .conflict-container {
+            margin: 15px 0;
+        }
+        
+        .conflict-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .conflict-warning h4 {
+            color: #856404;
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+        
+        .conflict-warning p {
+            color: #856404;
+            margin: 5px 0;
+        }
+        
+        .conflict-warning ul {
+            color: #856404;
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .conflict-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .conflict-success p {
+            color: #155724;
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .alternatives {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ffeaa7;
+        }
+        
+        .alternative-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 5px 5px 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        
+        .alternative-btn:hover {
+            background: #45a049;
+        }
         .conflict-warning {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -605,6 +669,9 @@
                         <p id="scheduledDateTime" style="display: none;">Scheduled: <span id="dateTimeText"></span></p>
                         <p>Service: Professional cleaning team</p>
                     </div>
+                    
+                    <!-- Calendar Conflict Detection -->
+                    <div id="conflict-container" class="conflict-container"></div>
                 </div>
 
                 <button id="bookNowBtn" class="book-now-btn" disabled>
@@ -1226,57 +1293,155 @@
         });
     </script>
     
-    <!-- Google Calendar Integration Scripts -->
-    <script src="https://apis.google.com/js/api.js"></script>
+    <!-- Calendar Integration - Backend API -->
     <script>
-        // External credential loading - loads from secure external source
-        window.loadCalendarCredentials = async function() {
+        // Backend calendar service configuration
+        const CALENDAR_API_BASE = 'https://y0h0i3cq0d6w.manus.space';
+        
+        // Calendar conflict detection using backend API
+        window.checkCalendarConflicts = async function(date, timeSlot) {
             try {
-                // In production, this would load from a secure external service
-                // For now, we'll use a simple approach that doesn't store credentials in GitHub
-                console.log('🔄 Loading calendar credentials from external source...');
+                console.log(`🔄 Checking calendar conflicts for ${date} ${timeSlot}...`);
                 
-                // This would be replaced with actual external service call
-                // const response = await fetch('https://your-secure-service.com/api/calendar-config');
-                // const config = await response.json();
+                const response = await fetch(`${CALENDAR_API_BASE}/api/calendar/check-conflicts`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                        time_slot: timeSlot
+                    })
+                });
                 
-                // For testing, we'll prompt the user for credentials
-                if (!window.GOOGLE_CALENDAR_API_KEY) {
-                    const usePrompt = confirm('Load live Google Calendar integration? (Click OK to enter credentials, Cancel to use mock data)');
-                    
-                    if (usePrompt) {
-                        const apiKey = prompt('Enter your Google Calendar API Key:');
-                        const clientId = prompt('Enter your Google Calendar Client ID:');
-                        
-                        if (apiKey && clientId) {
-                            window.GOOGLE_CALENDAR_API_KEY = apiKey;
-                            window.GOOGLE_CALENDAR_CLIENT_ID = clientId;
-                            console.log('🔑 Google Calendar credentials loaded');
-                            return true;
-                        }
-                    }
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
-                console.log('📋 Using mock calendar data');
-                return false;
+                const result = await response.json();
+                console.log('✅ Calendar conflict check result:', result);
+                
+                return result;
                 
             } catch (error) {
-                console.error('❌ Failed to load calendar credentials:', error);
-                console.log('📋 Falling back to mock calendar data');
-                return false;
+                console.error('❌ Error checking calendar conflicts:', error);
+                // Return no conflicts on error to allow booking
+                return {
+                    has_conflicts: false,
+                    conflicts: [],
+                    alternatives: [],
+                    error: error.message
+                };
             }
         };
-    </script>
-    <script src="google-calendar-auth.js" defer></script>
-    <script src="calendar-integration.js" defer></script>
-    <script>
-        // Ensure calendar integration is loaded before initializing
-        document.addEventListener('DOMContentLoaded', function() {
-            if (window.calendarIntegration) {
-                console.log('Calendar integration loaded successfully');
-                window.calendarIntegration.initialize();
+        
+        // Display conflict results in the UI
+        window.displayConflictResults = function(result) {
+            const conflictContainer = document.getElementById('conflict-container');
+            if (!conflictContainer) return;
+            
+            if (result.has_conflicts) {
+                // Show conflict warning
+                let conflictHtml = `
+                    <div class="conflict-warning">
+                        <h4>⚠️ Time slot conflict detected!</h4>
+                        <p>You already have ${result.conflicts.length} appointment(s) during this time:</p>
+                        <ul>
+                `;
+                
+                result.conflicts.forEach(conflict => {
+                    conflictHtml += `<li>${conflict.summary} (${conflict.start} - ${conflict.end})</li>`;
+                });
+                
+                conflictHtml += '</ul>';
+                
+                // Show alternatives if available
+                if (result.alternatives && result.alternatives.length > 0) {
+                    conflictHtml += `
+                        <div class="alternatives">
+                            <p>✅ Available alternative time slots for this date:</p>
+                    `;
+                    
+                    result.alternatives.forEach(alt => {
+                        conflictHtml += `
+                            <button class="alternative-btn" onclick="selectAlternativeTime('${alt.slot}')">
+                                ${alt.display}
+                            </button>
+                        `;
+                    });
+                    
+                    conflictHtml += '</div>';
+                }
+                
+                conflictHtml += '</div>';
+                conflictContainer.innerHTML = conflictHtml;
+                
+                // Disable booking button
+                const bookingBtn = document.querySelector('.booking-button');
+                if (bookingBtn) {
+                    bookingBtn.textContent = 'Resolve Conflicts to Book';
+                    bookingBtn.style.backgroundColor = '#dc3545';
+                    bookingBtn.disabled = true;
+                }
+                
             } else {
-                console.error('Calendar integration failed to load');
+                // Show success message
+                conflictContainer.innerHTML = `
+                    <div class="conflict-success">
+                        <p>✅ Time slot available! No conflicts detected.</p>
+                    </div>
+                `;
+                
+                // Enable booking button
+                const bookingBtn = document.querySelector('.booking-button');
+                if (bookingBtn) {
+                    bookingBtn.textContent = 'Complete Form to Book';
+                    bookingBtn.style.backgroundColor = '#28a745';
+                    bookingBtn.disabled = false;
+                }
+            }
+        };
+        
+        // Select alternative time slot
+        window.selectAlternativeTime = function(timeSlot) {
+            const timeSelect = document.getElementById('preferred-time');
+            if (timeSelect) {
+                timeSelect.value = timeSlot;
+                
+                // Trigger change event to update the form
+                const event = new Event('change', { bubbles: true });
+                timeSelect.dispatchEvent(event);
+                
+                console.log(`✅ Selected alternative time slot: ${timeSlot}`);
+            }
+        };
+        
+        console.log('🔑 Backend calendar integration loaded');
+    </script>
+    <script>
+        // Initialize backend calendar integration
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔑 Backend calendar integration initialized');
+            
+            // Add conflict detection to date and time changes
+            const dateInput = document.getElementById('preferred-date');
+            const timeSelect = document.getElementById('preferred-time');
+            
+            if (dateInput && timeSelect) {
+                const checkConflicts = async function() {
+                    const date = dateInput.value;
+                    const timeSlot = timeSelect.value;
+                    
+                    if (date && timeSlot) {
+                        const result = await window.checkCalendarConflicts(date, timeSlot);
+                        window.displayConflictResults(result);
+                    }
+                };
+                
+                dateInput.addEventListener('change', checkConflicts);
+                timeSelect.addEventListener('change', checkConflicts);
+                
+                console.log('✅ Calendar conflict detection enabled');
             }
         });
     </script>
