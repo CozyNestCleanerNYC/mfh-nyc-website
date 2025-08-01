@@ -27,44 +27,49 @@
         .booking-header {
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
             text-align: center;
             margin-bottom: 30px;
         }
         
         .booking-header h1 {
-            margin: 0 0 10px 0;
-            font-size: 2rem;
+            margin: 0 0 8px 0;
+            font-size: 1.6rem;
+        }
+        
+        .booking-header p {
+            font-size: 0.95rem;
+            margin: 0;
         }
         
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
             color: #333;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
         }
         
         .service-options {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         
         .service-option {
             border: 2px solid #e0e0e0;
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             background: white;
         }
         
@@ -80,11 +85,11 @@
         }
         
         .service-icon {
-            font-size: 2rem;
+            font-size: 1.6rem;
             background: #4CAF50;
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -96,19 +101,19 @@
         }
         
         .service-info h3 {
-            margin: 0 0 5px 0;
+            margin: 0 0 4px 0;
             color: #333;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
         }
         
         .service-info p {
             margin: 0;
             color: #666;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
         
         .service-price {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #4CAF50;
         }
@@ -139,45 +144,131 @@
         .quote-header {
             background: linear-gradient(135deg, #2c3e50, #34495e);
             color: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .quote-header h2 {
-            margin: 0 0 8px 0;
-            font-size: 1.8rem;
+            margin: 0 0 6px 0;
+            font-size: 1.4rem;
+        }
+        
+        .quote-header p {
+            font-size: 0.9rem;
+            margin: 0;
         }
         
         .quote-display {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 16px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         
         .quote-line {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
         }
         
         .quote-total {
             border-top: 2px solid #4CAF50;
-            padding-top: 15px;
-            margin-top: 15px;
+            padding-top: 12px;
+            margin-top: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
         }
         
         .quote-details {
-            margin-top: 15px;
-            padding-top: 15px;
+            margin-top: 12px;
+            padding-top: 12px;
             border-top: 1px solid #e0e0e0;
             color: #666;
+            font-size: 0.85rem;
         }
         
         .book-now-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .book-now-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        /* Calendar Conflict Detection Styles */
+        /* Payment Method Styles */
+        .payment-methods {
+            margin: 25px 0;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+        
+        .payment-method:hover {
+            border-color: #4CAF50 !important;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .payment-method.selected {
+            border-color: #4CAF50 !important;
+            background: #f8fff8 !important;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .payment-method input[type="radio"] {
+            width: auto;
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+        
+        /* Payment Modal Styles */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .payment-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .pay-button {
             width: 100%;
             padding: 15px;
             background: linear-gradient(135deg, #4CAF50, #45a049);
@@ -188,14 +279,163 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 25px;
+            margin-top: 20px;
         }
         
-        .book-now-btn:hover:not(:disabled) {
+        .pay-button:hover {
             background: linear-gradient(135deg, #45a049, #3d8b40);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
+        
+        .conflict-container {
+            margin: 15px 0;
+        }
+        
+        .conflict-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .conflict-warning h4 {
+            color: #856404;
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+        
+        .conflict-warning p {
+            color: #856404;
+            margin: 5px 0;
+        }
+        
+        .conflict-warning ul {
+            color: #856404;
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .conflict-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .conflict-success p {
+            color: #155724;
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .alternatives {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ffeaa7;
+        }
+        
+        .alternative-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 5px 5px 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        
+        .alternative-btn:hover {
+            background: #45a049;
+        }
+        .conflict-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .conflict-message {
+            color: #856404;
+        }
+        
+        .conflict-message strong {
+            color: #d63031;
+        }
+        
+        .conflict-message ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .conflict-message li {
+            margin-bottom: 5px;
+        }
+        
+        .alternative-slots {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ffeaa7;
+        }
+        
+        .alternatives-message {
+            color: #155724;
+        }
+        
+        .alternative-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .alternative-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        
+        .alternative-btn:hover {
+            background: #218838;
+        }
+        
+        .schedule-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .success-message {
+            color: #155724;
+        }
+        
+        .schedule-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .error-message {
+            color: #721c24;
+        }
+        
         
         .book-now-btn:disabled {
             background: #ccc;
@@ -354,17 +594,21 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="nav-brand">
-                <a href="index.html">Maid For Heaven NYC</a>
+            <div class="header-content">
+                <div class="nav-brand">
+                    <a href="index.html">Maid For Heaven NYC</a>
+                </div>
+                <nav class="nav-menu">
+                    <a href="index.html">HOME</a>
+                    <a href="services.html">SERVICES</a>
+                    <a href="about.html">ABOUT</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">CONTACT</a>
+                </nav>
+                <div class="nav-contact">
+                    <a href="tel:+13477592000" class="phone-link">(347) 759-2000</a>
+                </div>
             </div>
-            <nav class="nav-menu">
-                <a href="index.html">HOME</a>
-                <a href="services.html">SERVICES</a>
-                <a href="about.html">ABOUT</a>
-                <a href="faq.html">FAQ</a>
-                <a href="contact.html">CONTACT</a>
-                <a href="tel:+13477592000" class="phone-link">(347) 759-2000</a>
-            </nav>
         </div>
     </header>
 
@@ -457,6 +701,9 @@
                     </select>
                 </div>
 
+                <!-- Calendar Conflict Detection -->
+                <div id="conflict-container" class="conflict-container"></div>
+
                 <!-- Cleaning Frequency -->
                 <div class="form-group">
                     <label>Cleaning Frequency</label>
@@ -519,6 +766,9 @@
                         <p id="scheduledDateTime" style="display: none;">Scheduled: <span id="dateTimeText"></span></p>
                         <p>Service: Professional cleaning team</p>
                     </div>
+                    
+                    <!-- Calendar Conflict Detection -->
+                    <div id="conflict-container" class="conflict-container"></div>
                 </div>
 
                 <button id="bookNowBtn" class="book-now-btn" disabled>
@@ -593,21 +843,38 @@
             
             <!-- Payment Methods -->
             <div class="payment-methods">
-                <h3>Choose Payment Method</h3>
+                <h3 style="margin-bottom: 20px; color: #333; font-size: 1.3rem;">Choose Payment Method</h3>
                 
-                <div class="payment-method selected" data-method="stripe">
-                    <input type="radio" name="paymentMethod" value="stripe" checked>
-                    <div>
-                        <strong>💳 Credit/Debit Card</strong>
-                        <div style="font-size: 12px; color: #666;">Visa, Mastercard, American Express</div>
+                <div class="payment-method selected" data-method="stripe" style="border: 2px solid #4CAF50; background: #f8fff8;">
+                    <input type="radio" name="paymentMethod" value="stripe" checked style="margin-right: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="font-size: 2rem;">💳</div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 1.1rem; color: #333;">Credit/Debit Card</div>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 2px;">Visa, Mastercard, American Express</div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="payment-method" data-method="paypal">
-                    <input type="radio" name="paymentMethod" value="paypal">
-                    <div>
-                        <strong>🅿️ PayPal</strong>
-                        <div style="font-size: 12px; color: #666;">Pay with your PayPal account</div>
+                <div class="payment-method" data-method="paypal" style="border: 2px solid #ddd; background: white; margin-top: 15px;">
+                    <input type="radio" name="paymentMethod" value="paypal" style="margin-right: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="font-size: 2rem;">🅿️</div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 1.1rem; color: #333;">PayPal</div>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 2px;">Pay with your PayPal account</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="payment-method" data-method="venmo-zelle" style="border: 2px solid #ddd; background: white; margin-top: 15px;">
+                    <input type="radio" name="paymentMethod" value="venmo-zelle" style="margin-right: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="font-size: 2rem;">📱</div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 1.1rem; color: #333;">Venmo / Zelle</div>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 2px;">Quick mobile payment options</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -720,16 +987,28 @@
                 updateQuote();
             });
 
-            // Date and Time selection
-            document.getElementById('preferredDate').addEventListener('change', function() {
+            // Date and Time selection with conflict detection
+            document.getElementById('preferredDate').addEventListener('change', async function() {
                 window.preferredDate = this.value;
                 console.log('Preferred date:', window.preferredDate);
+                
+                // Check for conflicts if both date and time are selected
+                if (window.preferredDate && window.preferredTime) {
+                    await checkCalendarConflicts();
+                }
+                
                 updateQuote();
             });
 
-            document.getElementById('preferredTime').addEventListener('change', function() {
+            document.getElementById('preferredTime').addEventListener('change', async function() {
                 window.preferredTime = this.value;
                 console.log('Preferred time:', window.preferredTime);
+                
+                // Check for conflicts if both date and time are selected
+                if (window.preferredDate && window.preferredTime) {
+                    await checkCalendarConflicts();
+                }
+                
                 updateQuote();
             });
 
@@ -764,10 +1043,26 @@
             // Payment method selection
             document.querySelectorAll('.payment-method').forEach(method => {
                 method.addEventListener('click', function() {
-                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                    document.querySelectorAll('.payment-method').forEach(m => {
+                        m.classList.remove('selected');
+                        m.style.border = '2px solid #ddd';
+                        m.style.background = 'white';
+                    });
                     this.classList.add('selected');
+                    this.style.border = '2px solid #4CAF50';
+                    this.style.background = '#f8fff8';
                     const radio = this.querySelector('input[type="radio"]');
                     radio.checked = true;
+                    
+                    // Update pay button text based on payment method
+                    const payButton = document.getElementById('payButton');
+                    if (radio.value === 'venmo-zelle') {
+                        payButton.textContent = 'Book Now and Pay Later';
+                        payButton.style.background = '#2196F3'; // Blue color for "pay later"
+                    } else {
+                        payButton.textContent = `Pay $${window.totalPrice || '148.75'} Now`;
+                        payButton.style.background = '#4CAF50'; // Green color for immediate payment
+                    }
                 });
             });
 
@@ -782,6 +1077,159 @@
             document.addEventListener('DOMContentLoaded', initializeBookingSystem);
         } else {
             initializeBookingSystem();
+        }
+
+        // Calendar conflict detection function
+        async function checkCalendarConflicts() {
+            try {
+                // Initialize calendar integration if not already done
+                if (!window.calendarIntegration.isInitialized) {
+                    await window.calendarIntegration.initialize();
+                }
+
+                // Check for conflicts
+                const conflictResult = await window.calendarIntegration.checkForConflicts(
+                    window.preferredDate, 
+                    window.preferredTime
+                );
+
+                // Clear any existing conflict messages
+                clearConflictMessages();
+
+                if (conflictResult.hasConflict) {
+                    displayConflictWarning(conflictResult);
+                    
+                    // Suggest alternative time slots
+                    const alternatives = await window.calendarIntegration.getAlternativeTimeSlots(window.preferredDate);
+                    if (alternatives.length > 0) {
+                        displayAlternativeTimeSlots(alternatives);
+                    }
+                } else {
+                    displaySuccessMessage();
+                }
+
+            } catch (error) {
+                console.error('Error checking calendar conflicts:', error);
+                displayErrorMessage('Unable to check calendar conflicts. Please verify your selection.');
+            }
+        }
+
+        // Display conflict warning
+        function displayConflictWarning(conflictResult) {
+            const conflictInfo = window.calendarIntegration.formatConflictMessage(conflictResult);
+            
+            const warningDiv = document.createElement('div');
+            warningDiv.id = 'conflictWarning';
+            warningDiv.className = 'conflict-warning';
+            warningDiv.innerHTML = `
+                <div class="conflict-message">
+                    <strong>${conflictInfo.message}</strong>
+                    <ul>
+                        ${conflictInfo.conflicts.map(conflict => 
+                            `<li>${conflict.title} (${conflict.time})</li>`
+                        ).join('')}
+                    </ul>
+                    <p><strong>Please select a different time slot to avoid conflicts.</strong></p>
+                </div>
+            `;
+
+            // Insert after the time selection field
+            const timeField = document.getElementById('preferredTime').parentNode;
+            timeField.appendChild(warningDiv);
+
+            // Disable booking button
+            const bookBtn = document.getElementById('bookNowBtn');
+            bookBtn.disabled = true;
+            bookBtn.textContent = 'Resolve Conflicts to Book';
+            bookBtn.style.background = '#ff6b6b';
+        }
+
+        // Display alternative time slots
+        function displayAlternativeTimeSlots(alternatives) {
+            if (alternatives.length === 0) return;
+
+            const alternativesDiv = document.createElement('div');
+            alternativesDiv.id = 'alternativeSlots';
+            alternativesDiv.className = 'alternative-slots';
+            alternativesDiv.innerHTML = `
+                <div class="alternatives-message">
+                    <strong>✅ Available alternative time slots for this date:</strong>
+                    <div class="alternative-buttons">
+                        ${alternatives.map(alt => 
+                            `<button class="alternative-btn" data-timeslot="${alt.timeSlot}">
+                                ${alt.label}
+                            </button>`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Insert after conflict warning
+            const conflictWarning = document.getElementById('conflictWarning');
+            if (conflictWarning) {
+                conflictWarning.appendChild(alternativesDiv);
+            }
+
+            // Add click handlers for alternative buttons
+            alternativesDiv.querySelectorAll('.alternative-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const timeSlot = this.dataset.timeslot;
+                    document.getElementById('preferredTime').value = timeSlot;
+                    window.preferredTime = timeSlot;
+                    
+                    // Trigger change event to recheck conflicts
+                    document.getElementById('preferredTime').dispatchEvent(new Event('change'));
+                });
+            });
+        }
+
+        // Display success message when no conflicts
+        function displaySuccessMessage() {
+            const successDiv = document.createElement('div');
+            successDiv.id = 'scheduleSuccess';
+            successDiv.className = 'schedule-success';
+            successDiv.innerHTML = `
+                <div class="success-message">
+                    ✅ <strong>Time slot available!</strong> No conflicts detected.
+                </div>
+            `;
+
+            // Insert after the time selection field
+            const timeField = document.getElementById('preferredTime').parentNode;
+            timeField.appendChild(successDiv);
+
+            // Re-enable booking button
+            const bookBtn = document.getElementById('bookNowBtn');
+            bookBtn.disabled = false;
+            bookBtn.textContent = 'Complete Form to Book';
+            bookBtn.style.background = '';
+        }
+
+        // Display error message
+        function displayErrorMessage(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.id = 'scheduleError';
+            errorDiv.className = 'schedule-error';
+            errorDiv.innerHTML = `
+                <div class="error-message">
+                    ⚠️ <strong>Warning:</strong> ${message}
+                </div>
+            `;
+
+            // Insert after the time selection field
+            const timeField = document.getElementById('preferredTime').parentNode;
+            timeField.appendChild(errorDiv);
+        }
+
+        // Clear all conflict-related messages
+        function clearConflictMessages() {
+            const messagesToClear = ['conflictWarning', 'alternativeSlots', 'scheduleSuccess', 'scheduleError'];
+            messagesToClear.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.remove();
+                }
+            });
         }
 
         function updateBedroomHours(value) {
@@ -946,19 +1394,36 @@
         }
 
         function simulatePayment() {
+            const selectedPaymentMethod = document.querySelector('input[name="payment"]:checked');
             const successDiv = document.getElementById('paymentSuccess');
             const totalHours = selectedBedroomHours + selectedBathroomHours;
             const basePrice = totalHours * selectedRate;
             const discountAmount = basePrice * (selectedDiscount / 100);
             const finalPrice = basePrice - discountAmount;
             
-            successDiv.innerHTML = `
-                <strong>Payment Successful! 🎉</strong><br>
-                Booking confirmed for ${selectedService} cleaning.<br>
-                Total paid: $${finalPrice.toFixed(2)}<br>
-                Confirmation email sent to ${email}<br>
-                Booking ID: #MFH${Date.now()}
-            `;
+            if (selectedPaymentMethod && selectedPaymentMethod.value === 'venmo-zelle') {
+                // Handle Venmo/Zelle - Book now, pay later
+                successDiv.innerHTML = `
+                    <strong>Booking Confirmed! 📅</strong><br>
+                    Your ${selectedService} cleaning is scheduled.<br>
+                    <strong>Payment Instructions:</strong><br>
+                    Please send $${finalPrice.toFixed(2)} via Venmo or Zelle to:<br>
+                    <strong>Venmo:</strong> @MaidForHeavenNYC<br>
+                    <strong>Zelle:</strong> payments@maidforheavennyc.com<br>
+                    Confirmation email sent to ${email}<br>
+                    Booking ID: #MFH${Date.now()}
+                `;
+            } else {
+                // Handle Credit Card/PayPal - Immediate payment
+                successDiv.innerHTML = `
+                    <strong>Payment Successful! 🎉</strong><br>
+                    Booking confirmed for ${selectedService} cleaning.<br>
+                    Total paid: $${finalPrice.toFixed(2)}<br>
+                    Confirmation email sent to ${email}<br>
+                    Booking ID: #MFH${Date.now()}
+                `;
+            }
+            
             successDiv.style.display = 'block';
             
             // Hide payment form
@@ -974,6 +1439,133 @@
             }
         });
     </script>
+    
+    <!-- Calendar Integration - Backend API -->
+    <script>
+        // Backend calendar service configuration
+        const CALENDAR_API_BASE = 'https://19hninc17x70.manus.space';
+        
+        // Calendar conflict detection using backend API
+        window.checkCalendarConflicts = async function(date, timeSlot) {
+            try {
+                console.log(`🔄 Checking calendar conflicts for ${date} ${timeSlot}...`);
+                
+                const response = await fetch(`${CALENDAR_API_BASE}/api/calendar/check-conflicts`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                        time_slot: timeSlot
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                console.log('✅ Calendar conflict check result:', result);
+                
+                return result;
+                
+            } catch (error) {
+                console.error('❌ Error checking calendar conflicts:', error);
+                // Return no conflicts on error to allow booking
+                return {
+                    has_conflicts: false,
+                    conflicts: [],
+                    alternatives: [],
+                    error: error.message
+                };
+            }
+        };
+        
+        // Display conflict results in the UI
+        window.displayConflictResults = function(result) {
+            const conflictContainer = document.getElementById('conflict-container');
+            if (!conflictContainer) return;
+            
+            if (result.has_conflicts) {
+                // Show conflict warning
+                let conflictHtml = `
+                    <div class="conflict-warning">
+                        <h4>⚠️ Time slot conflict detected!</h4>
+                        <p>You already have ${result.conflicts.length} appointment(s) during this time:</p>
+                        <ul>
+                `;
+                
+                result.conflicts.forEach(conflict => {
+                    conflictHtml += `<li>${conflict.summary} (${conflict.start} - ${conflict.end})</li>`;
+                });
+                
+                conflictHtml += '</ul>';
+                
+                // Show alternatives if available
+                if (result.alternatives && result.alternatives.length > 0) {
+                    conflictHtml += `
+                        <div class="alternatives">
+                            <p>✅ Available alternative time slots for this date:</p>
+                    `;
+                    
+                    result.alternatives.forEach(alt => {
+                        conflictHtml += `
+                            <button class="alternative-btn" onclick="selectAlternativeTime('${alt.slot}')">
+                                ${alt.display}
+                            </button>
+                        `;
+                    });
+                    
+                    conflictHtml += '</div>';
+                }
+                
+                conflictHtml += '</div>';
+                conflictContainer.innerHTML = conflictHtml;
+                
+                // Disable booking button
+                const bookingBtn = document.querySelector('.booking-button');
+                if (bookingBtn) {
+                    bookingBtn.textContent = 'Resolve Conflicts to Book';
+                    bookingBtn.style.backgroundColor = '#dc3545';
+                    bookingBtn.disabled = true;
+                }
+                
+            } else {
+                // Show success message
+                conflictContainer.innerHTML = `
+                    <div class="conflict-success">
+                        <p>✅ Time slot available! No conflicts detected.</p>
+                    </div>
+                `;
+                
+                // Enable booking button
+                const bookingBtn = document.querySelector('.booking-button');
+                if (bookingBtn) {
+                    bookingBtn.textContent = 'Complete Form to Book';
+                    bookingBtn.style.backgroundColor = '#28a745';
+                    bookingBtn.disabled = false;
+                }
+            }
+        };
+        
+        // Select alternative time slot
+        window.selectAlternativeTime = function(timeSlot) {
+            const timeSelect = document.getElementById('preferredTime');
+            if (timeSelect) {
+                timeSelect.value = timeSlot;
+                
+                // Trigger change event to update the form
+                const event = new Event('change', { bubbles: true });
+                timeSelect.dispatchEvent(event);
+                
+                console.log(`✅ Selected alternative time slot: ${timeSlot}`);
+            }
+        };
+        
+        console.log('🔑 Backend calendar integration loaded');
+    </script>
+    <script src="js/calendar-integration.js"></script>
 </body>
 </html>
 
