@@ -16,26 +16,38 @@ class CalendarIntegration {
      */
     async initialize(apiKey = null) {
         try {
-            // Quick Setup: Use Google's OAuth for calendar access
+            // Load credentials first
             console.log('Initializing Google Calendar integration...');
+            
+            // Try to load credentials if not already loaded
+            if (!window.GOOGLE_CALENDAR_API_KEY && window.loadCalendarCredentials) {
+                await window.loadCalendarCredentials();
+            }
+            
+            // Check if we have credentials
+            if (!window.GOOGLE_CALENDAR_API_KEY || !window.GOOGLE_CALENDAR_CLIENT_ID) {
+                console.log('📋 No credentials available, using mock data with current appointment');
+                this.initializeMockDataWithCurrentAppointment();
+                return;
+            }
             
             // Load Google Calendar API
             if (typeof gapi === 'undefined') {
                 await this.loadGoogleAPI();
             }
             
-            // Initialize with OAuth for calendar access
+            // Initialize with live API credentials
             await new Promise((resolve, reject) => {
                 gapi.load('client:auth2', async () => {
                     try {
                         await gapi.client.init({
-                            apiKey: window.GOOGLE_CALENDAR_API_KEY || 'YOUR_API_KEY_HERE', // Set via environment or config
-                            clientId: window.GOOGLE_CALENDAR_CLIENT_ID || 'YOUR_CLIENT_ID_HERE', // Set via environment or config
+                            apiKey: window.GOOGLE_CALENDAR_API_KEY,
+                            clientId: window.GOOGLE_CALENDAR_CLIENT_ID,
                             discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
                             scope: 'https://www.googleapis.com/auth/calendar.readonly'
                         });
                         
-                        console.log('Google Calendar API loaded successfully');
+                        console.log('Google Calendar API loaded with live credentials');
                         this.isInitialized = true;
                         resolve();
                     } catch (error) {

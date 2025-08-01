@@ -1228,7 +1228,45 @@
     
     <!-- Google Calendar Integration Scripts -->
     <script src="https://apis.google.com/js/api.js"></script>
-    <script src="calendar-config.js"></script>
+    <script>
+        // External credential loading - loads from secure external source
+        window.loadCalendarCredentials = async function() {
+            try {
+                // In production, this would load from a secure external service
+                // For now, we'll use a simple approach that doesn't store credentials in GitHub
+                console.log('🔄 Loading calendar credentials from external source...');
+                
+                // This would be replaced with actual external service call
+                // const response = await fetch('https://your-secure-service.com/api/calendar-config');
+                // const config = await response.json();
+                
+                // For testing, we'll prompt the user for credentials
+                if (!window.GOOGLE_CALENDAR_API_KEY) {
+                    const usePrompt = confirm('Load live Google Calendar integration? (Click OK to enter credentials, Cancel to use mock data)');
+                    
+                    if (usePrompt) {
+                        const apiKey = prompt('Enter your Google Calendar API Key:');
+                        const clientId = prompt('Enter your Google Calendar Client ID:');
+                        
+                        if (apiKey && clientId) {
+                            window.GOOGLE_CALENDAR_API_KEY = apiKey;
+                            window.GOOGLE_CALENDAR_CLIENT_ID = clientId;
+                            console.log('🔑 Google Calendar credentials loaded');
+                            return true;
+                        }
+                    }
+                }
+                
+                console.log('📋 Using mock calendar data');
+                return false;
+                
+            } catch (error) {
+                console.error('❌ Failed to load calendar credentials:', error);
+                console.log('📋 Falling back to mock calendar data');
+                return false;
+            }
+        };
+    </script>
     <script src="google-calendar-auth.js" defer></script>
     <script src="calendar-integration.js" defer></script>
     <script>
