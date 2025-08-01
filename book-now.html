@@ -1394,13 +1394,38 @@
             document.getElementById('payButton').textContent = `Pay $${finalPrice.toFixed(2)} Now`;
         }
 
-        function simulatePayment() {
+        async function simulatePayment() {
             const selectedPaymentMethod = document.querySelector('input[name="payment"]:checked');
             const successDiv = document.getElementById('paymentSuccess');
             const totalHours = selectedBedroomHours + selectedBathroomHours;
             const basePrice = totalHours * selectedRate;
             const discountAmount = basePrice * (selectedDiscount / 100);
             const finalPrice = basePrice - discountAmount;
+            
+            // Prepare booking data for backend
+            const bookingData = {
+                selectedService,
+                selectedBedroomHours,
+                selectedFrequency: selectedFrequency || 'one-time',
+                address,
+                preferredDate,
+                preferredTime,
+                fullName,
+                email,
+                phone,
+                finalPrice,
+                paymentMethod: selectedPaymentMethod ? selectedPaymentMethod.value : 'credit-card'
+            };
+            
+            // Try to submit booking to backend for email confirmation
+            try {
+                const formattedData = bookingAPI.formatBookingData(bookingData);
+                const result = await bookingAPI.submitBooking(formattedData);
+                console.log('✅ Booking submitted to backend:', result);
+            } catch (error) {
+                console.log('⚠️ Backend submission failed, continuing with frontend display:', error);
+                // Continue with frontend display even if backend fails
+            }
             
             if (selectedPaymentMethod && selectedPaymentMethod.value === 'venmo-zelle') {
                 // Handle Venmo/Zelle - Book now, pay later
@@ -1440,6 +1465,9 @@
             }
         });
     </script>
+    
+    <!-- Booking API for Email Functionality -->
+    <script src="booking-api.js"></script>
     
     <!-- Calendar Integration - Backend API -->
     <script>
