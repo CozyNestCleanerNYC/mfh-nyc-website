@@ -607,6 +607,9 @@
                     </select>
                 </div>
 
+                <!-- Calendar Conflict Detection -->
+                <div id="conflict-container" class="conflict-container"></div>
+
                 <!-- Cleaning Frequency -->
                 <div class="form-group">
                     <label>Cleaning Frequency</label>
@@ -1424,13 +1427,15 @@
             console.log('🔑 Backend calendar integration initialized');
             
             // Add conflict detection to date and time changes
-            const dateInput = document.getElementById('preferred-date');
-            const timeSelect = document.getElementById('preferred-time');
+            const dateInput = document.getElementById('preferredDate');
+            const timeSelect = document.getElementById('preferredTime');
             
             if (dateInput && timeSelect) {
                 const checkConflicts = async function() {
                     const date = dateInput.value;
                     const timeSlot = timeSelect.value;
+                    
+                    console.log(`🔍 Checking conflicts for date: ${date}, time: ${timeSlot}`);
                     
                     if (date && timeSlot) {
                         const result = await window.checkCalendarConflicts(date, timeSlot);
@@ -1441,7 +1446,11 @@
                 dateInput.addEventListener('change', checkConflicts);
                 timeSelect.addEventListener('change', checkConflicts);
                 
-                console.log('✅ Calendar conflict detection enabled');
+                console.log('✅ Calendar conflict detection enabled for preferredDate and preferredTime');
+            } else {
+                console.error('❌ Could not find date or time input fields');
+                console.log('Date input:', dateInput);
+                console.log('Time select:', timeSelect);
             }
         });
     </script>
