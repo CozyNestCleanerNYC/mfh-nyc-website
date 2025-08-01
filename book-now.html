@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Now - Instant Quote & Payment | Maid For Heaven NYC</title>
     <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">
+    <script src="calendar-integration.js"></script>
     <style>
         /* Booking Page Specific Styles */
         .booking-container {
@@ -196,6 +197,92 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
         }
+        
+        /* Calendar Conflict Detection Styles */
+        .conflict-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .conflict-message {
+            color: #856404;
+        }
+        
+        .conflict-message strong {
+            color: #d63031;
+        }
+        
+        .conflict-message ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .conflict-message li {
+            margin-bottom: 5px;
+        }
+        
+        .alternative-slots {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ffeaa7;
+        }
+        
+        .alternatives-message {
+            color: #155724;
+        }
+        
+        .alternative-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .alternative-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        
+        .alternative-btn:hover {
+            background: #218838;
+        }
+        
+        .schedule-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .success-message {
+            color: #155724;
+        }
+        
+        .schedule-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .error-message {
+            color: #721c24;
+        }
+        
         
         .book-now-btn:disabled {
             background: #ccc;
@@ -720,16 +807,28 @@
                 updateQuote();
             });
 
-            // Date and Time selection
-            document.getElementById('preferredDate').addEventListener('change', function() {
+            // Date and Time selection with conflict detection
+            document.getElementById('preferredDate').addEventListener('change', async function() {
                 window.preferredDate = this.value;
                 console.log('Preferred date:', window.preferredDate);
+                
+                // Check for conflicts if both date and time are selected
+                if (window.preferredDate && window.preferredTime) {
+                    await checkCalendarConflicts();
+                }
+                
                 updateQuote();
             });
 
-            document.getElementById('preferredTime').addEventListener('change', function() {
+            document.getElementById('preferredTime').addEventListener('change', async function() {
                 window.preferredTime = this.value;
                 console.log('Preferred time:', window.preferredTime);
+                
+                // Check for conflicts if both date and time are selected
+                if (window.preferredDate && window.preferredTime) {
+                    await checkCalendarConflicts();
+                }
+                
                 updateQuote();
             });
 
@@ -782,6 +881,159 @@
             document.addEventListener('DOMContentLoaded', initializeBookingSystem);
         } else {
             initializeBookingSystem();
+        }
+
+        // Calendar conflict detection function
+        async function checkCalendarConflicts() {
+            try {
+                // Initialize calendar integration if not already done
+                if (!window.calendarIntegration.isInitialized) {
+                    await window.calendarIntegration.initialize();
+                }
+
+                // Check for conflicts
+                const conflictResult = await window.calendarIntegration.checkForConflicts(
+                    window.preferredDate, 
+                    window.preferredTime
+                );
+
+                // Clear any existing conflict messages
+                clearConflictMessages();
+
+                if (conflictResult.hasConflict) {
+                    displayConflictWarning(conflictResult);
+                    
+                    // Suggest alternative time slots
+                    const alternatives = await window.calendarIntegration.getAlternativeTimeSlots(window.preferredDate);
+                    if (alternatives.length > 0) {
+                        displayAlternativeTimeSlots(alternatives);
+                    }
+                } else {
+                    displaySuccessMessage();
+                }
+
+            } catch (error) {
+                console.error('Error checking calendar conflicts:', error);
+                displayErrorMessage('Unable to check calendar conflicts. Please verify your selection.');
+            }
+        }
+
+        // Display conflict warning
+        function displayConflictWarning(conflictResult) {
+            const conflictInfo = window.calendarIntegration.formatConflictMessage(conflictResult);
+            
+            const warningDiv = document.createElement('div');
+            warningDiv.id = 'conflictWarning';
+            warningDiv.className = 'conflict-warning';
+            warningDiv.innerHTML = `
+                <div class="conflict-message">
+                    <strong>${conflictInfo.message}</strong>
+                    <ul>
+                        ${conflictInfo.conflicts.map(conflict => 
+                            `<li>${conflict.title} (${conflict.time})</li>`
+                        ).join('')}
+                    </ul>
+                    <p><strong>Please select a different time slot to avoid conflicts.</strong></p>
+                </div>
+            `;
+
+            // Insert after the time selection field
+            const timeField = document.getElementById('preferredTime').parentNode;
+            timeField.appendChild(warningDiv);
+
+            // Disable booking button
+            const bookBtn = document.getElementById('bookNowBtn');
+            bookBtn.disabled = true;
+            bookBtn.textContent = 'Resolve Conflicts to Book';
+            bookBtn.style.background = '#ff6b6b';
+        }
+
+        // Display alternative time slots
+        function displayAlternativeTimeSlots(alternatives) {
+            if (alternatives.length === 0) return;
+
+            const alternativesDiv = document.createElement('div');
+            alternativesDiv.id = 'alternativeSlots';
+            alternativesDiv.className = 'alternative-slots';
+            alternativesDiv.innerHTML = `
+                <div class="alternatives-message">
+                    <strong>✅ Available alternative time slots for this date:</strong>
+                    <div class="alternative-buttons">
+                        ${alternatives.map(alt => 
+                            `<button class="alternative-btn" data-timeslot="${alt.timeSlot}">
+                                ${alt.label}
+                            </button>`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Insert after conflict warning
+            const conflictWarning = document.getElementById('conflictWarning');
+            if (conflictWarning) {
+                conflictWarning.appendChild(alternativesDiv);
+            }
+
+            // Add click handlers for alternative buttons
+            alternativesDiv.querySelectorAll('.alternative-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const timeSlot = this.dataset.timeslot;
+                    document.getElementById('preferredTime').value = timeSlot;
+                    window.preferredTime = timeSlot;
+                    
+                    // Trigger change event to recheck conflicts
+                    document.getElementById('preferredTime').dispatchEvent(new Event('change'));
+                });
+            });
+        }
+
+        // Display success message when no conflicts
+        function displaySuccessMessage() {
+            const successDiv = document.createElement('div');
+            successDiv.id = 'scheduleSuccess';
+            successDiv.className = 'schedule-success';
+            successDiv.innerHTML = `
+                <div class="success-message">
+                    ✅ <strong>Time slot available!</strong> No conflicts detected.
+                </div>
+            `;
+
+            // Insert after the time selection field
+            const timeField = document.getElementById('preferredTime').parentNode;
+            timeField.appendChild(successDiv);
+
+            // Re-enable booking button
+            const bookBtn = document.getElementById('bookNowBtn');
+            bookBtn.disabled = false;
+            bookBtn.textContent = 'Complete Form to Book';
+            bookBtn.style.background = '';
+        }
+
+        // Display error message
+        function displayErrorMessage(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.id = 'scheduleError';
+            errorDiv.className = 'schedule-error';
+            errorDiv.innerHTML = `
+                <div class="error-message">
+                    ⚠️ <strong>Warning:</strong> ${message}
+                </div>
+            `;
+
+            // Insert after the time selection field
+            const timeField = document.getElementById('preferredTime').parentNode;
+            timeField.appendChild(errorDiv);
+        }
+
+        // Clear all conflict-related messages
+        function clearConflictMessages() {
+            const messagesToClear = ['conflictWarning', 'alternativeSlots', 'scheduleSuccess', 'scheduleError'];
+            messagesToClear.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.remove();
+                }
+            });
         }
 
         function updateBedroomHours(value) {
