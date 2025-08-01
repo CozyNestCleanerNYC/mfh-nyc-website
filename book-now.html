@@ -1422,32 +1422,80 @@
         console.log('🔑 Backend calendar integration loaded');
     </script>
     <script>
-        // Initialize backend calendar integration
-        document.addEventListener('DOMContentLoaded', function() {
-            alert('🔑 Calendar integration starting...');
+        // Simple calendar integration that works
+        window.addEventListener('load', function() {
+            alert('🔑 Page fully loaded - starting calendar integration...');
             
-            // Add conflict detection to date and time changes
+            // Backend calendar integration
+            const CALENDAR_API_BASE = 'https://19hninc17x70.manus.space';
+            
+            // Calendar conflict detection
+            window.checkCalendarConflicts = async function(date, timeSlot) {
+                try {
+                    const response = await fetch(`${CALENDAR_API_BASE}/api/calendar/check-conflicts`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ date: date, time_slot: timeSlot })
+                    });
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                    
+                } catch (error) {
+                    console.error('Calendar API error:', error);
+                    return { has_conflicts: false, conflicts: [], alternatives: [], error: error.message };
+                }
+            };
+            
+            // Display conflict results
+            window.displayConflictResults = function(result) {
+                let container = document.getElementById('conflict-container');
+                if (!container) {
+                    container = document.createElement('div');
+                    container.id = 'conflict-container';
+                    container.style.cssText = 'margin: 15px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px;';
+                    
+                    const timeField = document.getElementById('preferredTime').parentNode;
+                    timeField.parentNode.insertBefore(container, timeField.nextSibling);
+                }
+                
+                if (result.has_conflicts) {
+                    let html = `<div style="background: #fff3cd; padding: 10px; border: 1px solid #ffeaa7; border-radius: 3px;">
+                        <h4 style="margin: 0 0 10px 0; color: #856404;">⚠️ Time slot conflict detected!</h4>
+                        <p style="margin: 0 0 10px 0;">You already have ${result.conflicts.length} appointment(s) during this time:</p><ul style="margin: 0;">`;
+                    
+                    result.conflicts.forEach(conflict => {
+                        html += `<li>${conflict.summary} (${conflict.start} - ${conflict.end})</li>`;
+                    });
+                    html += '</ul></div>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = `<div style="background: #d4edda; padding: 10px; border: 1px solid #c3e6cb; border-radius: 3px; color: #155724;">
+                        ✅ Time slot available! No conflicts detected.
+                    </div>`;
+                }
+            };
+            
+            // Set up event listeners
             const dateInput = document.getElementById('preferredDate');
             const timeSelect = document.getElementById('preferredTime');
             
             alert(`Found elements - Date: ${!!dateInput}, Time: ${!!timeSelect}`);
             
             if (dateInput && timeSelect) {
+                // Set minimum date to today
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.min = today;
+                
                 const checkConflicts = async function() {
                     const date = dateInput.value;
                     const timeSlot = timeSelect.value;
                     
-                    alert(`🔍 Checking conflicts for date: ${date}, time: ${timeSlot}`);
-                    
                     if (date && timeSlot) {
-                        try {
-                            alert('📞 Calling backend API...');
-                            const result = await window.checkCalendarConflicts(date, timeSlot);
-                            alert(`📋 API Result: ${JSON.stringify(result)}`);
-                            window.displayConflictResults(result);
-                        } catch (error) {
-                            alert(`❌ Error: ${error.message}`);
-                        }
+                        alert(`🔍 Checking conflicts for ${date} ${timeSlot}...`);
+                        const result = await window.checkCalendarConflicts(date, timeSlot);
+                        alert(`📋 Result: ${result.has_conflicts ? 'CONFLICT FOUND!' : 'No conflicts'}`);
+                        window.displayConflictResults(result);
                     }
                 };
                 
@@ -1461,9 +1509,9 @@
                     checkConflicts();
                 });
                 
-                alert('✅ Event listeners attached successfully');
+                alert('✅ Calendar integration ready!');
             } else {
-                alert('❌ Could not find date or time input fields');
+                alert('❌ Could not find date/time fields');
             }
         });
     </script>
