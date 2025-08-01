@@ -117,15 +117,35 @@
             let date = dateInput.value;
             const timeSlot = timeSelect.value;
             
-            // Fix date format if corrupted
-            if (date && date.length > 10) {
-                // Extract the correct date parts from corrupted format like "50802-02-02"
-                const parts = date.split('-');
-                if (parts.length === 3 && parts[0].length > 4) {
-                    // Take last 4 digits of first part as year, keep month and day
-                    const year = parts[0].slice(-4);
-                    date = `${year}-${parts[1]}-${parts[2]}`;
-                    console.log(`🔧 Fixed corrupted date from ${dateInput.value} to ${date}`);
+            // Fix date format if corrupted or malformed
+            if (date) {
+                // Handle various date corruption patterns
+                if (date.length > 10) {
+                    // Pattern: "50802-02-02" -> "2025-08-02"
+                    const parts = date.split('-');
+                    if (parts.length === 3 && parts[0].length > 4) {
+                        const year = parts[0].slice(-4);
+                        date = `${year}-${parts[1]}-${parts[2]}`;
+                        console.log(`🔧 Fixed corrupted date from ${dateInput.value} to ${date}`);
+                    }
+                } else if (date.length === 8 && !date.includes('-')) {
+                    // Pattern: "20250802" -> "2025-08-02"
+                    date = `${date.slice(0,4)}-${date.slice(4,6)}-${date.slice(6,8)}`;
+                    console.log(`🔧 Fixed compact date from ${dateInput.value} to ${date}`);
+                } else if (date.includes('/')) {
+                    // Pattern: "08/02/2025" -> "2025-08-02"
+                    const parts = date.split('/');
+                    if (parts.length === 3) {
+                        const [month, day, year] = parts;
+                        date = `${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`;
+                        console.log(`🔧 Fixed slash date from ${dateInput.value} to ${date}`);
+                    }
+                }
+                
+                // Validate final date format
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+                    console.warn(`⚠️ Date format still invalid: ${date}`);
+                    return; // Don't proceed with invalid date
                 }
             }
             
@@ -151,10 +171,24 @@
             const today = new Date().toISOString().split('T')[0];
             dateInput.min = today;
             
-            // Add event listeners
+            // Add event listeners with better date handling
             dateInput.addEventListener('change', function() {
                 console.log('📅 Date changed to:', this.value);
-                window.checkConflictsForCurrentSelection();
+                setTimeout(() => {
+                    window.checkConflictsForCurrentSelection();
+                }, 200); // Delay to ensure value is properly set
+            });
+            
+            dateInput.addEventListener('blur', function() {
+                console.log('📅 Date field blurred with value:', this.value);
+                setTimeout(() => {
+                    window.checkConflictsForCurrentSelection();
+                }, 200);
+            });
+            
+            dateInput.addEventListener('input', function() {
+                console.log('📅 Date input event:', this.value);
+                // Don't trigger immediately on input, wait for change/blur
             });
             
             timeSelect.addEventListener('change', function() {
