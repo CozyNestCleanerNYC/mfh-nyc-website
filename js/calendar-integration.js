@@ -114,8 +114,20 @@
         const timeSelect = document.getElementById('preferredTime');
         
         if (dateInput && timeSelect) {
-            const date = dateInput.value;
+            let date = dateInput.value;
             const timeSlot = timeSelect.value;
+            
+            // Fix date format if corrupted
+            if (date && date.length > 10) {
+                // Extract the correct date parts from corrupted format like "50802-02-02"
+                const parts = date.split('-');
+                if (parts.length === 3 && parts[0].length > 4) {
+                    // Take last 4 digits of first part as year, keep month and day
+                    const year = parts[0].slice(-4);
+                    date = `${year}-${parts[1]}-${parts[2]}`;
+                    console.log(`🔧 Fixed corrupted date from ${dateInput.value} to ${date}`);
+                }
+            }
             
             if (date && timeSlot) {
                 console.log(`🔍 Checking conflicts for ${date} ${timeSlot}...`);
