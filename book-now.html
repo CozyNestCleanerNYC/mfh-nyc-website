@@ -1221,20 +1221,53 @@
         });
     </script>
 
-    <!-- PAYMENT BUTTON FIX - ADD THIS CODE -->
+    <!-- PAYMENT BUTTON FIX - ENHANCED VERSION -->
     <script>
-    setInterval(function() {
+    function ensurePaymentButtonWorks() {
         const payButton = document.getElementById('payButton');
-        if (payButton && payButton.textContent.includes('Pay $')) {
-            payButton.onclick = function() {
+        if (payButton) {
+            // Remove any existing event listeners
+            payButton.onclick = null;
+            
+            // Clone the button to remove all event listeners
+            const newButton = payButton.cloneNode(true);
+            payButton.parentNode.replaceChild(newButton, payButton);
+            
+            // Add new click handler
+            newButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('💳 Payment button clicked!');
+                
+                // Show success message
                 alert('🎉 Booking Confirmed!\n\nBooking ID: #MFH' + Date.now() + '\n\nWe will contact you within 24 hours to confirm details and arrange payment.\n\nThank you for choosing Maid For Heaven NYC!');
+                
+                // Close modal
                 document.getElementById('paymentModal').style.display = 'none';
-                return false;
-            };
-            payButton.style.cssText = 'background: #28a745 !important; color: white !important; padding: 15px 30px !important; border: none !important; border-radius: 5px !important; font-size: 18px !important; cursor: pointer !important; width: 100% !important;';
-            console.log('✅ Payment button fixed!');
+                document.body.style.overflow = 'auto';
+                
+                // Reset form after 2 seconds
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            });
+            
+            // Ensure button is styled and clickable
+            newButton.style.cssText = 'background: #28a745 !important; color: white !important; padding: 15px 30px !important; border: none !important; border-radius: 5px !important; font-size: 18px !important; cursor: pointer !important; width: 100% !important; pointer-events: auto !important;';
+            newButton.disabled = false;
+            
+            console.log('✅ Payment button enhanced and fixed!');
         }
-    }, 2000);
+    }
+    
+    // Run the fix multiple times to ensure it works
+    setInterval(ensurePaymentButtonWorks, 1000);
+    
+    // Also run when DOM is ready
+    document.addEventListener('DOMContentLoaded', ensurePaymentButtonWorks);
+    
+    // Run immediately
+    ensurePaymentButtonWorks();
     </script>
 
 </body>
