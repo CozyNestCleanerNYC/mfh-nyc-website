@@ -7,7 +7,7 @@
     console.log('🔑 Calendar integration script loaded');
     
     // Backend calendar integration
-    const CALENDAR_API_BASE = 'https://58hpi8cwo71x.manus.space';
+    const API_BASE_URL = 'https://19hninc17x70.manus.space';
     
     // Calendar conflict detection
     window.checkCalendarConflicts = async function(date, timeSlot) {
@@ -85,9 +85,32 @@
                 bookButton.textContent = 'Complete Form to Book';
             }
         }
+        
+        // Format alternative time slots for display
+        if (data.alternatives) {
+            data.alternatives.forEach(alternative => {
+                // Convert 24-hour format to 12-hour format for display
+                const formatTime = (timeStr) => {
+                    if (timeStr.includes('AM') || timeStr.includes('PM')) return timeStr;
+                    const [start, end] = timeStr.split(' - ');
+                    const formatHour = (hour) => {
+                        const h = parseInt(hour.split(':')[0]);
+                        if (h === 0) return '12:00 AM';
+                        if (h < 12) return `${h}:00 AM`;
+                        if (h === 12) return '12:00 PM';
+                        return `${h - 12}:00 PM`;
+                    };
+                    return `${formatHour(start)} - ${formatHour(end)}`;
+                };
+                
+                alternative.display = alternative.display.replace(/\(([^)]+)\)/, (match, timeRange) => {
+                    return `(${formatTime(timeRange)})`;
+                });
+            });
+        }
     };
     
-    // Select alternative time slot
+    // Function to select alternative time slot
     window.selectAlternativeTime = function(timeSlot) {
         const timeSelect = document.getElementById('preferredTime');
         if (timeSelect) {
