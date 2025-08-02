@@ -14,7 +14,7 @@
         try {
             console.log(`🔄 Checking calendar conflicts for ${date} ${timeSlot}...`);
             
-            const response = await fetch(`${CALENDAR_API_BASE}/api/calendar/check-conflicts`, {
+            const response = await fetch(`${API_BASE_URL}/api/check-conflicts`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ date: date, time_slot: timeSlot })
