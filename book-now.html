@@ -1067,8 +1067,8 @@
         }
 
         function checkFormCompletion() {
-            const requiredFields = ['bedrooms', 'preferredDate', 'preferredTime', 'address', 'name', 'email', 'phone'];
             const bookNowBtn = document.getElementById('bookNowBtn');
+            if (!bookNowBtn) return;
             
             let missingFields = [];
             
@@ -1077,18 +1077,33 @@
                 missingFields.push('Service Type');
             }
             
-            // Check required form fields
-            requiredFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (!field.value.trim()) {
-                    missingFields.push(field.previousElementSibling.textContent.replace(':', ''));
+            // Check required form fields with correct IDs
+            const fieldChecks = [
+                { id: 'bedrooms', name: 'Bedrooms', check: (el) => el.value && el.value !== 'Select bedrooms' },
+                { id: 'bathrooms', name: 'Bathrooms', check: (el) => el.value && el.value !== 'Select bathrooms' },
+                { id: 'date', name: 'Date', check: (el) => el.value.trim() !== '' },
+                { id: 'time', name: 'Time', check: (el) => el.value && el.value !== 'Select time' },
+                { id: 'address', name: 'Address', check: (el) => el.value.trim() !== '' },
+                { id: 'name', name: 'Name', check: (el) => el.value.trim() !== '' },
+                { id: 'email', name: 'Email', check: (el) => el.value.trim() !== '' },
+                { id: 'phone', name: 'Phone', check: (el) => el.value.trim() !== '' }
+            ];
+            
+            fieldChecks.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (!element || !field.check(element)) {
+                    missingFields.push(field.name);
                 }
             });
             
+            // Update button state
             if (missingFields.length === 0) {
                 bookNowBtn.disabled = false;
                 bookNowBtn.textContent = 'Book Now & Pay Online';
                 bookNowBtn.classList.remove('disabled');
+                bookNowBtn.style.backgroundColor = '#4CAF50';
+                bookNowBtn.style.cursor = 'pointer';
+                bookNowBtn.style.opacity = '1';
             } else {
                 bookNowBtn.disabled = true;
                 if (missingFields.length <= 3) {
@@ -1097,7 +1112,13 @@
                     bookNowBtn.textContent = 'Complete Form to Book (' + missingFields.length + ' fields)';
                 }
                 bookNowBtn.classList.add('disabled');
+                bookNowBtn.style.backgroundColor = '#cccccc';
+                bookNowBtn.style.cursor = 'not-allowed';
+                bookNowBtn.style.opacity = '0.6';
             }
+            
+            console.log(`Form validation: ${8 - missingFields.length}/8 fields completed. Missing: ${missingFields.join(', ')}`);
+        }
         }
 
         // Book Now button click
