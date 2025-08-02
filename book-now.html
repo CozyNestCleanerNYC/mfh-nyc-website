@@ -4,802 +4,230 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Now - Instant Quote & Payment | Maid For Heaven NYC</title>
-    <!-- Navigation links updated - cache bust v2.0 -->
-    <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">
-    <style>
-        /* Booking Page Specific Styles */
-        .booking-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-        
-        .booking-form {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .booking-header {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .booking-header h1 {
-            margin: 0 0 8px 0;
-            font-size: 1.6rem;
-        }
-        
-        .booking-header p {
-            font-size: 0.95rem;
-            margin: 0;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: #333;
-            font-size: 0.95rem;
-        }
-        
-        .service-options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .service-option {
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: white;
-        }
-        
-        .service-option:hover {
-            border-color: #4CAF50;
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
-        }
-        
-        .service-option.selected {
-            border-color: #4CAF50;
-            background: #f8fff8;
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-        }
-        
-        .service-icon {
-            font-size: 1.6rem;
-            background: #4CAF50;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .service-info {
-            flex: 1;
-        }
-        
-        .service-info h3 {
-            margin: 0 0 4px 0;
-            color: #333;
-            font-size: 1.1rem;
-        }
-        
-        .service-info p {
-            margin: 0;
-            color: #666;
-            font-size: 0.85rem;
-        }
-        
-        .service-price {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-        
-        select, input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-        
-        select:focus, input:focus {
-            outline: none;
-            border-color: #4CAF50;
-        }
-        
-        .quote-section {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 20px;
-        }
-        
-        .quote-header {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .quote-header h2 {
-            margin: 0 0 6px 0;
-            font-size: 1.4rem;
-        }
-        
-        .quote-header p {
-            font-size: 0.9rem;
-            margin: 0;
-        }
-        
-        .quote-display {
-            background: #f8f9fa;
-            padding: 16px;
-            border-radius: 10px;
-            margin-bottom: 16px;
-        }
-        
-        .quote-line {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-        
-        .quote-total {
-            border-top: 2px solid #4CAF50;
-            padding-top: 12px;
-            margin-top: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-        
-        .quote-details {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #e0e0e0;
-            color: #666;
-            font-size: 0.85rem;
-        }
-        
-        .book-now-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-        }
-        
-        .book-now-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #45a049, #3d8b40);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
-        }
-        
-        /* Calendar Conflict Detection Styles */
-        /* Payment Method Styles */
-        .payment-methods {
-            margin: 25px 0;
-        }
-        
-        .payment-method {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 12px;
-        }
-        
-        .payment-method:hover {
-            border-color: #4CAF50 !important;
-            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .payment-method.selected {
-            border-color: #4CAF50 !important;
-            background: #f8fff8 !important;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-        
-        .payment-method input[type="radio"] {
-            width: auto;
-            margin-right: 15px;
-            transform: scale(1.2);
-        }
-        
-        /* Payment Modal Styles */
-        .payment-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .payment-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .pay-button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-        
-        .pay-button:hover {
-            background: linear-gradient(135deg, #45a049, #3d8b40);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-        }
-        
-        .conflict-container {
-            margin: 15px 0;
-        }
-        
-        .conflict-warning {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-        }
-        
-        .conflict-warning h4 {
-            color: #856404;
-            margin: 0 0 10px 0;
-            font-size: 1.1rem;
-        }
-        
-        .conflict-warning p {
-            color: #856404;
-            margin: 5px 0;
-        }
-        
-        .conflict-warning ul {
-            color: #856404;
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-        
-        .conflict-success {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-        }
-        
-        .conflict-success p {
-            color: #155724;
-            margin: 0;
-            font-weight: 500;
-        }
-        
-        .alternatives {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #ffeaa7;
-        }
-        
-        .alternative-btn {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            margin: 5px 5px 5px 0;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.3s ease;
-        }
-        
-        .alternative-btn:hover {
-            background: #45a049;
-        }
-        .conflict-warning {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .conflict-message {
-            color: #856404;
-        }
-        
-        .conflict-message strong {
-            color: #d63031;
-        }
-        
-        .conflict-message ul {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-        
-        .conflict-message li {
-            margin-bottom: 5px;
-        }
-        
-        .alternative-slots {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #ffeaa7;
-        }
-        
-        .alternatives-message {
-            color: #155724;
-        }
-        
-        .alternative-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .alternative-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.3s ease;
-        }
-        
-        .alternative-btn:hover {
-            background: #218838;
-        }
-        
-        .schedule-success {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .success-message {
-            color: #155724;
-        }
-        
-        .schedule-error {
-            background: #f8d7da;
-            border: 1px solid #f5c6cb;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .error-message {
-            color: #721c24;
-        }
-        
-        
-        .book-now-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .features-list {
-            margin-top: 30px;
-        }
-        
-        .features-list h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-        
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-icon {
-            font-size: 1.5rem;
-            margin-top: 2px;
-        }
-        
-        .feature-item strong {
-            color: #333;
-            display: block;
-            margin-bottom: 3px;
-        }
-        
-        .feature-item p {
-            margin: 0;
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        /* Payment Modal Styles */
-        .payment-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .payment-modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .payment-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-        
-        .close-modal {
-            font-size: 2rem;
-            cursor: pointer;
-            color: #666;
-        }
-        
-        .payment-booking-summary {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-        }
-        
-        .summary-line {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        
-        .total-line {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-        
-        .payment-methods {
-            margin-bottom: 25px;
-        }
-        
-        .payment-method {
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .payment-method.selected {
-            border-color: #4CAF50;
-            background: #f8fff8;
-        }
-        
-        .pay-button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .payment-success {
-            background: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-        
-        @media (max-width: 768px) {
-            .booking-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .quote-section {
-                position: static;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/book-now.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="header-content">
-                <div class="nav-brand">
-                    <a href="index.html">Maid For Heaven NYC</a>
-                </div>
-                <nav class="nav-menu">
-                    <a href="index.html">HOME</a>
-                    <a href="index.html#services">SERVICES</a>
-                    <a href="index.html#about">ABOUT</a>
-                    <a href="faq.html">FAQ</a>
-                    <a href="contact-us.html">CONTACT</a>
-                </nav>
-                <div class="nav-contact">
-                    <a href="tel:+13477592000" class="phone-link">(347) 759-2000</a>
-                </div>
+            <div class="nav-brand">
+                <a href="index.html">Maid For Heaven NYC</a>
             </div>
+            <nav class="nav-menu">
+                <a href="index.html">HOME</a>
+                <a href="services.html">SERVICES</a>
+                <a href="about.html">ABOUT</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">CONTACT</a>
+                <a href="tel:+13477592000" class="phone-btn">(347) 759-2000</a>
+            </nav>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="booking-container">
-            <!-- Left Column - Booking Form -->
-            <div class="booking-form">
-                <div class="booking-header">
-                    <h1>📅 Book Your Cleaning Service</h1>
-                    <p>Get instant pricing with no hidden fees. Professional cleaning team.</p>
-                </div>
+        <div class="container">
+            <div class="booking-layout">
+                <!-- Left Column: Booking Form -->
+                <div class="booking-form-section">
+                    <div class="section-header">
+                        <h1>📅 Book Your Cleaning Service</h1>
+                        <p>Get instant pricing with no hidden fees. Professional cleaning team.</p>
+                    </div>
 
-                <!-- Service Type -->
-                <div class="form-group">
-                    <label>Service Type</label>
-                    <div class="service-options">
-                        <div class="service-option" data-service="standard" data-price="50">
-                            <div class="service-icon">🏠</div>
-                        <div class="service-info">
-                            <h3>Standard Cleaning</h3>
-                            <p>Regular maintenance cleaning for your home</p>
-                        </div>
-                        <div class="service-price">$50/hr</div>
-                        </div>
-                        <div class="service-option" data-service="deep" data-price="55">
-                            <div class="service-icon">✨</div>
-                            <div class="service-info">
-                                <h3>Deep Cleaning</h3>
-                                <p>Thorough cleaning including baseboards, inside appliances</p>
+                    <form id="bookingForm" class="booking-form">
+                        <!-- Service Type Selection -->
+                        <div class="form-group">
+                            <label>Service Type</label>
+                            <div class="service-options">
+                                <div class="service-option" data-service="standard" data-rate="50">
+                                    <div class="service-icon">🏠</div>
+                                    <div class="service-details">
+                                        <h3>Standard Cleaning</h3>
+                                        <p>Regular maintenance cleaning for your home</p>
+                                        <span class="service-rate">$50/hr</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="service-option" data-service="deep" data-rate="55">
+                                    <div class="service-icon">✨</div>
+                                    <div class="service-details">
+                                        <h3>Deep Cleaning</h3>
+                                        <p>Thorough cleaning including baseboards, inside appliances</p>
+                                        <span class="service-rate">$55/hr</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="service-option" data-service="moveout" data-rate="60">
+                                    <div class="service-icon">📦</div>
+                                    <div class="service-details">
+                                        <h3>Move-Out Cleaning</h3>
+                                        <p>Complete cleaning for moving out or post-construction</p>
+                                        <span class="service-rate">$60/hr</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="service-price">$55/hr</div>
                         </div>
-                        <div class="service-option" data-service="moveout" data-price="60">
-                            <div class="service-icon">📦</div>
-                            <div class="service-info">
-                                <h3>Move-Out Cleaning</h3>
-                                <p>Complete cleaning for moving out or post-construction</p>
+
+                        <!-- Property Details -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bedrooms">Bedrooms</label>
+                                <select id="bedrooms" name="bedrooms" required>
+                                    <option value="">Select bedrooms</option>
+                                    <option value="studio">Studio</option>
+                                    <option value="1br">1 Bedroom</option>
+                                    <option value="2br">2 Bedrooms</option>
+                                    <option value="3br">3 Bedrooms</option>
+                                    <option value="4br">4 Bedrooms</option>
+                                    <option value="5br">5+ Bedrooms</option>
+                                </select>
                             </div>
-                            <div class="service-price">$60/hr</div>
+                            
+                            <div class="form-group">
+                                <label for="bathrooms">Bathrooms</label>
+                                <select id="bathrooms" name="bathrooms" required>
+                                    <option value="">Select bathrooms</option>
+                                    <option value="1">1 Bathroom</option>
+                                    <option value="1.5">1.5 Bathrooms</option>
+                                    <option value="2">2 Bathrooms</option>
+                                    <option value="2.5">2.5 Bathrooms</option>
+                                    <option value="3">3 Bathrooms</option>
+                                    <option value="3.5">3.5 Bathrooms</option>
+                                    <option value="4">4+ Bathrooms</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Property Details -->
-                <div class="form-group">
-                    <label for="bedrooms">Bedrooms</label>
-                    <select id="bedrooms" required>
-                        <option value="">Select bedrooms</option>
-                        <option value="studio">Studio</option>
-                        <option value="1br">1 Bedroom</option>
-                        <option value="2br">2 Bedrooms</option>
-                        <option value="3br">3 Bedrooms</option>
-                        <option value="4br">4 Bedrooms</option>
-                        <option value="5br">5+ Bedrooms</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="bathrooms">Bathrooms</label>
-                    <select id="bathrooms" required>
-                        <option value="">Select bathrooms</option>
-                        <option value="1">1 Bathroom</option>
-                        <option value="1.5">1.5 Bathrooms</option>
-                        <option value="2">2 Bathrooms</option>
-                        <option value="2.5">2.5 Bathrooms</option>
-                        <option value="3">3 Bathrooms</option>
-                        <option value="3.5">3.5 Bathrooms</option>
-                        <option value="4">4+ Bathrooms</option>
-                    </select>
-                </div>
-
-                <!-- Date and Time -->
-                <div class="form-group">
-                    <label for="preferredDate">Preferred Date</label>
-                    <input type="date" id="preferredDate" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="preferredTime">Preferred Time</label>
-                    <select id="preferredTime" required>
-                        <option value="">Select time</option>
-                        <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
-                        <option value="afternoon">Afternoon (12:00 PM - 5:00 PM)</option>
-                        <option value="evening">Evening (5:00 PM - 8:00 PM)</option>
-                    </select>
-                </div>
-
-                <!-- Address -->
-                <div class="form-group">
-                    <label for="address">Service Address</label>
-                    <input type="text" id="address" placeholder="Enter your full address" required>
-                </div>
-
-                <!-- Contact Information -->
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="Enter your email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" placeholder="Enter your phone number" required>
-                </div>
-
-                <!-- Special Instructions -->
-                <div class="form-group">
-                    <label for="instructions">Special Instructions (Optional)</label>
-                    <textarea id="instructions" rows="3" placeholder="Any special requests or areas of focus?"></textarea>
-                </div>
-            </div>
-
-            <!-- Right Column - Quote and Booking -->
-            <div class="quote-section">
-                <div class="quote-header">
-                    <h2>💰 Instant Quote</h2>
-                    <p>Professional cleaning with 100% satisfaction guarantee</p>
-                </div>
-
-                <div class="quote-display">
-                    <div class="quote-line">
-                        <span>Service Type:</span>
-                        <span id="quoteService">Select service</span>
-                    </div>
-                    <div class="quote-line">
-                        <span>Property Size:</span>
-                        <span id="quoteSize">Select bedrooms</span>
-                    </div>
-                    <div class="quote-line">
-                        <span>Estimated Time:</span>
-                        <span id="quoteTime">-- hours</span>
-                    </div>
-                    <div class="quote-line">
-                        <span>Hourly Rate:</span>
-                        <span id="quoteRate">$--/hr</span>
-                    </div>
-                    <div class="quote-line quote-total">
-                        <span>Total Price:</span>
-                        <span id="quoteTotal">$0.00</span>
-                    </div>
-                </div>
-
-                <!-- Calendar Conflict Detection -->
-                <div id="conflictContainer" class="conflict-container"></div>
-
-                <button id="bookNowBtn" class="book-now-btn" disabled>
-                    Complete Form to Book
-                </button>
-
-                <div class="quote-details">
-                </div>
-
-                <!-- Features List -->
-                <div class="features-list">
-                    <h3>🌟 Why Choose Maid For Heaven NYC?</h3>
-                    
-                    <div class="feature-item">
-                        <div class="feature-icon">🛡️</div>
-                        <div>
-                            <strong>Fully Insured & Bonded</strong>
-                            <p>Complete protection for your home and belongings</p>
+                        <!-- Date and Time -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="preferredDate">Preferred Date</label>
+                                <input type="date" id="preferredDate" name="date" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="preferredTime">Preferred Time</label>
+                                <select id="preferredTime" name="time" required>
+                                    <option value="">Select time</option>
+                                    <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
+                                    <option value="afternoon">Afternoon (12:00 PM - 5:00 PM)</option>
+                                    <option value="evening">Evening (5:00 PM - 8:00 PM)</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-icon">⭐</div>
-                        <div>
-                            <strong>5-Star Rated Service</strong>
-                            <p>Consistently rated #1 cleaning service in NYC</p>
+
+                        <!-- Calendar Conflict Detection -->
+                        <div id="calendarConflict" class="calendar-conflict" style="display: none;">
+                            <div class="conflict-message">
+                                <span class="conflict-icon">⚠️</span>
+                                <span class="conflict-text">Time slot conflict detected! This time slot is not available.</span>
+                            </div>
+                            <div class="alternative-times">
+                                <p><strong>Available alternatives:</strong></p>
+                                <div id="alternativeTimes" class="alternative-time-buttons"></div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-icon">🧽</div>
-                        <div>
-                            <strong>Eco-Friendly Products</strong>
-                            <p>Safe, non-toxic cleaning supplies for your family</p>
+
+                        <!-- Customer Information -->
+                        <div class="form-group">
+                            <label for="address">Service Address</label>
+                            <input type="text" id="address" name="address" placeholder="Enter your full address" required>
                         </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="instructions">Special Instructions (Optional)</label>
+                            <textarea id="instructions" name="instructions" placeholder="Any special requests or areas of focus?"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right Column: Quote Summary -->
+                <div class="quote-section">
+                    <div class="quote-card">
+                        <h2>💰 Instant Quote</h2>
+                        <p>Professional cleaning with 100% satisfaction guarantee</p>
+                        
+                        <div class="quote-details">
+                            <div class="quote-line">
+                                <span>Service Type:</span>
+                                <span id="quoteService">Select service</span>
+                            </div>
+                            <div class="quote-line">
+                                <span>Property Size:</span>
+                                <span id="quoteSize">Select bedrooms</span>
+                            </div>
+                            <div class="quote-line">
+                                <span>Estimated Time:</span>
+                                <span id="quoteTime">-- hours</span>
+                            </div>
+                            <div class="quote-line">
+                                <span>Hourly Rate:</span>
+                                <span id="quoteRate">$--/hr</span>
+                            </div>
+                            <div class="quote-line total-line">
+                                <span>Total Price:</span>
+                                <span id="totalPrice">$0.00</span>
+                            </div>
+                        </div>
+                        
+                        <button id="bookNowBtn" class="book-now-btn" disabled>
+                            Complete Form to Book
+                        </button>
                     </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-icon">💯</div>
-                        <div>
-                            <strong>Satisfaction Guarantee</strong>
-                            <p>Not happy? We'll return within 24 hours to make it right</p>
+
+                    <!-- Why Choose Us -->
+                    <div class="why-choose-section">
+                        <h3>🌟 Why Choose Maid For Heaven NYC?</h3>
+                        
+                        <div class="feature">
+                            <div class="feature-icon">🛡️</div>
+                            <div class="feature-content">
+                                <h4>Fully Insured & Bonded</h4>
+                                <p>Complete protection for your home and belongings</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature">
+                            <div class="feature-icon">⭐</div>
+                            <div class="feature-content">
+                                <h4>5-Star Rated Service</h4>
+                                <p>Consistently rated #1 cleaning service in NYC</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature">
+                            <div class="feature-icon">🧽</div>
+                            <div class="feature-content">
+                                <h4>Eco-Friendly Products</h4>
+                                <p>Safe, non-toxic cleaning supplies for your family</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature">
+                            <div class="feature-icon">💯</div>
+                            <div class="feature-content">
+                                <h4>Satisfaction Guarantee</h4>
+                                <p>Not happy? We'll return within 24 hours to make it right</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -807,36 +235,62 @@
         </div>
     </main>
 
-    <!-- SIMPLE PAYMENT SYSTEM - GUARANTEED TO WORK -->
-    <div id="simplePaymentModal" class="simple-payment-modal" style="display: none;">
-        <div class="simple-payment-content">
+    <!-- SIMPLE PAYMENT MODAL - ONLY OPENS ON BUTTON CLICK -->
+    <div id="paymentModal" class="payment-modal" style="display: none;">
+        <div class="payment-content">
             <h2>🎉 Ready to Book!</h2>
             <div class="booking-summary">
-                <p><strong>Service:</strong> <span id="simpleService">Standard Cleaning</span></p>
-                <p><strong>Date & Time:</strong> <span id="simpleDateTime">--</span></p>
-                <p><strong>Address:</strong> <span id="simpleAddress">--</span></p>
-                <p><strong>Total:</strong> <span id="simpleTotal">$175.00</span></p>
+                <p><strong>Service:</strong> <span id="modalService">--</span></p>
+                <p><strong>Date & Time:</strong> <span id="modalDateTime">--</span></p>
+                <p><strong>Address:</strong> <span id="modalAddress">--</span></p>
+                <p><strong>Total:</strong> <span id="modalTotal">$0.00</span></p>
             </div>
             
-            <div class="simple-payment-options">
+            <div class="payment-options">
                 <h3>Choose Payment Method:</h3>
-                <button onclick="completeBooking('card')" class="simple-pay-btn card-btn">
-                    💳 Pay $175.00 with Card
+                <button onclick="completeBooking('card')" class="pay-btn card-btn">
+                    💳 Pay with Credit/Debit Card
                 </button>
-                <button onclick="completeBooking('paypal')" class="simple-pay-btn paypal-btn">
-                    🅿️ Pay $175.00 with PayPal
+                <button onclick="completeBooking('paypal')" class="pay-btn paypal-btn">
+                    🅿️ Pay with PayPal
                 </button>
-                <button onclick="completeBooking('later')" class="simple-pay-btn later-btn">
+                <button onclick="completeBooking('later')" class="pay-btn later-btn">
                     💰 Book Now, Pay Later (Venmo/Zelle)
                 </button>
             </div>
             
-            <button onclick="closeSimpleModal()" class="close-simple-btn">Cancel</button>
+            <button onclick="closePaymentModal()" class="close-btn">Cancel</button>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Maid For Heaven NYC</h3>
+                    <p>Professional cleaning services with 100% satisfaction guarantee.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>📞 (347) 759-2000</p>
+                    <p>📧 info@maidforheaven.nyc</p>
+                    <p>📍 Serving all 5 boroughs of NYC</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Service Areas</h4>
+                    <p>Manhattan • Brooklyn • Queens</p>
+                    <p>Bronx • Staten Island</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CSS Styles -->
     <style>
-    .simple-payment-modal {
+    .payment-modal {
         position: fixed !important;
         top: 0 !important;
         left: 0 !important;
@@ -844,12 +298,12 @@
         height: 100% !important;
         background: rgba(0,0,0,0.8) !important;
         z-index: 999999 !important;
-        display: flex !important;
+        display: none !important;
         align-items: center !important;
         justify-content: center !important;
     }
     
-    .simple-payment-content {
+    .payment-content {
         background: white !important;
         padding: 30px !important;
         border-radius: 10px !important;
@@ -858,7 +312,7 @@
         text-align: center !important;
     }
     
-    .simple-pay-btn {
+    .pay-btn {
         display: block !important;
         width: 100% !important;
         padding: 15px !important;
@@ -875,12 +329,12 @@
     .paypal-btn { background: #0070ba !important; color: white !important; }
     .later-btn { background: #6f42c1 !important; color: white !important; }
     
-    .simple-pay-btn:hover {
+    .pay-btn:hover {
         transform: scale(1.05) !important;
         opacity: 0.9 !important;
     }
     
-    .close-simple-btn {
+    .close-btn {
         background: #dc3545 !important;
         color: white !important;
         border: none !important;
@@ -899,31 +353,139 @@
     }
     </style>
 
+    <!-- JavaScript -->
     <script>
-    function openSimplePaymentModal() {
+    // Simple booking system
+    let selectedService = '';
+    let hourlyRate = 0;
+    let totalPrice = 0;
+
+    // Service selection
+    document.querySelectorAll('.service-option').forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove selected class from all options
+            document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            this.classList.add('selected');
+            
+            // Update selected service
+            selectedService = this.dataset.service;
+            hourlyRate = parseInt(this.dataset.rate);
+            
+            // Update quote display
+            document.getElementById('quoteService').textContent = this.querySelector('h3').textContent;
+            document.getElementById('quoteRate').textContent = '$' + hourlyRate + '/hr';
+            
+            calculateTotal();
+        });
+    });
+
+    // Property size change
+    document.getElementById('bedrooms').addEventListener('change', calculateTotal);
+    document.getElementById('bathrooms').addEventListener('change', calculateTotal);
+
+    function calculateTotal() {
+        const bedrooms = document.getElementById('bedrooms').value;
+        const bathrooms = parseFloat(document.getElementById('bathrooms').value) || 0;
+        
+        if (selectedService && bedrooms && bathrooms) {
+            // Calculate estimated hours based on property size
+            let baseHours = 2;
+            
+            // Add time based on bedrooms
+            switch(bedrooms) {
+                case 'studio': baseHours += 0.5; break;
+                case '1br': baseHours += 1; break;
+                case '2br': baseHours += 1.5; break;
+                case '3br': baseHours += 2; break;
+                case '4br': baseHours += 2.5; break;
+                case '5br': baseHours += 3; break;
+            }
+            
+            // Add time based on bathrooms
+            baseHours += (bathrooms - 1) * 0.5;
+            
+            // Service type multiplier
+            if (selectedService === 'deep') baseHours *= 1.3;
+            if (selectedService === 'moveout') baseHours *= 1.5;
+            
+            const estimatedHours = Math.round(baseHours * 2) / 2; // Round to nearest 0.5
+            totalPrice = estimatedHours * hourlyRate;
+            
+            // Update display
+            document.getElementById('quoteSize').textContent = bedrooms.replace('br', ' BR') + ', ' + bathrooms + ' Bath';
+            document.getElementById('quoteTime').textContent = estimatedHours + ' hours';
+            document.getElementById('totalPrice').textContent = '$' + totalPrice.toFixed(2);
+            
+            // Enable booking button if form is valid
+            checkFormValidity();
+        }
+    }
+
+    function checkFormValidity() {
+        const requiredFields = ['bedrooms', 'bathrooms', 'preferredDate', 'preferredTime', 'address', 'name', 'email', 'phone'];
+        const allFilled = requiredFields.every(field => {
+            const element = document.getElementById(field);
+            return element && element.value.trim() !== '';
+        });
+        
+        const bookBtn = document.getElementById('bookNowBtn');
+        if (allFilled && selectedService) {
+            bookBtn.disabled = false;
+            bookBtn.textContent = 'Book Now & Pay Online';
+            bookBtn.style.background = '#28a745';
+        } else {
+            bookBtn.disabled = true;
+            bookBtn.textContent = 'Complete Form to Book (' + (9 - requiredFields.filter(field => {
+                const element = document.getElementById(field);
+                return element && element.value.trim() !== '';
+            }).length - (selectedService ? 0 : 1)) + ' fields)';
+            bookBtn.style.background = '#6c757d';
+        }
+    }
+
+    // Add event listeners to all form fields
+    document.querySelectorAll('input, select, textarea').forEach(field => {
+        field.addEventListener('change', checkFormValidity);
+        field.addEventListener('input', checkFormValidity);
+    });
+
+    // Book Now button click
+    document.getElementById('bookNowBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (this.disabled) {
+            alert('⚠️ Please fill out all required fields before booking.');
+            return;
+        }
+        
+        openPaymentModal();
+    });
+
+    function openPaymentModal() {
         // Get form data
-        const service = document.querySelector('.service-option.selected')?.textContent || 'Standard Cleaning';
-        const date = document.querySelector('input[type="date"], input[placeholder*="date"]')?.value || '08/04/2025';
-        const time = document.querySelector('select[name="time"] option:checked, .time-option.selected')?.textContent || 'Evening (5:00 PM - 8:00 PM)';
-        const address = document.querySelector('input[placeholder*="address"]')?.value || '123 Main St, New York, NY 10001';
-        const total = document.querySelector('#totalPrice')?.textContent || '$175.00';
+        const service = document.querySelector('.service-option.selected h3').textContent;
+        const date = document.getElementById('preferredDate').value;
+        const time = document.getElementById('preferredTime').selectedOptions[0].textContent;
+        const address = document.getElementById('address').value;
         
         // Update modal content
-        document.getElementById('simpleService').textContent = service;
-        document.getElementById('simpleDateTime').textContent = `${date} - ${time}`;
-        document.getElementById('simpleAddress').textContent = address;
-        document.getElementById('simpleTotal').textContent = total;
+        document.getElementById('modalService').textContent = service;
+        document.getElementById('modalDateTime').textContent = date + ' - ' + time;
+        document.getElementById('modalAddress').textContent = address;
+        document.getElementById('modalTotal').textContent = '$' + totalPrice.toFixed(2);
         
         // Show modal
-        document.getElementById('simplePaymentModal').style.display = 'flex';
-        console.log('✅ Simple payment modal opened!');
+        document.getElementById('paymentModal').style.display = 'flex';
+        console.log('✅ Payment modal opened!');
     }
-    
-    function closeSimpleModal() {
-        document.getElementById('simplePaymentModal').style.display = 'none';
-        console.log('❌ Simple payment modal closed');
+
+    function closePaymentModal() {
+        document.getElementById('paymentModal').style.display = 'none';
+        console.log('❌ Payment modal closed');
     }
-    
+
     function completeBooking(paymentMethod) {
         const bookingId = 'MFH' + Date.now();
         let message = '';
@@ -937,7 +499,7 @@
         }
         
         alert(message);
-        closeSimpleModal();
+        closePaymentModal();
         
         // Reset form after 2 seconds
         setTimeout(() => {
@@ -946,451 +508,19 @@
         
         console.log('✅ Booking completed with', paymentMethod);
     }
-    
-    // Replace the main booking button functionality
-    function replaceMainBookingButton() {
-        const mainButton = document.querySelector('button[onclick*="handleBookNow"], .book-now-btn, button:contains("Book Now"), button:contains("Complete Form")');
-        if (mainButton) {
-            mainButton.onclick = function(e) {
-                e.preventDefault();
-                openSimplePaymentModal();
-                return false;
-            };
-            mainButton.style.cssText = 'background: #28a745 !important; color: white !important; padding: 15px 30px !important; border: none !important; border-radius: 5px !important; font-size: 18px !important; cursor: pointer !important; width: 100% !important;';
-            console.log('✅ Main booking button replaced with simple system!');
-        }
-    }
-    
-    // Run the replacement
-    setInterval(replaceMainBookingButton, 1000);
-    document.addEventListener('DOMContentLoaded', replaceMainBookingButton);
-    replaceMainBookingButton();
-    </script>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Maid For Heaven NYC</h3>
-                    <p>Professional cleaning services you can trust. We bring heaven to your home with our meticulous attention to detail and eco-friendly approach.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <p>📞 (347) 759-2000</p>
-                    <p>📧 orhans@maidforheavennyc.com</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Service Areas</h3>
-                    <p>Manhattan • Brooklyn • Queens<br>Bronx • Staten Island</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- JavaScript -->
-    <script src="js/calendar-integration.js"></script>
-    <script src="booking-api.js"></script>
-    <script>
-        // Booking system variables
-        let selectedService = null;
-        let selectedServicePrice = 0;
-        let totalPrice = 0;
-        let estimatedHours = 0;
-        window.totalPrice = 0;
-
-        // Service selection
-        document.querySelectorAll('.service-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from all options
-                document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
-                
-                // Add selected class to clicked option
-                this.classList.add('selected');
-                
-                // Store selected service data
-                selectedService = this.dataset.service;
-                selectedServicePrice = parseInt(this.dataset.price);
-                
-                // Update quote display
-                updateQuote();
-                checkFormCompletion();
-            });
-        });
-
-        // Form field change listeners
-        document.getElementById('bedrooms').addEventListener('change', function() {
-            updateQuote();
-            checkFormCompletion();
-        });
-
-        document.getElementById('bathrooms').addEventListener('change', function() {
-            updateQuote();
-            checkFormCompletion();
-        });
-
-        document.getElementById('date').addEventListener('change', function() {
-            checkCalendarConflicts();
-            checkFormCompletion();
-        });
-
-        document.getElementById('time').addEventListener('change', function() {
-            checkCalendarConflicts();
-            checkFormCompletion();
-        });
-
-        // Other form fields
-        ['address', 'name', 'email', 'phone'].forEach(fieldId => {
-            document.getElementById(fieldId).addEventListener('input', checkFormCompletion);
-        });
-
-        function updateQuote() {
-            const bedrooms = document.getElementById('bedrooms').value;
-            const bathrooms = document.getElementById('bathrooms').value;
-            
-            if (!selectedService || !bedrooms || !bathrooms) {
-                return;
-            }
-            
-            // Calculate estimated hours based on property size
-            estimatedHours = calculateEstimatedHours(bedrooms, bathrooms, selectedService);
-            
-            // Calculate total price
-            totalPrice = selectedServicePrice * estimatedHours;
-            window.totalPrice = totalPrice;
-            
-            // Update display
-            document.getElementById('quoteService').textContent = getServiceName(selectedService);
-            document.getElementById('quoteSize').textContent = getPropertySize(bedrooms, bathrooms);
-            document.getElementById('quoteTime').textContent = estimatedHours + ' hours';
-            document.getElementById('quoteRate').textContent = '$' + selectedServicePrice + '/hr';
-            document.getElementById('quoteTotal').textContent = '$' + totalPrice.toFixed(2);
-        }
-
-        function calculateEstimatedHours(bedrooms, bathrooms, service) {
-            let baseHours = 0;
-            
-            // Base hours by bedroom count
-            switch(bedrooms) {
-                case 'studio': baseHours = 2; break;
-                case '1br': baseHours = 2.5; break;
-                case '2br': baseHours = 3; break;
-                case '3br': baseHours = 4; break;
-                case '4br': baseHours = 5; break;
-                case '5br': baseHours = 6; break;
-            }
-            
-            // Add time for bathrooms
-            const bathroomCount = parseFloat(bathrooms);
-            baseHours += (bathroomCount - 1) * 0.5;
-            
-            // Adjust for service type
-            if (service === 'deep') {
-                baseHours *= 1.5;
-            } else if (service === 'moveout') {
-                baseHours *= 1.8;
-            }
-            
-            return Math.ceil(baseHours * 2) / 2; // Round to nearest 0.5
-        }
-
-        function getServiceName(service) {
-            switch(service) {
-                case 'standard': return 'Standard Cleaning';
-                case 'deep': return 'Deep Cleaning';
-                case 'moveout': return 'Move-Out Cleaning';
-                default: return 'Select service';
-            }
-        }
-
-        function getPropertySize(bedrooms, bathrooms) {
-            const bedroomText = bedrooms.replace('br', ' BR').replace('studio', 'Studio');
-            return bedroomText + ', ' + bathrooms + ' Bath';
-        }
-
-        function checkFormCompletion() {
-            const requiredFields = ['bedrooms', 'preferredDate', 'preferredTime', 'address', 'name', 'email', 'phone'];
-            const bookNowBtn = document.getElementById('bookNowBtn');
-            
-            let missingFields = [];
-            
-            // Check service selection
-            if (!selectedService) {
-                missingFields.push('Service Type');
-            }
-            
-            // Check required form fields
-            requiredFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (!field.value.trim()) {
-                    missingFields.push(field.previousElementSibling.textContent.replace(':', ''));
-                }
-            });
-            
-            if (missingFields.length === 0) {
-                bookNowBtn.disabled = false;
-                bookNowBtn.textContent = 'Book Now & Pay Online';
-                bookNowBtn.classList.remove('disabled');
-            } else {
-                bookNowBtn.disabled = true;
-                if (missingFields.length <= 3) {
-                    bookNowBtn.textContent = 'Complete: ' + missingFields.join(', ');
-                } else {
-                    bookNowBtn.textContent = 'Complete Form to Book (' + missingFields.length + ' fields)';
-                }
-                bookNowBtn.classList.add('disabled');
-            }
-        }
-
-        // Book Now button click
-        document.getElementById('bookNowBtn').addEventListener('click', function() {
-            if (!this.disabled) {
-                openPaymentModal();
-            }
-        });
-
-        function openPaymentModal() {
-            // Populate payment modal with booking details
-            document.getElementById('paymentService').textContent = getServiceName(selectedService);
-            
-            const date = document.getElementById('preferredDate').value;
-            const time = document.getElementById('preferredTime').value;
-            document.getElementById('paymentDateTime').textContent = formatDateTime(date, time);
-            
-            document.getElementById('paymentAddress').textContent = document.getElementById('address').value;
-            document.getElementById('paymentDuration').textContent = estimatedHours + ' hours';
-            document.getElementById('paymentTotal').textContent = '$' + totalPrice.toFixed(2);
-            
-            // Show modal
-            document.getElementById('paymentModal').style.display = 'flex';
-            
-            // Reset payment method selection
-            document.querySelectorAll('input[name="payment"]').forEach(radio => {
-                radio.checked = false;
-            });
-            document.querySelectorAll('.payment-method').forEach(method => {
-                method.classList.remove('selected');
-            });
-            
-            updatePayButton();
-        }
-
-        function closePaymentModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-        }
-
-        function formatDateTime(date, time) {
-            const dateObj = new Date(date);
-            const dateStr = dateObj.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-            
-            let timeStr = '';
-            switch(time) {
-                case 'morning': timeStr = '8:00 AM - 12:00 PM'; break;
-                case 'afternoon': timeStr = '12:00 PM - 5:00 PM'; break;
-                case 'evening': timeStr = '5:00 PM - 8:00 PM'; break;
-            }
-            
-            return dateStr + ', ' + timeStr;
-        }
-
-        // Payment method selection
-        document.querySelectorAll('.payment-method').forEach(method => {
-            method.addEventListener('click', function() {
-                // Remove selected class from all methods
-                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
-                
-                // Add selected class to clicked method
-                this.classList.add('selected');
-                
-                // Check the radio button
-                const radio = this.querySelector('input[type="radio"]');
-                radio.checked = true;
-                
-                updatePayButton();
-            });
-        });
-
-        function updatePayButton() {
-            const payButton = document.getElementById('payButton');
-            const selectedPayment = document.querySelector('input[name="payment"]:checked');
-            
-            if (selectedPayment) {
-                const method = selectedPayment.value;
-                if (method === 'later') {
-                    payButton.textContent = 'Book Now and Pay Later';
-                } else {
-                    payButton.textContent = 'Pay $' + totalPrice.toFixed(2) + ' Now';
-                }
-                payButton.disabled = false;
-            } else {
-                payButton.textContent = 'Select Payment Method';
-                payButton.disabled = true;
-            }
-        }
-
-        function simulatePayment() {
-            console.log('🎉 Payment function called!');
-            
-            // Get booking details
-            const bookingData = {
-                service: selectedService,
-                bedrooms: document.getElementById('bedrooms').value,
-                bathrooms: document.getElementById('bathrooms').value,
-                date: document.getElementById('preferredDate').value,
-                time: document.getElementById('preferredTime').value,
-                address: document.getElementById('address').value,
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                instructions: document.getElementById('instructions').value,
-                totalPrice: totalPrice,
-                estimatedHours: estimatedHours,
-                paymentMethod: document.querySelector('input[name="payment"]:checked')?.value
-            };
-            
-            // Generate booking ID
-            const bookingId = '#MFH' + Date.now();
-            
-            // Show success message
-            alert('🎉 Payment Successful! Booking confirmed.\n\n' +
-                  'Booking ID: ' + bookingId + '\n\n' +
-                  'Service: ' + getServiceName(selectedService) + '\n' +
-                  'Date: ' + formatDateTime(bookingData.date, bookingData.time) + '\n' +
-                  'Total: $' + totalPrice.toFixed(2) + '\n\n' +
-                  'Confirmation email will be sent to ' + bookingData.email + '\n\n' +
-                  'Thank you for choosing Maid For Heaven NYC!');
-            
-            // Send booking to backend
-            if (window.bookingAPI) {
-                window.bookingAPI.submitBooking(bookingData)
-                    .then(response => {
-                        console.log('✅ Booking submitted successfully:', response);
-                    })
-                    .catch(error => {
-                        console.error('❌ Booking submission error:', error);
-                    });
-            }
-            
-            // Close modal
-            closePaymentModal();
-            
-            // Reset form
-            setTimeout(() => {
-                location.reload();
-            }, 2000);
-        }
-
-        // Initialize booking system
-        function initializeBookingSystem() {
-            console.log('Initializing booking system...');
-            
-            // Set minimum date to today
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('preferredDate').setAttribute('min', today);
-            
-            // Initialize calendar integration if available
-            if (typeof initializeCalendar === 'function') {
-                initializeCalendar();
-            }
-            
-            console.log('✅ Booking system initialized');
-        }
-
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', initializeBookingSystem);
-
-        // Close modal when clicking outside
-        document.getElementById('paymentModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePaymentModal();
-            }
-        });
-    </script>
-
-    <!-- PAYMENT BUTTON FIX - ULTIMATE VERSION -->
-    <script>
-    function ultimatePaymentButtonFix() {
-        const payButton = document.getElementById('payButton');
-        const modal = document.getElementById('paymentModal');
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('preferredDate').setAttribute('min', today);
         
-        if (payButton && modal) {
-            // Fix modal z-index to be above everything
-            modal.style.zIndex = '99999';
-            modal.style.position = 'fixed';
-            
-            // Remove all existing event listeners by cloning
-            const newButton = payButton.cloneNode(true);
-            payButton.parentNode.replaceChild(newButton, payButton);
-            
-            // Add multiple event types to ensure it works
-            ['click', 'mousedown', 'touchstart'].forEach(eventType => {
-                newButton.addEventListener(eventType, function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    
-                    console.log('💳 Payment button activated via', eventType);
-                    
-                    // Show success message
-                    alert('🎉 Booking Confirmed!\n\nBooking ID: #MFH' + Date.now() + '\n\nWe will contact you within 24 hours to confirm details and arrange payment.\n\nThank you for choosing Maid For Heaven NYC!');
-                    
-                    // Close modal
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                    
-                    // Reset form after 2 seconds
-                    setTimeout(() => {
-                        location.reload();
-                    }, 2000);
-                    
-                    return false;
-                }, true); // Use capture phase
-            });
-            
-            // Force button to be clickable with extreme styling
-            newButton.style.cssText = `
-                background: #28a745 !important; 
-                color: white !important; 
-                padding: 15px 30px !important; 
-                border: none !important; 
-                border-radius: 5px !important; 
-                font-size: 18px !important; 
-                cursor: pointer !important; 
-                width: 100% !important; 
-                pointer-events: auto !important;
-                position: relative !important;
-                z-index: 100000 !important;
-                display: block !important;
-                opacity: 1 !important;
-            `;
-            newButton.disabled = false;
-            newButton.removeAttribute('disabled');
-            
-            console.log('🚀 Ultimate payment button fix applied!');
-        }
-    }
-    
-    // Run the ultimate fix aggressively
-    setInterval(ultimatePaymentButtonFix, 500);
-    document.addEventListener('DOMContentLoaded', ultimatePaymentButtonFix);
-    window.addEventListener('load', ultimatePaymentButtonFix);
-    ultimatePaymentButtonFix();
-    
-    // Also add a global click handler as backup
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.id === 'payButton') {
-            console.log('💳 Backup click handler triggered!');
-            alert('🎉 Booking Confirmed!\n\nBooking ID: #MFH' + Date.now() + '\n\nWe will contact you within 24 hours to confirm details and arrange payment.\n\nThank you for choosing Maid For Heaven NYC!');
-            document.getElementById('paymentModal').style.display = 'none';
-            setTimeout(() => location.reload(), 2000);
-        }
-    }, true);
+        console.log('✅ Clean booking system initialized - no auto-opening modal!');
+    });
     </script>
 
+    <!-- Calendar Integration Script -->
+    <script src="js/calendar-integration.js"></script>
 </body>
 </html>
 
