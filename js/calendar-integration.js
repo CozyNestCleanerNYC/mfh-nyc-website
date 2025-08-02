@@ -7,7 +7,7 @@
     console.log('🔑 Calendar integration script loaded');
     
     // Backend calendar integration
-    const API_BASE_URL = 'https://19hninc17x70.manus.space';
+    const API_BASE_URL = 'https://58hpi8cwo70w.manus.space';
     
     // Calendar conflict detection
     window.checkCalendarConflicts = async function(date, timeSlot) {
