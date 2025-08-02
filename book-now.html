@@ -974,6 +974,19 @@
             const bedrooms = document.getElementById('bedrooms').value;
             const bathrooms = document.getElementById('bathrooms').value;
             
+            // Always update service name if service is selected
+            if (selectedService) {
+                const serviceElement = document.getElementById('quoteService');
+                if (serviceElement) {
+                    serviceElement.textContent = getServiceName(selectedService);
+                }
+                
+                const rateElement = document.getElementById('quoteRate');
+                if (rateElement) {
+                    rateElement.textContent = '$' + selectedServicePrice + '/hr';
+                }
+            }
+            
             if (!selectedService || !bedrooms || !bathrooms) {
                 return;
             }
@@ -985,12 +998,30 @@
             totalPrice = selectedServicePrice * estimatedHours;
             window.totalPrice = totalPrice;
             
-            // Update display
-            document.getElementById('quoteService').textContent = getServiceName(selectedService);
-            document.getElementById('quoteSize').textContent = getPropertySize(bedrooms, bathrooms);
-            document.getElementById('quoteTime').textContent = estimatedHours + ' hours';
-            document.getElementById('quoteRate').textContent = '$' + selectedServicePrice + '/hr';
-            document.getElementById('quoteTotal').textContent = '$' + totalPrice.toFixed(2);
+            // Update display with error checking
+            const sizeElement = document.getElementById('quoteSize');
+            if (sizeElement) {
+                sizeElement.textContent = getPropertySize(bedrooms, bathrooms);
+            }
+            
+            const timeElement = document.getElementById('quoteTime');
+            if (timeElement) {
+                timeElement.textContent = estimatedHours + ' hours';
+            }
+            
+            const totalElement = document.getElementById('quoteTotal');
+            if (totalElement) {
+                totalElement.textContent = '$' + totalPrice.toFixed(2);
+            }
+            
+            console.log('✅ Quote updated:', {
+                service: selectedService,
+                bedrooms: bedrooms,
+                bathrooms: bathrooms,
+                hours: estimatedHours,
+                rate: selectedServicePrice,
+                total: totalPrice
+            });
         }
 
         function calculateEstimatedHours(bedrooms, bathrooms, service) {
