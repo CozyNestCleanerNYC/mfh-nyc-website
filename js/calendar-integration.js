@@ -7,14 +7,14 @@
     console.log('🔑 Calendar integration script loaded');
     
     // Backend calendar integration
-    const CALENDAR_API_BASE = 'https://3dhkilcedeel.manus.space';
+    const API_BASE_URL = 'https://3dhkilcedeel.manus.space';
     
     // Calendar conflict detection
     window.checkCalendarConflicts = async function(date, timeSlot) {
         try {
             console.log(`🔄 Checking calendar conflicts for ${date} ${timeSlot}...`);
             
-            const response = await fetch(`${CALENDAR_API_BASE}/api/calendar/check-conflicts`, {
+            const response = await fetch(`${API_BASE_URL}/api/calendar/check-conflicts`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ date: date, time_slot: timeSlot })
@@ -55,11 +55,25 @@
                     <h4 style="color: #856404; margin: 0 0 10px 0;">⚠️ Time slot conflict detected!</h4>
                     <p>This time slot is not available. Please select an alternative time.</p>
                     <p style="margin-top: 15px;"><strong>✅ Available alternative time slots for this date:</strong></p>
-                    ${result.alternatives.map(alt => `
+                    ${result.alternatives.map(alt => {
+                        // Convert 24-hour format to 12-hour format if needed
+                        let displayText = alt.display;
+                        if (displayText.includes('(') && displayText.includes(')')) {
+                            const timeMatch = displayText.match(/\((\d{2}):(\d{2}) - (\d{2}):(\d{2})\)/);
+                            if (timeMatch) {
+                                const [, startHour, startMin, endHour, endMin] = timeMatch;
+                                const startTime = new Date(2000, 0, 1, parseInt(startHour), parseInt(startMin));
+                                const endTime = new Date(2000, 0, 1, parseInt(endHour), parseInt(endMin));
+                                const start12hr = startTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
+                                const end12hr = endTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
+                                displayText = displayText.replace(timeMatch[0], `(${start12hr} - ${end12hr})`);
+                            }
+                        }
+                        return `
                         <button onclick="selectAlternativeTime('${alt.slot}')" style="margin: 5px; padding: 8px 15px; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer;">
-                            ${alt.display}
+                            ${displayText}
                         </button>
-                    `).join('')}
+                    `}).join('')}
                 </div>
             `;
             container.style.display = 'block';
@@ -85,9 +99,32 @@
                 bookButton.textContent = 'Complete Form to Book';
             }
         }
+        
+        // Format alternative time slots for display
+        if (data.alternatives) {
+            data.alternatives.forEach(alternative => {
+                // Convert 24-hour format to 12-hour format for display
+                const formatTime = (timeStr) => {
+                    if (timeStr.includes('AM') || timeStr.includes('PM')) return timeStr;
+                    const [start, end] = timeStr.split(' - ');
+                    const formatHour = (hour) => {
+                        const h = parseInt(hour.split(':')[0]);
+                        if (h === 0) return '12:00 AM';
+                        if (h < 12) return `${h}:00 AM`;
+                        if (h === 12) return '12:00 PM';
+                        return `${h - 12}:00 PM`;
+                    };
+                    return `${formatHour(start)} - ${formatHour(end)}`;
+                };
+                
+                alternative.display = alternative.display.replace(/\(([^)]+)\)/, (match, timeRange) => {
+                    return `(${formatTime(timeRange)})`;
+                });
+            });
+        }
     };
     
-    // Select alternative time slot
+    // Function to select alternative time slot
     window.selectAlternativeTime = function(timeSlot) {
         const timeSelect = document.getElementById('preferredTime');
         if (timeSelect) {
