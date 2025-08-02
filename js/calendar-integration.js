@@ -55,11 +55,25 @@
                     <h4 style="color: #856404; margin: 0 0 10px 0;">⚠️ Time slot conflict detected!</h4>
                     <p>This time slot is not available. Please select an alternative time.</p>
                     <p style="margin-top: 15px;"><strong>✅ Available alternative time slots for this date:</strong></p>
-                    ${result.alternatives.map(alt => `
+                    ${result.alternatives.map(alt => {
+                        // Convert 24-hour format to 12-hour format if needed
+                        let displayText = alt.display;
+                        if (displayText.includes('(') && displayText.includes(')')) {
+                            const timeMatch = displayText.match(/\((\d{2}):(\d{2}) - (\d{2}):(\d{2})\)/);
+                            if (timeMatch) {
+                                const [, startHour, startMin, endHour, endMin] = timeMatch;
+                                const startTime = new Date(2000, 0, 1, parseInt(startHour), parseInt(startMin));
+                                const endTime = new Date(2000, 0, 1, parseInt(endHour), parseInt(endMin));
+                                const start12hr = startTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
+                                const end12hr = endTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
+                                displayText = displayText.replace(timeMatch[0], `(${start12hr} - ${end12hr})`);
+                            }
+                        }
+                        return `
                         <button onclick="selectAlternativeTime('${alt.slot}')" style="margin: 5px; padding: 8px 15px; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer;">
-                            ${alt.display}
+                            ${displayText}
                         </button>
-                    `).join('')}
+                    `}).join('')}
                 </div>
             `;
             container.style.display = 'block';
