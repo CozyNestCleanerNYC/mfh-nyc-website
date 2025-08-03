@@ -956,19 +956,22 @@
             checkFormCompletion();
         });
 
-        document.getElementById('date').addEventListener('change', function() {
+        document.getElementById('preferredDate').addEventListener('change', function() {
             checkCalendarConflicts();
             checkFormCompletion();
         });
 
-        document.getElementById('time').addEventListener('change', function() {
+        document.getElementById('preferredTime').addEventListener('change', function() {
             checkCalendarConflicts();
             checkFormCompletion();
         });
 
         // Other form fields
         ['address', 'name', 'email', 'phone'].forEach(fieldId => {
-            document.getElementById(fieldId).addEventListener('input', checkFormCompletion);
+            const element = document.getElementById(fieldId);
+            if (element) {
+                element.addEventListener('input', checkFormCompletion);
+            }
         });
 
         function updateQuote() {
