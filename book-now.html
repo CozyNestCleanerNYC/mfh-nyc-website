@@ -1469,16 +1469,35 @@
                     throw error;
                 }
                 
-                // For demo purposes, simulate successful payment
-                // In production, you would send this to your backend to process with Stripe
-                console.log('Payment method created:', paymentMethod);
-                
-                // Simulate processing delay
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                
-                // Show success
+                // Get booking data for payment processing
                 const bookingData = getBookingData();
                 const bookingId = '#MFH' + Date.now();
+                
+                // Process real payment through backend API
+                const paymentResponse = await fetch('https://kkh7ikcyg7ze.manus.space/api/process-payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        payment_method_id: paymentMethod.id,
+                        amount: totalPrice,
+                        currency: 'usd',
+                        booking_data: {
+                            ...bookingData,
+                            booking_id: bookingId
+                        }
+                    })
+                });
+                
+                const paymentResult = await paymentResponse.json();
+                
+                if (!paymentResult.success) {
+                    throw new Error(paymentResult.error || 'Payment processing failed');
+                }
+                
+                // Payment successful - send confirmations
+                console.log('✅ Payment processed successfully:', paymentResult);
                 
                 // Send confirmation email
                 sendConfirmationEmail(bookingData, bookingId, 'Credit Card');
@@ -1488,7 +1507,9 @@
                 
                 // Show success message
                 alert('🎉 Payment Successful!\n\n' +
-                      'Booking ID: ' + bookingId + '\n\n' +
+                      'Booking ID: ' + bookingId + '\n' +
+                      'Payment ID: ' + paymentResult.payment_intent_id + '\n' +
+                      'Amount Charged: $' + paymentResult.amount_received + '\n\n' +
                       'Service: ' + getServiceName(selectedService) + '\n' +
                       'Date: ' + formatDateTime(bookingData.date, bookingData.time) + '\n' +
                       'Total: $' + totalPrice.toFixed(2) + '\n' +
