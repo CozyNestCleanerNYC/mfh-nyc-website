@@ -1437,23 +1437,30 @@
                 const bookingData = getBookingData();
                 const bookingId = '#MFH' + Date.now();
                 
-                alert('🎉 Payment Successful! Booking confirmed.\n\n' +
+                // Send confirmation email
+                sendConfirmationEmail(bookingData, bookingId, 'Credit Card');
+                
+                // Show success message
+                alert('🎉 Payment Successful!\n\n' +
                       'Booking ID: ' + bookingId + '\n\n' +
                       'Service: ' + getServiceName(selectedService) + '\n' +
                       'Date: ' + formatDateTime(bookingData.date, bookingData.time) + '\n' +
                       'Total: $' + totalPrice.toFixed(2) + '\n' +
-                      'Payment Method: Credit Card ending in ****' + '\n\n' +
-                      'Confirmation email will be sent to ' + bookingData.email + '\n\n' +
+                      'Payment Method: Credit Card\n\n' +
+                      'Confirmation email sent to ' + bookingData.email + '\n\n' +
                       'Thank you for choosing Maid For Heaven NYC!');
                 
                 // Send booking to backend
                 if (window.bookingAPI) {
-                    window.bookingAPI.submitBooking({...bookingData, paymentMethod: 'card', stripePaymentMethodId: paymentMethod.id});
+                    window.bookingAPI.submitBooking({...bookingData, paymentMethod: 'credit_card', bookingId: bookingId});
                 }
                 
                 closePaymentModal();
-                setTimeout(() => location.reload(), 2000);
                 
+                // Redirect to homepage after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);           
             } catch (error) {
                 console.error('Payment error:', error);
                 alert('Payment failed: ' + error.message);
@@ -1498,7 +1505,11 @@
             
             console.log('✅ Booking completed successfully');
             closePaymentModal();
-            setTimeout(() => location.reload(), 2000);
+            
+            // Redirect to homepage after 3 seconds
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 3000);
         }
         
         // Email confirmation system
