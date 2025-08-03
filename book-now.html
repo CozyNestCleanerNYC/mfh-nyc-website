@@ -1440,6 +1440,9 @@
                 // Send confirmation email
                 sendConfirmationEmail(bookingData, bookingId, 'Credit Card');
                 
+                // Send SMS confirmation
+                sendSMSConfirmation(bookingData, bookingId, 'Credit Card');
+                
                 // Show success message
                 alert('🎉 Payment Successful!\n\n' +
                       'Booking ID: ' + bookingId + '\n\n' +
@@ -1447,7 +1450,9 @@
                       'Date: ' + formatDateTime(bookingData.date, bookingData.time) + '\n' +
                       'Total: $' + totalPrice.toFixed(2) + '\n' +
                       'Payment Method: Credit Card\n\n' +
-                      'Confirmation email sent to ' + bookingData.email + '\n\n' +
+                      'Confirmation email & SMS sent to:\n' +
+                      '📧 ' + bookingData.email + '\n' +
+                      '📱 ' + bookingData.phone + '\n\n' +
                       'Thank you for choosing Maid For Heaven NYC!');
                 
                 // Send booking to backend
@@ -1488,6 +1493,9 @@
             // Send confirmation email
             sendConfirmationEmail(bookingData, bookingId, paymentText);
             
+            // Send SMS confirmation
+            sendSMSConfirmation(bookingData, bookingId, paymentText);
+            
             // Show success message
             alert('🎉 Booking Confirmed!\n\n' +
                   'Booking ID: ' + bookingId + '\n\n' +
@@ -1495,7 +1503,9 @@
                   'Date: ' + formatDateTime(bookingData.date, bookingData.time) + '\n' +
                   'Total: $' + totalPrice.toFixed(2) + '\n' +
                   'Payment Method: ' + paymentText + '\n\n' +
-                  'Confirmation email sent to ' + bookingData.email + '\n\n' +
+                  'Confirmation email & SMS sent to:\n' +
+                  '📧 ' + bookingData.email + '\n' +
+                  '📱 ' + bookingData.phone + '\n\n' +
                   'Thank you for choosing Maid For Heaven NYC!');
             
             // Send booking to backend
@@ -1543,6 +1553,49 @@
             } else {
                 console.error('❌ EmailJS not loaded');
             }
+        }
+        
+        // SMS confirmation system
+        function sendSMSConfirmation(bookingData, bookingId, paymentMethod) {
+            console.log('📱 Sending SMS confirmation...');
+            
+            const smsMessage = `🎉 Booking Confirmed - Maid For Heaven NYC
+            
+Booking ID: ${bookingId}
+Service: ${getServiceName(selectedService)}
+Date: ${formatDateTime(bookingData.date, bookingData.time)}
+Address: ${bookingData.address}
+Total: $${totalPrice.toFixed(2)}
+Payment: ${paymentMethod}
+
+We'll call you 24hrs before to confirm.
+Questions? Call (347) 759-2000
+
+Thank you for choosing us! ✨`;
+
+            const smsData = {
+                to: bookingData.phone,
+                message: smsMessage,
+                customerName: bookingData.name,
+                bookingId: bookingId
+            };
+            
+            // Send SMS via backend API (Twilio)
+            fetch('/api/send-sms', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(smsData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('✅ SMS sent successfully:', data);
+            })
+            .catch(error => {
+                console.error('❌ SMS sending failed:', error);
+                // Continue with booking even if SMS fails
+            });
         }
         
         function getBookingData() {
