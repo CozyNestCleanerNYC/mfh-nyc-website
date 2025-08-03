@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">
     <!-- Stripe.js -->
     <script src="https://js.stripe.com/v3/"></script>
+    <!-- EmailJS for sending confirmation emails -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            // Initialize EmailJS with your public key
+            emailjs.init("EfMM8bLysLDO-P5si");
+        })();
+    </script>
     <style>
         /* Booking Page Specific Styles */
         .booking-container {
@@ -1498,8 +1506,6 @@
             console.log('📧 Sending confirmation email...');
             
             const emailData = {
-                to: bookingData.email,
-                subject: `Booking Confirmation - ${bookingId} - Maid For Heaven NYC`,
                 customerName: bookingData.name,
                 bookingId: bookingId,
                 service: getServiceName(selectedService),
@@ -1509,35 +1515,22 @@
                 estimatedHours: estimatedHours,
                 totalPrice: totalPrice,
                 paymentMethod: paymentMethod,
-                instructions: bookingData.instructions || 'None'
+                instructions: bookingData.instructions || 'None',
+                email: bookingData.email
             };
             
-            // Send email via EmailJS or backend API
+            // Send email via EmailJS
             if (typeof emailjs !== 'undefined') {
-                // Using EmailJS for client-side email sending
-                emailjs.send('service_id', 'template_id', emailData)
+                emailjs.send('service_to99nwh', 'template_631z0ql', emailData)
                     .then(function(response) {
                         console.log('✅ Email sent successfully:', response);
                     })
                     .catch(function(error) {
                         console.error('❌ Email sending failed:', error);
+                        // Still continue with booking even if email fails
                     });
             } else {
-                // Fallback: Send via backend API
-                fetch('/api/send-confirmation-email', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(emailData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('✅ Email sent via backend:', data);
-                })
-                .catch(error => {
-                    console.error('❌ Email sending failed:', error);
-                });
+                console.error('❌ EmailJS not loaded');
             }
         }
         
