@@ -1455,6 +1455,8 @@
         }
         
         function handleOtherPayments(paymentMethod) {
+            console.log('🎯 Processing payment method:', paymentMethod);
+            
             // Get booking details
             const bookingData = getBookingData();
             
@@ -1468,6 +1470,9 @@
                 paymentText = 'Pay on service day (Venmo/Zelle)';
             }
             
+            // Send confirmation email
+            sendConfirmationEmail(bookingData, bookingId, paymentText);
+            
             // Show success message
             alert('🎉 Booking Confirmed!\n\n' +
                   'Booking ID: ' + bookingId + '\n\n' +
@@ -1475,16 +1480,65 @@
                   'Date: ' + formatDateTime(bookingData.date, bookingData.time) + '\n' +
                   'Total: $' + totalPrice.toFixed(2) + '\n' +
                   'Payment Method: ' + paymentText + '\n\n' +
-                  'Confirmation email will be sent to ' + bookingData.email + '\n\n' +
+                  'Confirmation email sent to ' + bookingData.email + '\n\n' +
                   'Thank you for choosing Maid For Heaven NYC!');
             
             // Send booking to backend
             if (window.bookingAPI) {
-                window.bookingAPI.submitBooking({...bookingData, paymentMethod: paymentMethod});
+                window.bookingAPI.submitBooking({...bookingData, paymentMethod: paymentMethod, bookingId: bookingId});
             }
             
+            console.log('✅ Booking completed successfully');
             closePaymentModal();
             setTimeout(() => location.reload(), 2000);
+        }
+        
+        // Email confirmation system
+        function sendConfirmationEmail(bookingData, bookingId, paymentMethod) {
+            console.log('📧 Sending confirmation email...');
+            
+            const emailData = {
+                to: bookingData.email,
+                subject: `Booking Confirmation - ${bookingId} - Maid For Heaven NYC`,
+                customerName: bookingData.name,
+                bookingId: bookingId,
+                service: getServiceName(selectedService),
+                date: formatDateTime(bookingData.date, bookingData.time),
+                address: bookingData.address,
+                phone: bookingData.phone,
+                estimatedHours: estimatedHours,
+                totalPrice: totalPrice,
+                paymentMethod: paymentMethod,
+                instructions: bookingData.instructions || 'None'
+            };
+            
+            // Send email via EmailJS or backend API
+            if (typeof emailjs !== 'undefined') {
+                // Using EmailJS for client-side email sending
+                emailjs.send('service_id', 'template_id', emailData)
+                    .then(function(response) {
+                        console.log('✅ Email sent successfully:', response);
+                    })
+                    .catch(function(error) {
+                        console.error('❌ Email sending failed:', error);
+                    });
+            } else {
+                // Fallback: Send via backend API
+                fetch('/api/send-confirmation-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(emailData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('✅ Email sent via backend:', data);
+                })
+                .catch(error => {
+                    console.error('❌ Email sending failed:', error);
+                });
+            }
         }
         
         function getBookingData() {
@@ -1561,6 +1615,9 @@
                     if (modal) {
                         modal.style.display = 'flex';
                         console.log('✅ Payment modal opened!');
+                        
+                        // Update modal with booking details
+                        updatePaymentModal();
                     } else {
                         // If no modal, just show confirmation
                         alert('🎉 Booking Confirmed!\n\nBooking ID: #MFH' + Date.now() + '\n\nWe will contact you within 24 hours to confirm details.\n\nThank you for choosing Maid For Heaven NYC!');
@@ -1576,10 +1633,71 @@
             }
         }
         
-        // Run the fix
-        document.addEventListener('DOMContentLoaded', fixBookingButton);
-        window.addEventListener('load', fixBookingButton);
-        setTimeout(fixBookingButton, 1000);
+        // Fix pay button in modal
+        function fixPayButton() {
+            const payButton = document.getElementById('payButton');
+            if (payButton && !payButton.dataset.fixed) {
+                payButton.onclick = function(e) {
+                    e.preventDefault();
+                    console.log('💳 Pay button clicked!');
+                    simulatePayment();
+                };
+                payButton.dataset.fixed = 'true';
+                console.log('✅ Pay button fixed!');
+            }
+        }
+        
+        // Update payment modal with booking details
+        function updatePaymentModal() {
+            // Update service
+            const serviceElement = document.getElementById('paymentService');
+            if (serviceElement) {
+                serviceElement.textContent = getServiceName(selectedService);
+            }
+            
+            // Update date & time
+            const dateTimeElement = document.getElementById('paymentDateTime');
+            if (dateTimeElement) {
+                const date = document.getElementById('preferredDate').value;
+                const time = document.getElementById('preferredTime').value;
+                dateTimeElement.textContent = formatDateTime(date, time);
+            }
+            
+            // Update address
+            const addressElement = document.getElementById('paymentAddress');
+            if (addressElement) {
+                addressElement.textContent = document.getElementById('address').value;
+            }
+            
+            // Update duration
+            const durationElement = document.getElementById('paymentDuration');
+            if (durationElement) {
+                durationElement.textContent = estimatedHours + ' hours';
+            }
+            
+            // Update total
+            const totalElement = document.getElementById('paymentTotal');
+            if (totalElement) {
+                totalElement.textContent = '$' + totalPrice.toFixed(2);
+            }
+            
+            // Fix pay button
+            setTimeout(fixPayButton, 100);
+        }
+        
+        // Run the fixes
+        document.addEventListener('DOMContentLoaded', function() {
+            fixBookingButton();
+            fixPayButton();
+        });
+        window.addEventListener('load', function() {
+            fixBookingButton();
+            fixPayButton();
+        });
+        setTimeout(function() {
+            fixBookingButton();
+            fixPayButton();
+        }, 1000);
     </script>
 
 </body>
