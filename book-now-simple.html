@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now - Maid For Heaven NYC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        .service-options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .service-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .service-option:hover {
+            border-color: #4CAF50;
+        }
+        
+        .service-option.selected {
+            border-color: #4CAF50;
+            background: #f8fff8;
+        }
+        
+        .service-info h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .service-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .service-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        
+        .quote-display {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .quote-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .quote-total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        
+        .book-btn {
+            width: 100%;
+            padding: 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .book-btn:hover {
+            background: #45a049;
+        }
+        
+        .book-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 Book Your Cleaning Service</h1>
+            <p>Get instant pricing with no hidden fees. Professional cleaning team.</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="bookingForm">
+                <!-- Service Selection -->
+                <div class="form-group">
+                    <label>Service Type</label>
+                    <div class="service-options">
+                        <div class="service-option" data-service="standard" data-price="50">
+                            <div class="service-info">
+                                <h3>🏠 Standard Cleaning</h3>
+                                <p>Regular maintenance cleaning for your home</p>
+                            </div>
+                            <div class="service-price">$50/hr</div>
+                        </div>
+                        <div class="service-option" data-service="deep" data-price="55">
+                            <div class="service-info">
+                                <h3>✨ Deep Cleaning</h3>
+                                <p>Thorough cleaning including baseboards, inside appliances</p>
+                            </div>
+                            <div class="service-price">$55/hr</div>
+                        </div>
+                        <div class="service-option" data-service="moveout" data-price="60">
+                            <div class="service-info">
+                                <h3>📦 Move-Out Cleaning</h3>
+                                <p>Complete cleaning for moving out or post-construction</p>
+                            </div>
+                            <div class="service-price">$60/hr</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Property Details -->
+                <div class="row">
+                    <div class="form-group">
+                        <label for="bedrooms">Bedrooms</label>
+                        <select id="bedrooms" required>
+                            <option value="">Select bedrooms</option>
+                            <option value="studio">Studio</option>
+                            <option value="1br">1 Bedroom</option>
+                            <option value="2br">2 Bedrooms</option>
+                            <option value="3br">3 Bedrooms</option>
+                            <option value="4br">4 Bedrooms</option>
+                            <option value="5br">5+ Bedrooms</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bathrooms">Bathrooms</label>
+                        <select id="bathrooms" required>
+                            <option value="">Select bathrooms</option>
+                            <option value="1">1 Bathroom</option>
+                            <option value="1.5">1.5 Bathrooms</option>
+                            <option value="2">2 Bathrooms</option>
+                            <option value="2.5">2.5 Bathrooms</option>
+                            <option value="3">3 Bathrooms</option>
+                            <option value="4">4+ Bathrooms</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Date and Time -->
+                <div class="row">
+                    <div class="form-group">
+                        <label for="date">Preferred Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Preferred Time</label>
+                        <select id="time" required>
+                            <option value="">Select time</option>
+                            <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
+                            <option value="afternoon">Afternoon (12:00 PM - 5:00 PM)</option>
+                            <option value="evening">Evening (5:00 PM - 8:00 PM)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="form-group">
+                    <label for="address">Service Address</label>
+                    <input type="text" id="address" placeholder="Enter your full address" required>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="(555) 123-4567" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
+                
+                <!-- Quote Display -->
+                <div class="quote-display" id="quoteDisplay" style="display: none;">
+                    <div class="quote-line">
+                        <span>Service:</span>
+                        <span id="quoteService">--</span>
+                    </div>
+                    <div class="quote-line">
+                        <span>Property Size:</span>
+                        <span id="quoteSize">--</span>
+                    </div>
+                    <div class="quote-line">
+                        <span>Estimated Time:</span>
+                        <span id="quoteTime">-- hours</span>
+                    </div>
+                    <div class="quote-line">
+                        <span>Hourly Rate:</span>
+                        <span id="quoteRate">$--/hr</span>
+                    </div>
+                    <div class="quote-line quote-total">
+                        <span>Total Price:</span>
+                        <span id="quoteTotal">$0.00</span>
+                    </div>
+                </div>
+                
+                <!-- Book Button -->
+                <button type="button" id="bookBtn" class="book-btn">
+                    Book Now & Pay Online
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        let selectedService = null;
+        let selectedServicePrice = 0;
+        let totalPrice = 0;
+        let estimatedHours = 0;
+        
+        // Service selection
+        document.querySelectorAll('.service-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Store selected service data
+                selectedService = this.dataset.service;
+                selectedServicePrice = parseInt(this.dataset.price);
+                
+                updateQuote();
+                checkFormCompletion();
+            });
+        });
+        
+        // Form field change listeners
+        ['bedrooms', 'bathrooms', 'date', 'time', 'address', 'name', 'phone', 'email'].forEach(fieldId => {
+            const element = document.getElementById(fieldId);
+            if (element) {
+                element.addEventListener('change', function() {
+                    updateQuote();
+                    checkFormCompletion();
+                });
+                element.addEventListener('input', function() {
+                    checkFormCompletion();
+                });
+            }
+        });
+        
+        function updateQuote() {
+            const bedrooms = document.getElementById('bedrooms').value;
+            const bathrooms = document.getElementById('bathrooms').value;
+            
+            if (!selectedService || !bedrooms || !bathrooms) {
+                document.getElementById('quoteDisplay').style.display = 'none';
+                return;
+            }
+            
+            // Calculate estimated hours
+            estimatedHours = calculateEstimatedHours(bedrooms, bathrooms, selectedService);
+            totalPrice = selectedServicePrice * estimatedHours;
+            
+            // Update display
+            document.getElementById('quoteService').textContent = getServiceName(selectedService);
+            document.getElementById('quoteSize').textContent = getPropertySize(bedrooms, bathrooms);
+            document.getElementById('quoteTime').textContent = estimatedHours + ' hours';
+            document.getElementById('quoteRate').textContent = '$' + selectedServicePrice + '/hr';
+            document.getElementById('quoteTotal').textContent = '$' + totalPrice.toFixed(2);
+            
+            document.getElementById('quoteDisplay').style.display = 'block';
+        }
+        
+        function calculateEstimatedHours(bedrooms, bathrooms, service) {
+            let baseHours = 0;
+            
+            switch(bedrooms) {
+                case 'studio': baseHours = 2; break;
+                case '1br': baseHours = 2.5; break;
+                case '2br': baseHours = 3; break;
+                case '3br': baseHours = 4; break;
+                case '4br': baseHours = 5; break;
+                case '5br': baseHours = 6; break;
+            }
+            
+            baseHours += (parseFloat(bathrooms) - 1) * 0.5;
+            
+            if (service === 'deep') {
+                baseHours *= 1.5;
+            } else if (service === 'moveout') {
+                baseHours *= 1.8;
+            }
+            
+            return Math.ceil(baseHours * 2) / 2;
+        }
+        
+        function getServiceName(service) {
+            switch(service) {
+                case 'standard': return 'Standard Cleaning';
+                case 'deep': return 'Deep Cleaning';
+                case 'moveout': return 'Move-Out Cleaning';
+                default: return 'Select service';
+            }
+        }
+        
+        function getPropertySize(bedrooms, bathrooms) {
+            const bedroomText = bedrooms.replace('br', ' BR').replace('studio', 'Studio');
+            return bedroomText + ', ' + bathrooms + ' Bath';
+        }
+        
+        function checkFormCompletion() {
+            const bookBtn = document.getElementById('bookBtn');
+            const requiredFields = ['bedrooms', 'bathrooms', 'date', 'time', 'address', 'name', 'phone', 'email'];
+            
+            let allFilled = selectedService !== null;
+            
+            requiredFields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                if (!element || !element.value.trim()) {
+                    allFilled = false;
+                }
+            });
+            
+            if (allFilled) {
+                bookBtn.disabled = false;
+                bookBtn.style.background = '#4CAF50';
+                bookBtn.textContent = 'Book Now & Pay Online - $' + totalPrice.toFixed(2);
+            } else {
+                bookBtn.disabled = true;
+                bookBtn.style.background = '#ccc';
+                bookBtn.textContent = 'Complete Form to Book';
+            }
+        }
+        
+        // Book button click
+        document.getElementById('bookBtn').addEventListener('click', function() {
+            if (!this.disabled) {
+                alert('🎉 Booking System Working!\n\nService: ' + getServiceName(selectedService) + 
+                      '\nTotal: $' + totalPrice.toFixed(2) + 
+                      '\n\nThis confirms the booking button is working properly!');
+            }
+        });
+        
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+    </script>
+</body>
+</html>
+

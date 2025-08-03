@@ -6,16 +6,6 @@
     <title>Book Now - Instant Quote & Payment | Maid For Heaven NYC</title>
     <!-- Navigation links updated - cache bust v2.0 -->
     <link rel="stylesheet" href="css/styles.css?v=20250716mobile004">
-    <!-- Stripe.js -->
-    <script src="https://js.stripe.com/v3/"></script>
-    <!-- EmailJS for sending confirmation emails -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            // Initialize EmailJS with your public key
-            emailjs.init("EfMM8bLysLDO-P5si");
-        })();
-    </script>
     <style>
         /* Booking Page Specific Styles */
         .booking-container {
@@ -590,88 +580,6 @@
             margin-top: 15px;
         }
         
-        /* Credit Card Form Styles */
-        .credit-card-form {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 2px solid #4CAF50;
-        }
-        
-        .credit-card-form h3 {
-            margin: 0 0 20px 0;
-            color: #333;
-            font-size: 1.2rem;
-        }
-        
-        .card-row {
-            margin-bottom: 15px;
-        }
-        
-        .card-field {
-            width: 100%;
-        }
-        
-        .card-field-half {
-            width: 48%;
-            display: inline-block;
-            margin-right: 2%;
-        }
-        
-        .card-field-quarter {
-            width: 23%;
-            display: inline-block;
-            margin-right: 2%;
-        }
-        
-        .card-field-quarter:last-child {
-            margin-right: 0;
-        }
-        
-        .card-field label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #333;
-            font-size: 0.9rem;
-        }
-        
-        .card-field input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            box-sizing: border-box;
-        }
-        
-        .card-field input:focus {
-            outline: none;
-            border-color: #4CAF50;
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-        }
-        
-        #card-element {
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            background: white;
-            transition: border-color 0.3s ease;
-        }
-        
-        #card-element:focus-within {
-            border-color: #4CAF50;
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-        }
-        
-        #card-errors {
-            color: #dc3545;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-        
         @media (max-width: 768px) {
             .booking-container {
                 grid-template-columns: 1fr;
@@ -959,50 +867,6 @@
                 </div>
             </div>
             
-            <!-- Credit Card Form (hidden by default) -->
-            <div id="creditCardForm" class="credit-card-form" style="display: none;">
-                <h3>💳 Credit Card Information</h3>
-                
-                <div class="card-row">
-                    <div class="card-field">
-                        <label for="cardName">Name on Card</label>
-                        <input type="text" id="cardName" placeholder="John Smith" required>
-                    </div>
-                </div>
-                
-                <div class="card-row">
-                    <div class="card-field">
-                        <label>Card Details</label>
-                        <div id="card-element">
-                            <!-- Stripe Elements will create form elements here -->
-                        </div>
-                        <div id="card-errors" role="alert"></div>
-                    </div>
-                </div>
-                
-                <div class="card-row">
-                    <div class="card-field">
-                        <label for="billingStreet">Billing Address</label>
-                        <input type="text" id="billingStreet" placeholder="123 Main St" required>
-                    </div>
-                </div>
-                
-                <div class="card-row">
-                    <div class="card-field card-field-half">
-                        <label for="billingCity">City</label>
-                        <input type="text" id="billingCity" placeholder="New York" required>
-                    </div>
-                    <div class="card-field card-field-quarter">
-                        <label for="billingState">State</label>
-                        <input type="text" id="billingState" placeholder="NY" maxlength="2" required>
-                    </div>
-                    <div class="card-field card-field-quarter">
-                        <label for="billingZip">ZIP Code</label>
-                        <input type="text" id="billingZip" placeholder="10001" maxlength="5" required>
-                    </div>
-                </div>
-            </div>
-            
             <button id="payButton" class="pay-button">
                 Select Payment Method
             </button>
@@ -1092,22 +956,19 @@
             checkFormCompletion();
         });
 
-        document.getElementById('preferredDate').addEventListener('change', function() {
+        document.getElementById('date').addEventListener('change', function() {
             checkCalendarConflicts();
             checkFormCompletion();
         });
 
-        document.getElementById('preferredTime').addEventListener('change', function() {
+        document.getElementById('time').addEventListener('change', function() {
             checkCalendarConflicts();
             checkFormCompletion();
         });
 
         // Other form fields
         ['address', 'name', 'email', 'phone'].forEach(fieldId => {
-            const element = document.getElementById(fieldId);
-            if (element) {
-                element.addEventListener('input', checkFormCompletion);
-            }
+            document.getElementById(fieldId).addEventListener('input', checkFormCompletion);
         });
 
         function updateQuote() {
@@ -1209,42 +1070,54 @@
             const bookNowBtn = document.getElementById('bookNowBtn');
             if (!bookNowBtn) return;
             
-            // Simple validation - check if all required fields have values
-            const requiredFields = [
-                { element: selectedService, name: 'Service' },
-                { element: document.getElementById('bedrooms')?.value, name: 'Bedrooms' },
-                { element: document.getElementById('bathrooms')?.value, name: 'Bathrooms' },
-                { element: document.getElementById('preferredDate')?.value, name: 'Date' },
-                { element: document.getElementById('preferredTime')?.value, name: 'Time' },
-                { element: document.getElementById('address')?.value?.trim(), name: 'Address' },
-                { element: document.getElementById('name')?.value?.trim(), name: 'Name' },
-                { element: document.getElementById('email')?.value?.trim(), name: 'Email' },
-                { element: document.getElementById('phone')?.value?.trim(), name: 'Phone' }
+            let missingFields = [];
+            
+            // Check service selection
+            if (!selectedService) {
+                missingFields.push('Service Type');
+            }
+            
+            // Check required form fields with correct IDs
+            const fieldChecks = [
+                { id: 'bedrooms', name: 'Bedrooms', check: (el) => el.value && el.value !== 'Select bedrooms' },
+                { id: 'bathrooms', name: 'Bathrooms', check: (el) => el.value && el.value !== 'Select bathrooms' },
+                { id: 'preferredDate', name: 'Date', check: (el) => el.value.trim() !== '' },
+                { id: 'preferredTime', name: 'Time', check: (el) => el.value && el.value !== 'Select time' },
+                { id: 'address', name: 'Address', check: (el) => el.value.trim() !== '' },
+                { id: 'name', name: 'Name', check: (el) => el.value.trim() !== '' },
+                { id: 'email', name: 'Email', check: (el) => el.value.trim() !== '' },
+                { id: 'phone', name: 'Phone', check: (el) => el.value.trim() !== '' }
             ];
             
-            const missingFields = requiredFields.filter(field => !field.element).map(field => field.name);
+            fieldChecks.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (!element || !field.check(element)) {
+                    missingFields.push(field.name);
+                }
+            });
             
+            // Update button state
             if (missingFields.length === 0) {
-                // All fields completed - enable button
                 bookNowBtn.disabled = false;
                 bookNowBtn.textContent = 'Book Now & Pay Online';
+                bookNowBtn.classList.remove('disabled');
                 bookNowBtn.style.backgroundColor = '#4CAF50';
                 bookNowBtn.style.cursor = 'pointer';
                 bookNowBtn.style.opacity = '1';
-                console.log('✅ All fields completed - button enabled');
             } else {
-                // Some fields missing - disable button
                 bookNowBtn.disabled = true;
                 if (missingFields.length <= 3) {
                     bookNowBtn.textContent = 'Complete: ' + missingFields.join(', ');
                 } else {
                     bookNowBtn.textContent = 'Complete Form to Book (' + missingFields.length + ' fields)';
                 }
+                bookNowBtn.classList.add('disabled');
                 bookNowBtn.style.backgroundColor = '#cccccc';
                 bookNowBtn.style.cursor = 'not-allowed';
                 bookNowBtn.style.opacity = '0.6';
-                console.log(`Missing fields: ${missingFields.join(', ')}`);
             }
+            
+            console.log(`Form validation: ${8 - missingFields.length}/8 fields completed. Missing: ${missingFields.join(', ')}`);
         }
 
         // Book Now button click
@@ -1303,31 +1176,6 @@
             return dateStr + ', ' + timeStr;
         }
 
-        // Stripe integration
-        let stripe = null;
-        let elements = null;
-        let cardElement = null;
-
-        // Initialize Stripe
-        function initializeStripe() {
-            // Your actual Stripe publishable key
-            stripe = Stripe('pk_live_51RqIC7CcPlxCeVwQlIuWJDBfGc3OUKA6wWegt0ASVjhROtmOknVaZ3VVLjZJxNGVIXQdO2AXB2wrqXzNBtTag8DC00FAkZ17tb');
-            elements = stripe.elements();
-            
-            // Create card element
-            cardElement = elements.create('card', {
-                style: {
-                    base: {
-                        fontSize: '16px',
-                        color: '#424770',
-                        '::placeholder': {
-                            color: '#aab7c4',
-                        },
-                    },
-                },
-            });
-        }
-
         // Payment method selection
         document.querySelectorAll('.payment-method').forEach(method => {
             method.addEventListener('click', function() {
@@ -1340,52 +1188,6 @@
                 // Check the radio button
                 const radio = this.querySelector('input[type="radio"]');
                 radio.checked = true;
-                
-                // Show/hide credit card form based on selection
-                const creditCardForm = document.getElementById('creditCardForm');
-                if (radio.value === 'card') {
-                    creditCardForm.style.display = 'block';
-                    
-                    // Initialize Stripe if not already done
-                    if (!stripe) {
-                        initializeStripe();
-                    }
-                    
-                    // Mount card element if not already mounted
-                    if (cardElement && !cardElement._mounted) {
-                        cardElement.mount('#card-element');
-                        cardElement._mounted = true;
-                        
-                        // Handle real-time validation errors from the card Element
-                        cardElement.on('change', function(event) {
-                            const displayError = document.getElementById('card-errors');
-                            if (event.error) {
-                                displayError.textContent = event.error.message;
-                            } else {
-                                displayError.textContent = '';
-                            }
-                        });
-                    }
-                    
-                    // Auto-fill name from booking form
-                    const customerName = document.getElementById('name').value;
-                    if (customerName) {
-                        document.getElementById('cardName').value = customerName;
-                    }
-                    
-                    // Auto-fill billing address from service address
-                    const serviceAddress = document.getElementById('address').value;
-                    if (serviceAddress) {
-                        // Parse the address to fill separate fields
-                        const addressParts = parseAddress(serviceAddress);
-                        document.getElementById('billingStreet').value = addressParts.street || '';
-                        document.getElementById('billingCity').value = addressParts.city || '';
-                        document.getElementById('billingState').value = addressParts.state || '';
-                        document.getElementById('billingZip').value = addressParts.zip || '';
-                    }
-                } else {
-                    creditCardForm.style.display = 'none';
-                }
                 
                 updatePayButton();
             });
@@ -1412,275 +1214,8 @@
         function simulatePayment() {
             console.log('🎉 Payment function called!');
             
-            const selectedPayment = document.querySelector('input[name="payment"]:checked');
-            if (!selectedPayment) return;
-            
-            const paymentMethod = selectedPayment.value;
-            
-            // Handle credit card payment with Stripe
-            if (paymentMethod === 'card') {
-                handleStripePayment();
-                return;
-            }
-            
-            // Handle other payment methods (PayPal, Venmo/Zelle)
-            handleOtherPayments(paymentMethod);
-        }
-        
-        async function handleStripePayment() {
-            if (!stripe || !cardElement) {
-                alert('Payment system not initialized. Please refresh the page and try again.');
-                return;
-            }
-            
-            const payButton = document.getElementById('payButton');
-            payButton.disabled = true;
-            payButton.textContent = 'Processing Payment...';
-            
-            try {
-                // Get card holder name and billing address from separate fields
-                const cardName = document.getElementById('cardName').value;
-                const billingStreet = document.getElementById('billingStreet').value;
-                const billingCity = document.getElementById('billingCity').value;
-                const billingState = document.getElementById('billingState').value;
-                const billingZip = document.getElementById('billingZip').value;
-                
-                if (!cardName || !billingStreet || !billingCity || !billingState || !billingZip) {
-                    throw new Error('Please fill in all credit card and billing address fields');
-                }
-                
-                // Create payment method
-                const {error, paymentMethod} = await stripe.createPaymentMethod({
-                    type: 'card',
-                    card: cardElement,
-                    billing_details: {
-                        name: cardName,
-                        address: {
-                            line1: billingStreet,
-                            city: billingCity,
-                            state: billingState,
-                            postal_code: billingZip,
-                            country: 'US',
-                        },
-                    },
-                });
-                
-                if (error) {
-                    throw error;
-                }
-                
-                // For demo purposes, simulate successful payment
-                // In production, you would send this to your backend to process with Stripe
-                console.log('Payment method created:', paymentMethod);
-                
-                // Simulate processing delay
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                
-                // Show success
-                const bookingData = getBookingData();
-                const bookingId = '#MFH' + Date.now();
-                
-                // Send confirmation email
-                sendConfirmationEmail(bookingData, bookingId, 'Credit Card');
-                
-                // Send SMS confirmation
-                sendSMSConfirmation(bookingData, bookingId, 'Credit Card');
-                
-                // Show success message
-                alert('🎉 Payment Successful!\n\n' +
-                      'Booking ID: ' + bookingId + '\n\n' +
-                      'Service: ' + getServiceName(selectedService) + '\n' +
-                      'Date: ' + formatDateTime(bookingData.date, bookingData.time) + '\n' +
-                      'Total: $' + totalPrice.toFixed(2) + '\n' +
-                      'Payment Method: Credit Card\n\n' +
-                      'Confirmation email & SMS sent to:\n' +
-                      '📧 ' + bookingData.email + '\n' +
-                      '📱 ' + bookingData.phone + '\n\n' +
-                      'Thank you for choosing Maid For Heaven NYC!');
-                
-                // Send booking to backend
-                if (window.bookingAPI) {
-                    window.bookingAPI.submitBooking({...bookingData, paymentMethod: 'credit_card', bookingId: bookingId});
-                }
-                
-                closePaymentModal();
-                
-                // Redirect to homepage after 2 seconds
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 2000);           
-            } catch (error) {
-                console.error('Payment error:', error);
-                alert('Payment failed: ' + error.message);
-                payButton.disabled = false;
-                payButton.textContent = 'Pay $' + totalPrice.toFixed(2) + ' Now';
-            }
-        }
-        
-        function handleOtherPayments(paymentMethod) {
-            console.log('🎯 Processing payment method:', paymentMethod);
-            
             // Get booking details
-            const bookingData = getBookingData();
-            
-            // Generate booking ID
-            const bookingId = '#MFH' + Date.now();
-            
-            let paymentText = '';
-            if (paymentMethod === 'paypal') {
-                paymentText = 'PayPal';
-            } else if (paymentMethod === 'later') {
-                paymentText = 'Pay on service day (Venmo/Zelle)';
-            }
-            
-            // Send confirmation email
-            sendConfirmationEmail(bookingData, bookingId, paymentText);
-            
-            // Send SMS confirmation
-            sendSMSConfirmation(bookingData, bookingId, paymentText);
-            
-            // Show success message
-            alert('🎉 Booking Confirmed!\n\n' +
-                  'Booking ID: ' + bookingId + '\n\n' +
-                  'Service: ' + getServiceName(selectedService) + '\n' +
-                  'Date: ' + formatDateTime(bookingData.date, bookingData.time) + '\n' +
-                  'Total: $' + totalPrice.toFixed(2) + '\n' +
-                  'Payment Method: ' + paymentText + '\n\n' +
-                  'Confirmation email & SMS sent to:\n' +
-                  '📧 ' + bookingData.email + '\n' +
-                  '📱 ' + bookingData.phone + '\n\n' +
-                  'Thank you for choosing Maid For Heaven NYC!');
-            
-            // Send booking to backend
-            if (window.bookingAPI) {
-                window.bookingAPI.submitBooking({...bookingData, paymentMethod: paymentMethod, bookingId: bookingId});
-            }
-            
-            console.log('✅ Booking completed successfully');
-            closePaymentModal();
-            
-            // Redirect to homepage after 3 seconds
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 3000);
-        }
-        
-        // Email confirmation system
-        function sendConfirmationEmail(bookingData, bookingId, paymentMethod) {
-            console.log('📧 Sending confirmation email...');
-            
-            const emailData = {
-                customerName: bookingData.name,
-                bookingId: bookingId,
-                service: getServiceName(selectedService),
-                date: formatDateTime(bookingData.date, bookingData.time),
-                address: bookingData.address,
-                phone: bookingData.phone,
-                estimatedHours: estimatedHours,
-                totalPrice: totalPrice,
-                paymentMethod: paymentMethod,
-                instructions: bookingData.instructions || 'None',
-                email: bookingData.email
-            };
-            
-            // Send email via EmailJS
-            if (typeof emailjs !== 'undefined') {
-                emailjs.send('service_to99nwh', 'template_631z0ql', emailData)
-                    .then(function(response) {
-                        console.log('✅ Email sent successfully:', response);
-                    })
-                    .catch(function(error) {
-                        console.error('❌ Email sending failed:', error);
-                        // Still continue with booking even if email fails
-                    });
-            } else {
-                console.error('❌ EmailJS not loaded');
-            }
-        }
-        
-        // Parse address string into components
-        function parseAddress(addressString) {
-            // Simple address parsing - handles common formats
-            const parts = addressString.split(',').map(part => part.trim());
-            
-            let street = '';
-            let city = '';
-            let state = '';
-            let zip = '';
-            
-            if (parts.length >= 1) {
-                street = parts[0];
-            }
-            
-            if (parts.length >= 2) {
-                city = parts[1];
-            }
-            
-            if (parts.length >= 3) {
-                // Last part might contain state and zip
-                const lastPart = parts[parts.length - 1];
-                const stateZipMatch = lastPart.match(/([A-Z]{2})\s*(\d{5})/);
-                
-                if (stateZipMatch) {
-                    state = stateZipMatch[1];
-                    zip = stateZipMatch[2];
-                } else {
-                    // Try to extract just state if no zip found
-                    const stateMatch = lastPart.match(/([A-Z]{2})/);
-                    if (stateMatch) {
-                        state = stateMatch[1];
-                    }
-                }
-            }
-            
-            return { street, city, state, zip };
-        }
-
-        // SMS confirmation system
-        function sendSMSConfirmation(bookingData, bookingId, paymentMethod) {
-            console.log('📱 Sending SMS confirmation...');
-            
-            const smsMessage = `🎉 Booking Confirmed - Maid For Heaven NYC
-            
-Booking ID: ${bookingId}
-Service: ${getServiceName(selectedService)}
-Date: ${formatDateTime(bookingData.date, bookingData.time)}
-Address: ${bookingData.address}
-Total: $${totalPrice.toFixed(2)}
-Payment: ${paymentMethod}
-
-We'll call you 24hrs before to confirm.
-Questions? Call (347) 759-2000
-
-Thank you for choosing us! ✨`;
-
-            const smsData = {
-                to: bookingData.phone,
-                message: smsMessage,
-                customerName: bookingData.name,
-                bookingId: bookingId
-            };
-            
-            // Send SMS via backend API (Twilio)
-            fetch('https://zmhqivcmgm9o.manus.space/api/send-sms', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(smsData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('✅ SMS sent successfully:', data);
-            })
-            .catch(error => {
-                console.error('❌ SMS sending failed:', error);
-                // Continue with booking even if SMS fails
-            });
-        }
-        
-        function getBookingData() {
-            return {
+            const bookingData = {
                 service: selectedService,
                 bedrooms: document.getElementById('bedrooms').value,
                 bathrooms: document.getElementById('bathrooms').value,
@@ -1692,8 +1227,40 @@ Thank you for choosing us! ✨`;
                 phone: document.getElementById('phone').value,
                 instructions: document.getElementById('instructions').value,
                 totalPrice: totalPrice,
-                estimatedHours: estimatedHours
+                estimatedHours: estimatedHours,
+                paymentMethod: document.querySelector('input[name="payment"]:checked')?.value
             };
+            
+            // Generate booking ID
+            const bookingId = '#MFH' + Date.now();
+            
+            // Show success message
+            alert('🎉 Payment Successful! Booking confirmed.\n\n' +
+                  'Booking ID: ' + bookingId + '\n\n' +
+                  'Service: ' + getServiceName(selectedService) + '\n' +
+                  'Date: ' + formatDateTime(bookingData.date, bookingData.time) + '\n' +
+                  'Total: $' + totalPrice.toFixed(2) + '\n\n' +
+                  'Confirmation email will be sent to ' + bookingData.email + '\n\n' +
+                  'Thank you for choosing Maid For Heaven NYC!');
+            
+            // Send booking to backend
+            if (window.bookingAPI) {
+                window.bookingAPI.submitBooking(bookingData)
+                    .then(response => {
+                        console.log('✅ Booking submitted successfully:', response);
+                    })
+                    .catch(error => {
+                        console.error('❌ Booking submission error:', error);
+                    });
+            }
+            
+            // Close modal
+            closePaymentModal();
+            
+            // Reset form
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
         }
 
         // Initialize booking system
@@ -1753,9 +1320,6 @@ Thank you for choosing us! ✨`;
                     if (modal) {
                         modal.style.display = 'flex';
                         console.log('✅ Payment modal opened!');
-                        
-                        // Update modal with booking details
-                        updatePaymentModal();
                     } else {
                         // If no modal, just show confirmation
                         alert('🎉 Booking Confirmed!\n\nBooking ID: #MFH' + Date.now() + '\n\nWe will contact you within 24 hours to confirm details.\n\nThank you for choosing Maid For Heaven NYC!');
@@ -1771,71 +1335,10 @@ Thank you for choosing us! ✨`;
             }
         }
         
-        // Fix pay button in modal
-        function fixPayButton() {
-            const payButton = document.getElementById('payButton');
-            if (payButton && !payButton.dataset.fixed) {
-                payButton.onclick = function(e) {
-                    e.preventDefault();
-                    console.log('💳 Pay button clicked!');
-                    simulatePayment();
-                };
-                payButton.dataset.fixed = 'true';
-                console.log('✅ Pay button fixed!');
-            }
-        }
-        
-        // Update payment modal with booking details
-        function updatePaymentModal() {
-            // Update service
-            const serviceElement = document.getElementById('paymentService');
-            if (serviceElement) {
-                serviceElement.textContent = getServiceName(selectedService);
-            }
-            
-            // Update date & time
-            const dateTimeElement = document.getElementById('paymentDateTime');
-            if (dateTimeElement) {
-                const date = document.getElementById('preferredDate').value;
-                const time = document.getElementById('preferredTime').value;
-                dateTimeElement.textContent = formatDateTime(date, time);
-            }
-            
-            // Update address
-            const addressElement = document.getElementById('paymentAddress');
-            if (addressElement) {
-                addressElement.textContent = document.getElementById('address').value;
-            }
-            
-            // Update duration
-            const durationElement = document.getElementById('paymentDuration');
-            if (durationElement) {
-                durationElement.textContent = estimatedHours + ' hours';
-            }
-            
-            // Update total
-            const totalElement = document.getElementById('paymentTotal');
-            if (totalElement) {
-                totalElement.textContent = '$' + totalPrice.toFixed(2);
-            }
-            
-            // Fix pay button
-            setTimeout(fixPayButton, 100);
-        }
-        
-        // Run the fixes
-        document.addEventListener('DOMContentLoaded', function() {
-            fixBookingButton();
-            fixPayButton();
-        });
-        window.addEventListener('load', function() {
-            fixBookingButton();
-            fixPayButton();
-        });
-        setTimeout(function() {
-            fixBookingButton();
-            fixPayButton();
-        }, 1000);
+        // Run the fix
+        document.addEventListener('DOMContentLoaded', fixBookingButton);
+        window.addEventListener('load', fixBookingButton);
+        setTimeout(fixBookingButton, 1000);
     </script>
 
 </body>
