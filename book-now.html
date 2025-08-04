@@ -1116,6 +1116,7 @@
         });
 
         document.getElementById('frequency').addEventListener('change', function() {
+            updateQuote();
             checkFormCompletion();
         });
 
@@ -1163,6 +1164,14 @@
                 // Standard and move-out use hourly rates
                 totalPrice = selectedServicePrice * estimatedHours;
             }
+            
+            // Apply frequency discount
+            const frequencyValue = document.getElementById('frequency')?.value;
+            if (frequencyValue) {
+                const discount = getFrequencyDiscount(frequencyValue);
+                totalPrice = totalPrice * (1 - discount);
+            }
+            
             window.totalPrice = totalPrice;
             
             // Update display with error checking
@@ -1302,6 +1311,17 @@
             const bedroomText = bedrooms.replace('br', ' BR').replace('studio', 'Studio');
             const cleanerInfo = getCleanerInfo(bedrooms, parseFloat(bathrooms));
             return bedroomText + ', ' + bathrooms + ' Bath' + cleanerInfo;
+        }
+        
+        function getFrequencyDiscount(frequency) {
+            switch(frequency) {
+                case 'one-time': return 0.15; // 15% off
+                case 'monthly': return 0.15;  // 15% off
+                case 'bi-weekly': return 0.25; // 25% off
+                case 'weekly': return 0.30;    // 30% off
+                case 'custom': return 0.15;    // 15% off (treat as one-time)
+                default: return 0; // No discount
+            }
         }
         
         function getCleanerInfo(bedrooms, bathroomCount) {
