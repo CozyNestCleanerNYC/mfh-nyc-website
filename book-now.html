@@ -1134,8 +1134,14 @@
             // Calculate estimated hours based on property size
             estimatedHours = calculateEstimatedHours(bedrooms, bathrooms, selectedService);
             
-            // Calculate total price
-            totalPrice = selectedServicePrice * estimatedHours;
+            // Calculate total price - different logic for deep cleaning
+            if (selectedService === 'deep') {
+                // Deep cleaning uses flat rates from chart
+                totalPrice = calculateDeepCleaningPrice(bedrooms, parseFloat(bathrooms));
+            } else {
+                // Standard and move-out use hourly rates
+                totalPrice = selectedServicePrice * estimatedHours;
+            }
             window.totalPrice = totalPrice;
             
             // Update display with error checking
@@ -1147,6 +1153,15 @@
             const timeElement = document.getElementById('quoteTime');
             if (timeElement) {
                 timeElement.textContent = estimatedHours + ' hours';
+            }
+            
+            const rateElement = document.getElementById('quoteRate');
+            if (rateElement) {
+                if (selectedService === 'deep') {
+                    rateElement.textContent = 'Flat Rate';
+                } else {
+                    rateElement.textContent = '$' + selectedServicePrice + '/hr';
+                }
             }
             
             const totalElement = document.getElementById('quoteTotal');
@@ -1165,30 +1180,92 @@
         }
 
         function calculateEstimatedHours(bedrooms, bathrooms, service) {
-            let baseHours = 0;
-            
-            // Base hours by bedroom count
-            switch(bedrooms) {
-                case 'studio': baseHours = 2; break;
-                case '1br': baseHours = 2.5; break;
-                case '2br': baseHours = 3; break;
-                case '3br': baseHours = 4; break;
-                case '4br': baseHours = 5; break;
-                case '5br': baseHours = 6; break;
-            }
-            
-            // Add time for bathrooms
             const bathroomCount = parseFloat(bathrooms);
-            baseHours += (bathroomCount - 1) * 0.5;
             
-            // Adjust for service type
             if (service === 'deep') {
-                baseHours *= 1.5;
+                // Deep cleaning uses flat rate chart
+                return calculateDeepCleaningHours(bedrooms, bathroomCount);
+            } else if (service === 'standard') {
+                // Standard cleaning: 1 bed 1 bath = 3 hours minimum
+                // Add 45 minutes (0.75 hours) per additional bedroom
+                // Add 1 hour per additional bathroom
+                let hours = 3; // Base for 1 bed 1 bath
+                
+                // Calculate additional bedrooms
+                let bedroomCount = 1;
+                switch(bedrooms) {
+                    case 'studio': bedroomCount = 0.5; hours = 2.5; break; // Studio is less than 1 bedroom
+                    case '1br': bedroomCount = 1; break;
+                    case '2br': bedroomCount = 2; break;
+                    case '3br': bedroomCount = 3; break;
+                    case '4br': bedroomCount = 4; break;
+                    case '5br': bedroomCount = 5; break;
+                }
+                
+                if (bedroomCount > 1) {
+                    hours += (bedroomCount - 1) * 0.75; // 45 minutes per additional bedroom
+                }
+                
+                if (bathroomCount > 1) {
+                    hours += (bathroomCount - 1) * 1; // 1 hour per additional bathroom
+                }
+                
+                return Math.ceil(hours * 4) / 4; // Round to nearest 0.25
             } else if (service === 'moveout') {
-                baseHours *= 1.8;
+                // Move-out cleaning: use standard calculation * 1.5
+                let standardHours = calculateEstimatedHours(bedrooms, bathrooms, 'standard');
+                return Math.ceil(standardHours * 1.5 * 4) / 4;
             }
             
-            return Math.ceil(baseHours * 2) / 2; // Round to nearest 0.5
+            return 3; // Default fallback
+        }
+        
+        function calculateDeepCleaningHours(bedrooms, bathroomCount) {
+            // Deep cleaning flat rate chart
+            if (bedrooms === 'studio' && bathroomCount === 1) {
+                return 4; // Studio / 1 Bath: 4 hrs
+            } else if (bedrooms === '1br' && bathroomCount === 1) {
+                return 6; // 1 Bed / 1 Bath: 6 hrs
+            } else if (bedrooms === '2br' && bathroomCount === 1) {
+                return 7; // 2 Bed / 1 Bath: 7 hrs
+            } else if (bedrooms === '2br' && bathroomCount === 2) {
+                return 8; // 2 Bed / 2 Bath: 8 hrs
+            } else if (bedrooms === '3br' && bathroomCount === 2) {
+                return 9; // 3 Bed / 2 Bath: 9 hrs
+            } else if (bedrooms === '3br' && bathroomCount >= 3) {
+                return 10; // 3 Bed / 3 Bath: 10 hrs
+            } else if (bedrooms === '4br') {
+                return 11; // 4 Bed / 2-3 Bath: 11 hrs
+            } else if (bedrooms === '5br') {
+                return 13; // 5 Bed+ / Large Homes: 12-14+ hrs (using 13 as average)
+            }
+            
+            // Default calculation for edge cases
+            return 8;
+        }
+        
+        function calculateDeepCleaningPrice(bedrooms, bathroomCount) {
+            // Deep cleaning flat rate chart
+            if (bedrooms === 'studio' && bathroomCount === 1) {
+                return 230; // Studio / 1 Bath: $230
+            } else if (bedrooms === '1br' && bathroomCount === 1) {
+                return 320; // 1 Bed / 1 Bath: $320
+            } else if (bedrooms === '2br' && bathroomCount === 1) {
+                return 365; // 2 Bed / 1 Bath: $365
+            } else if (bedrooms === '2br' && bathroomCount === 2) {
+                return 415; // 2 Bed / 2 Bath: $415
+            } else if (bedrooms === '3br' && bathroomCount === 2) {
+                return 475; // 3 Bed / 2 Bath: $475
+            } else if (bedrooms === '3br' && bathroomCount >= 3) {
+                return 530; // 3 Bed / 3 Bath: $530
+            } else if (bedrooms === '4br') {
+                return 590; // 4 Bed / 2-3 Bath: $590
+            } else if (bedrooms === '5br') {
+                return 725; // 5 Bed+ / Large Homes: $650-800+ (using $725 as average)
+            }
+            
+            // Default calculation for edge cases
+            return 400;
         }
 
         function getServiceName(service) {
@@ -1202,7 +1279,17 @@
 
         function getPropertySize(bedrooms, bathrooms) {
             const bedroomText = bedrooms.replace('br', ' BR').replace('studio', 'Studio');
-            return bedroomText + ', ' + bathrooms + ' Bath';
+            const cleanerInfo = getCleanerInfo(bedrooms, parseFloat(bathrooms));
+            return bedroomText + ', ' + bathrooms + ' Bath' + cleanerInfo;
+        }
+        
+        function getCleanerInfo(bedrooms, bathroomCount) {
+            // 2 cleaners for anything over 1 bed 1 bath
+            if (bedrooms === 'studio' || (bedrooms === '1br' && bathroomCount === 1)) {
+                return ' (1 cleaner)';
+            } else {
+                return ' (2 cleaners)';
+            }
         }
 
         function checkFormCompletion() {
