@@ -791,6 +791,19 @@
                     </select>
                 </div>
 
+                <!-- Frequency -->
+                <div class="form-group">
+                    <label for="frequency">Cleaning Frequency</label>
+                    <select id="frequency" required>
+                        <option value="">Select frequency</option>
+                        <option value="one-time">One-time cleaning</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="bi-weekly">Bi-weekly (every 2 weeks)</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="custom">Custom schedule</option>
+                    </select>
+                </div>
+
                 <!-- Address -->
                 <div class="form-group">
                     <label for="address">Service Address</label>
@@ -1102,6 +1115,10 @@
             checkFormCompletion();
         });
 
+        document.getElementById('frequency').addEventListener('change', function() {
+            checkFormCompletion();
+        });
+
         // Other form fields
         ['address', 'name', 'email', 'phone'].forEach(fieldId => {
             const element = document.getElementById(fieldId);
@@ -1123,7 +1140,11 @@
                 
                 const rateElement = document.getElementById('quoteRate');
                 if (rateElement) {
-                    rateElement.textContent = '$' + selectedServicePrice + '/hr';
+                    if (selectedService === 'deep') {
+                        rateElement.textContent = 'Flat Rate';
+                    } else {
+                        rateElement.textContent = '$' + selectedServicePrice + '/hr';
+                    }
                 }
             }
             
@@ -1303,6 +1324,7 @@
                 { element: document.getElementById('bathrooms')?.value, name: 'Bathrooms' },
                 { element: document.getElementById('preferredDate')?.value, name: 'Date' },
                 { element: document.getElementById('preferredTime')?.value, name: 'Time' },
+                { element: document.getElementById('frequency')?.value, name: 'Frequency' },
                 { element: document.getElementById('address')?.value?.trim(), name: 'Address' },
                 { element: document.getElementById('name')?.value?.trim(), name: 'Name' },
                 { element: document.getElementById('email')?.value?.trim(), name: 'Email' },
@@ -1794,6 +1816,7 @@ Thank you for choosing us! ✨`;
                 bathrooms: document.getElementById('bathrooms').value,
                 date: document.getElementById('preferredDate').value,
                 time: document.getElementById('preferredTime').value,
+                frequency: document.getElementById('frequency').value,
                 address: document.getElementById('address').value,
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
