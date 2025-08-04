@@ -854,10 +854,6 @@
                         <span id="quoteTime">-- hours</span>
                     </div>
                     <div class="quote-line">
-                        <span>Frequency:</span>
-                        <span id="quoteFrequency">Select frequency</span>
-                    </div>
-                    <div class="quote-line">
                         <span>Hourly Rate:</span>
                         <span id="quoteRate">$--/hr</span>
                     </div>
@@ -1120,7 +1116,6 @@
         });
 
         document.getElementById('frequency').addEventListener('change', function() {
-            updateQuote();
             checkFormCompletion();
         });
 
@@ -1179,18 +1174,6 @@
             const timeElement = document.getElementById('quoteTime');
             if (timeElement) {
                 timeElement.textContent = estimatedHours + ' hours';
-            }
-            
-            // Update frequency display
-            const frequencyElement = document.getElementById('quoteFrequency');
-            const frequencyValue = document.getElementById('frequency')?.value;
-            if (frequencyElement) {
-                if (frequencyValue) {
-                    const frequencyText = getFrequencyDisplayText(frequencyValue);
-                    frequencyElement.textContent = frequencyText;
-                } else {
-                    frequencyElement.textContent = 'Select frequency';
-                }
             }
             
             const rateElement = document.getElementById('quoteRate');
@@ -1319,17 +1302,6 @@
             const bedroomText = bedrooms.replace('br', ' BR').replace('studio', 'Studio');
             const cleanerInfo = getCleanerInfo(bedrooms, parseFloat(bathrooms));
             return bedroomText + ', ' + bathrooms + ' Bath' + cleanerInfo;
-        }
-        
-        function getFrequencyDisplayText(frequency) {
-            switch(frequency) {
-                case 'one-time': return 'One-time cleaning';
-                case 'weekly': return 'Weekly';
-                case 'bi-weekly': return 'Bi-weekly (every 2 weeks)';
-                case 'monthly': return 'Monthly';
-                case 'custom': return 'Custom schedule';
-                default: return 'Select frequency';
-            }
         }
         
         function getCleanerInfo(bedrooms, bathroomCount) {
