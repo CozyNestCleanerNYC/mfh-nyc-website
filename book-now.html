@@ -736,21 +736,21 @@
                             </div>
                             <div class="service-price">Flat Rate</div>
                         </div>
-                        <div class="service-option" data-service="moveout" data-price="60">
+                        <div class="service-option" data-service="moveout" data-price="0">
                             <div class="service-icon">📦</div>
                             <div class="service-info">
                                 <h3>Move-Out Cleaning</h3>
                                 <p>Complete cleaning for moving out or post-construction</p>
                             </div>
-                            <div class="service-price">$60/hr</div>
+                            <div class="service-price">Flat Rate</div>
                         </div>
-                        <div class="service-option" data-service="movein" data-price="60">
+                        <div class="service-option" data-service="movein" data-price="0">
                             <div class="service-icon">🏡</div>
                             <div class="service-info">
                                 <h3>Move-In Cleaning</h3>
                                 <p>Deep cleaning for your new home before moving in</p>
                             </div>
-                            <div class="service-price">$60/hr</div>
+                            <div class="service-price">Flat Rate</div>
                         </div>
                     </div>
                 </div>
@@ -1165,18 +1165,24 @@
             // Calculate estimated hours based on property size
             estimatedHours = calculateEstimatedHours(bedrooms, bathrooms, selectedService);
             
-            // Calculate total price - different logic for deep cleaning
+            // Calculate total price - different logic for different services
             if (selectedService === 'deep') {
                 // Deep cleaning uses flat rates from chart
                 totalPrice = calculateDeepCleaningPrice(bedrooms, parseFloat(bathrooms));
+            } else if (selectedService === 'moveout') {
+                // Move-out cleaning uses flat rates
+                totalPrice = calculateMoveOutPrice(bedrooms, parseFloat(bathrooms));
+            } else if (selectedService === 'movein') {
+                // Move-in cleaning uses flat rates (same as move-out for now)
+                totalPrice = calculateMoveOutPrice(bedrooms, parseFloat(bathrooms));
             } else {
-                // Standard, move-out, and move-in use hourly rates
+                // Standard cleaning uses hourly rates
                 totalPrice = selectedServicePrice * estimatedHours;
             }
             
-            // Apply frequency discount
+            // Apply frequency discount only for standard cleaning
             const frequencyValue = document.getElementById('frequency')?.value;
-            if (frequencyValue) {
+            if (frequencyValue && selectedService === 'standard') {
                 const discount = getFrequencyDiscount(frequencyValue);
                 totalPrice = totalPrice * (1 - discount);
             }
@@ -1207,7 +1213,7 @@
             
             const rateElement = document.getElementById('quoteRate');
             if (rateElement) {
-                if (selectedService === 'deep') {
+                if (selectedService === 'deep' || selectedService === 'moveout' || selectedService === 'movein') {
                     rateElement.textContent = 'Flat Rate';
                 } else {
                     rateElement.textContent = '$' + selectedServicePrice + '/hr';
@@ -1320,6 +1326,36 @@
             
             // Default calculation for edge cases
             return 400;
+        }
+
+        function calculateMoveOutPrice(bedrooms, bathroomCount) {
+            // Move-out cleaning flat rate chart
+            if (bedrooms === 'studio' && bathroomCount === 1) {
+                return 220; // Studio / 1 Bath: $220
+            } else if (bedrooms === '1br' && bathroomCount === 1) {
+                return 275; // 1 Bed / 1 Bath: $275
+            } else if (bedrooms === '1br' && bathroomCount >= 1.5) {
+                return 295; // 1 Bed / 1.5+ Bath: $295 (add $20 per extra half bath)
+            } else if (bedrooms === '2br' && bathroomCount === 1) {
+                return 320; // 2 Bed / 1 Bath: $320
+            } else if (bedrooms === '2br' && bathroomCount >= 1.5) {
+                return 350; // 2 Bed / 1.5+ Bath: $350 (add $30 per extra half bath)
+            } else if (bedrooms === '3br' && bathroomCount === 1) {
+                return 380; // 3 Bed / 1 Bath: $380
+            } else if (bedrooms === '3br' && bathroomCount >= 1.5) {
+                return 420; // 3 Bed / 1.5+ Bath: $420 (add $40 per extra half bath)
+            } else if (bedrooms === '4br' && bathroomCount === 1) {
+                return 420; // 4 Bed / 1 Bath: $420
+            } else if (bedrooms === '4br' && bathroomCount >= 1.5) {
+                return 470; // 4 Bed / 1.5+ Bath: $470 (add $50 per extra half bath)
+            } else if (bedrooms === '5br' && bathroomCount === 1) {
+                return 480; // 5 Bed / 1 Bath: $480
+            } else if (bedrooms === '5br' && bathroomCount >= 1.5) {
+                return 540; // 5 Bed / 1.5+ Bath: $540 (add $60 per extra half bath)
+            }
+            
+            // Default calculation for edge cases
+            return 350;
         }
 
         function getServiceName(service) {
