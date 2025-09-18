@@ -194,6 +194,62 @@
             font-weight: bold;
         }
         
+        /* Enhanced Frequency Display Styles */
+        .frequency-line {
+            position: relative;
+        }
+        
+        .frequency-display {
+            font-weight: 500;
+        }
+        
+        .frequency-display.has-discount {
+            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            color: #155724;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid #c3e6cb;
+            position: relative;
+        }
+        
+        .frequency-display.weekly {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            color: #856404;
+            border-color: #ffeaa7;
+        }
+        
+        .frequency-display.bi-weekly {
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            color: #0c5460;
+            border-color: #bee5eb;
+        }
+        
+        .frequency-display.monthly {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #28a745;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .frequency-savings {
+            font-size: 0.8rem;
+            color: #28a745;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
         .quote-details {
             margin-top: 12px;
             padding-top: 12px;
@@ -861,9 +917,9 @@
                         <span>Estimated Time:</span>
                         <span id="quoteTime">-- hours</span>
                     </div>
-                    <div class="quote-line">
+                    <div class="quote-line frequency-line">
                         <span>Frequency:</span>
-                        <span id="quoteFrequency">Select frequency</span>
+                        <span id="quoteFrequency" class="frequency-display">Select frequency</span>
                     </div>
                     <div class="quote-line">
                         <span>Hourly Rate:</span>
@@ -1232,9 +1288,16 @@
                     
                     if (frequencyValue) {
                         const frequencyText = getFrequencyDisplayText(frequencyValue);
-                        frequencyElement.textContent = frequencyText;
+                        frequencyElement.innerHTML = frequencyText;
+                        
+                        // Add appropriate CSS classes for styling
+                        frequencyElement.className = 'frequency-display';
+                        if (frequencyValue !== 'one-time' && frequencyValue !== 'custom') {
+                            frequencyElement.classList.add('has-discount', frequencyValue);
+                        }
                     } else {
-                        frequencyElement.textContent = 'Select frequency';
+                        frequencyElement.innerHTML = 'Select frequency';
+                        frequencyElement.className = 'frequency-display';
                     }
                 }
             }
@@ -1435,9 +1498,9 @@
         function getFrequencyDisplayText(frequency) {
             switch(frequency) {
                 case 'one-time': return 'One-time cleaning';
-                case 'weekly': return 'Weekly';
-                case 'bi-weekly': return 'Bi-weekly (every 2 weeks)';
-                case 'monthly': return 'Monthly';
+                case 'weekly': return 'Weekly <span class="frequency-savings">(-25% discount)</span>';
+                case 'bi-weekly': return 'Bi-weekly <span class="frequency-savings">(-15% discount)</span>';
+                case 'monthly': return 'Monthly <span class="frequency-savings">(-10% discount)</span>';
                 case 'custom': return 'Custom schedule';
                 default: return 'Select frequency';
             }
