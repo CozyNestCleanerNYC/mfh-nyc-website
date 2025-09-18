@@ -1263,9 +1263,9 @@
                 totalPrice = selectedServicePrice * estimatedHours;
             }
             
-            // Apply frequency discount only for standard cleaning
+            // Apply frequency discount for standard and deep cleaning
             const frequencyValue = document.getElementById('frequency')?.value;
-            if (frequencyValue && selectedService === 'standard') {
+            if (frequencyValue && (selectedService === 'standard' || selectedService === 'deep')) {
                 const discount = getFrequencyDiscount(frequencyValue);
                 totalPrice = totalPrice * (1 - discount);
             }
