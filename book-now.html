@@ -744,6 +744,14 @@
                             </div>
                             <div class="service-price">$60/hr</div>
                         </div>
+                        <div class="service-option" data-service="movein" data-price="60">
+                            <div class="service-icon">🏡</div>
+                            <div class="service-info">
+                                <h3>Move-In Cleaning</h3>
+                                <p>Deep cleaning for your new home before moving in</p>
+                            </div>
+                            <div class="service-price">$60/hr</div>
+                        </div>
                     </div>
                 </div>
 
@@ -1162,7 +1170,7 @@
                 // Deep cleaning uses flat rates from chart
                 totalPrice = calculateDeepCleaningPrice(bedrooms, parseFloat(bathrooms));
             } else {
-                // Standard and move-out use hourly rates
+                // Standard, move-out, and move-in use hourly rates
                 totalPrice = selectedServicePrice * estimatedHours;
             }
             
@@ -1257,6 +1265,10 @@
                 // Move-out cleaning: use standard calculation * 1.5
                 let standardHours = calculateEstimatedHours(bedrooms, bathrooms, 'standard');
                 return Math.ceil(standardHours * 1.5 * 4) / 4;
+            } else if (service === 'movein') {
+                // Move-in cleaning: use standard calculation * 1.5 (same as move-out)
+                let standardHours = calculateEstimatedHours(bedrooms, bathrooms, 'standard');
+                return Math.ceil(standardHours * 1.5 * 4) / 4;
             }
             
             return 3; // Default fallback
@@ -1315,6 +1327,7 @@
                 case 'standard': return 'Standard Cleaning';
                 case 'deep': return 'Deep Cleaning';
                 case 'moveout': return 'Move-Out Cleaning';
+                case 'movein': return 'Move-In Cleaning';
                 default: return 'Select service';
             }
         }
