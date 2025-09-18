@@ -288,3 +288,50 @@ const styleSheet = document.createElement('style');
 styleSheet.textContent = notificationStyles;
 document.head.appendChild(styleSheet);
 
+
+// FAQ Accordion Functionality
+function initializeFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        const toggle = item.querySelector('.faq-toggle');
+        
+        if (question && answer && toggle) {
+            // Initially hide all answers
+            answer.style.display = 'none';
+            
+            question.addEventListener('click', function() {
+                const isOpen = answer.style.display === 'block';
+                
+                // Close all other FAQ items
+                faqItems.forEach(otherItem => {
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+                    const otherToggle = otherItem.querySelector('.faq-toggle');
+                    if (otherAnswer && otherToggle) {
+                        otherAnswer.style.display = 'none';
+                        otherToggle.textContent = '+';
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                    toggle.textContent = '−';
+                    item.classList.add('active');
+                } else {
+                    answer.style.display = 'none';
+                    toggle.textContent = '+';
+                    item.classList.remove('active');
+                }
+            });
+        }
+    });
+}
+
+// Initialize FAQ when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeFAQ();
+});
