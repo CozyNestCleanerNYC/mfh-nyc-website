@@ -1187,8 +1187,8 @@
                 // Move-out cleaning uses flat rates
                 totalPrice = calculateMoveOutPrice(bedrooms, parseFloat(bathrooms));
             } else if (selectedService === 'movein') {
-                // Move-in cleaning uses flat rates (same as move-out for now)
-                totalPrice = calculateMoveOutPrice(bedrooms, parseFloat(bathrooms));
+                // Move-in cleaning uses flat rates ($20 more than move-out)
+                totalPrice = calculateMoveInPrice(bedrooms, parseFloat(bathrooms));
             } else {
                 // Standard cleaning uses hourly rates
                 totalPrice = selectedServicePrice * estimatedHours;
@@ -1384,6 +1384,36 @@
             
             // Default calculation for edge cases
             return 350;
+        }
+
+        function calculateMoveInPrice(bedrooms, bathroomCount) {
+            // Move-in cleaning flat rate chart ($20 more than move-out)
+            if (bedrooms === 'studio' && bathroomCount === 1) {
+                return 240; // Studio / 1 Bath: $240 ($220 + $20)
+            } else if (bedrooms === '1br' && bathroomCount === 1) {
+                return 295; // 1 Bed / 1 Bath: $295 ($275 + $20)
+            } else if (bedrooms === '1br' && bathroomCount >= 1.5) {
+                return 315; // 1 Bed / 1.5+ Bath: $315 ($295 + $20)
+            } else if (bedrooms === '2br' && bathroomCount === 1) {
+                return 340; // 2 Bed / 1 Bath: $340 ($320 + $20)
+            } else if (bedrooms === '2br' && bathroomCount >= 1.5) {
+                return 370; // 2 Bed / 1.5+ Bath: $370 ($350 + $20)
+            } else if (bedrooms === '3br' && bathroomCount === 1) {
+                return 400; // 3 Bed / 1 Bath: $400 ($380 + $20)
+            } else if (bedrooms === '3br' && bathroomCount >= 1.5) {
+                return 440; // 3 Bed / 1.5+ Bath: $440 ($420 + $20)
+            } else if (bedrooms === '4br' && bathroomCount === 1) {
+                return 440; // 4 Bed / 1 Bath: $440 ($420 + $20)
+            } else if (bedrooms === '4br' && bathroomCount >= 1.5) {
+                return 490; // 4 Bed / 1.5+ Bath: $490 ($470 + $20)
+            } else if (bedrooms === '5br' && bathroomCount === 1) {
+                return 500; // 5 Bed / 1 Bath: $500 ($480 + $20)
+            } else if (bedrooms === '5br' && bathroomCount >= 1.5) {
+                return 560; // 5 Bed / 1.5+ Bath: $560 ($540 + $20)
+            }
+            
+            // Default calculation for edge cases
+            return 370; // $350 + $20
         }
 
         function getServiceName(service) {
