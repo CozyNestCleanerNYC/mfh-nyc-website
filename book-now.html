@@ -250,6 +250,19 @@
             margin-left: 8px;
         }
         
+        .frequency-no-discount {
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+        
+        .frequency-display.one-time {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            color: #495057;
+            border-color: #dee2e6;
+        }
+        
         .quote-details {
             margin-top: 12px;
             padding-top: 12px;
@@ -1292,8 +1305,11 @@
                         
                         // Add appropriate CSS classes for styling
                         frequencyElement.className = 'frequency-display';
-                        if (frequencyValue !== 'one-time' && frequencyValue !== 'custom') {
-                            frequencyElement.classList.add('has-discount', frequencyValue);
+                        if (frequencyValue !== 'custom') {
+                            frequencyElement.classList.add(frequencyValue);
+                            if (frequencyValue !== 'one-time') {
+                                frequencyElement.classList.add('has-discount');
+                            }
                         }
                     } else {
                         frequencyElement.innerHTML = 'Select frequency';
@@ -1497,10 +1513,10 @@
         
         function getFrequencyDisplayText(frequency) {
             switch(frequency) {
-                case 'one-time': return 'One-time cleaning';
+                case 'one-time': return 'One-time cleaning <span class="frequency-no-discount">(No discount)</span>';
                 case 'weekly': return 'Weekly <span class="frequency-savings">(-25% discount)</span>';
                 case 'bi-weekly': return 'Bi-weekly <span class="frequency-savings">(-15% discount)</span>';
-                case 'monthly': return 'Monthly <span class="frequency-savings">(-10% discount)</span>';
+                case 'monthly': return 'Monthly <span class="frequency-savings">(-15% discount)</span>';
                 case 'custom': return 'Custom schedule';
                 default: return 'Select frequency';
             }
@@ -1508,11 +1524,11 @@
         
         function getFrequencyDiscount(frequency) {
             switch(frequency) {
-                case 'one-time': return 0.15; // 15% off
+                case 'one-time': return 0; // No discount
                 case 'monthly': return 0.15;  // 15% off
-                case 'bi-weekly': return 0.25; // 25% off
-                case 'weekly': return 0.30;    // 30% off
-                case 'custom': return 0.15;    // 15% off (treat as one-time)
+                case 'bi-weekly': return 0.15; // 15% off
+                case 'weekly': return 0.25;    // 25% off
+                case 'custom': return 0; // No discount
                 default: return 0; // No discount
             }
         }
