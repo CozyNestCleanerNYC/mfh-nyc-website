@@ -1513,7 +1513,7 @@
             switch(frequency) {
                 case 'one-time': return 'One-time cleaning <span class="frequency-savings">(-15% discount)</span>';
                 case 'weekly': return 'Weekly <span class="frequency-savings">(-25% discount)</span>';
-                case 'bi-weekly': return 'Bi-weekly <span class="frequency-savings">(-15% discount)</span>';
+                case 'bi-weekly': return 'Bi-weekly <span class="frequency-savings">(-20% discount)</span>';
                 case 'monthly': return 'Monthly <span class="frequency-savings">(-15% discount)</span>';
                 case 'custom': return 'Custom schedule';
                 default: return 'Select frequency';
@@ -1524,7 +1524,7 @@
             switch(frequency) {
                 case 'one-time': return 0.15; // 15% off
                 case 'monthly': return 0.15;  // 15% off
-                case 'bi-weekly': return 0.15; // 15% off
+                case 'bi-weekly': return 0.20; // 20% off
                 case 'weekly': return 0.25;    // 25% off
                 case 'custom': return 0; // No discount
                 default: return 0; // No discount
