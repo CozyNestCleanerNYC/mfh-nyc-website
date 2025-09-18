@@ -258,9 +258,9 @@
         }
         
         .frequency-display.one-time {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            color: #495057;
-            border-color: #dee2e6;
+            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            color: #155724;
+            border-color: #c3e6cb;
         }
         
         .quote-details {
@@ -1307,9 +1307,7 @@
                         frequencyElement.className = 'frequency-display';
                         if (frequencyValue !== 'custom') {
                             frequencyElement.classList.add(frequencyValue);
-                            if (frequencyValue !== 'one-time') {
-                                frequencyElement.classList.add('has-discount');
-                            }
+                            frequencyElement.classList.add('has-discount');
                         }
                     } else {
                         frequencyElement.innerHTML = 'Select frequency';
@@ -1513,7 +1511,7 @@
         
         function getFrequencyDisplayText(frequency) {
             switch(frequency) {
-                case 'one-time': return 'One-time cleaning <span class="frequency-no-discount">(No discount)</span>';
+                case 'one-time': return 'One-time cleaning <span class="frequency-savings">(-15% discount)</span>';
                 case 'weekly': return 'Weekly <span class="frequency-savings">(-25% discount)</span>';
                 case 'bi-weekly': return 'Bi-weekly <span class="frequency-savings">(-15% discount)</span>';
                 case 'monthly': return 'Monthly <span class="frequency-savings">(-15% discount)</span>';
@@ -1524,7 +1522,7 @@
         
         function getFrequencyDiscount(frequency) {
             switch(frequency) {
-                case 'one-time': return 0; // No discount
+                case 'one-time': return 0.15; // 15% off
                 case 'monthly': return 0.15;  // 15% off
                 case 'bi-weekly': return 0.15; // 15% off
                 case 'weekly': return 0.25;    // 25% off
