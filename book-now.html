@@ -800,7 +800,7 @@
                 </div>
 
                 <!-- Frequency -->
-                <div class="form-group">
+                <div class="form-group" id="frequency-group">
                     <label for="frequency">Cleaning Frequency</label>
                     <select id="frequency" required>
                         <option value="">Select frequency</option>
@@ -1094,6 +1094,20 @@
                     
                     console.log('✅ Service selected:', selectedService, 'Price:', selectedServicePrice);
                     
+                    // Show/hide frequency field based on service type
+                    const frequencyGroup = document.getElementById('frequency-group');
+                    const frequencySelect = document.getElementById('frequency');
+                    if (selectedService === 'moveout' || selectedService === 'movein') {
+                        // Hide frequency for Move-Out and Move-In services
+                        frequencyGroup.style.display = 'none';
+                        frequencySelect.removeAttribute('required');
+                        frequencySelect.value = 'one-time'; // Set default value
+                    } else {
+                        // Show frequency for Standard and Deep cleaning
+                        frequencyGroup.style.display = 'block';
+                        frequencySelect.setAttribute('required', 'required');
+                    }
+                    
                     // Update quote display
                     updateQuote();
                     checkFormCompletion();
@@ -1200,14 +1214,28 @@
                 timeElement.textContent = estimatedHours + ' hours';
             }
             
-            // Update frequency display
+            // Update frequency display (hide for Move-Out and Move-In)
             const frequencyElement = document.getElementById('quoteFrequency');
             if (frequencyElement) {
-                if (frequencyValue) {
-                    const frequencyText = getFrequencyDisplayText(frequencyValue);
-                    frequencyElement.textContent = frequencyText;
+                if (selectedService === 'moveout' || selectedService === 'movein') {
+                    // Hide frequency row for Move-Out and Move-In services
+                    const frequencyRow = frequencyElement.closest('tr') || frequencyElement.parentElement;
+                    if (frequencyRow) {
+                        frequencyRow.style.display = 'none';
+                    }
                 } else {
-                    frequencyElement.textContent = 'Select frequency';
+                    // Show frequency row for other services
+                    const frequencyRow = frequencyElement.closest('tr') || frequencyElement.parentElement;
+                    if (frequencyRow) {
+                        frequencyRow.style.display = '';
+                    }
+                    
+                    if (frequencyValue) {
+                        const frequencyText = getFrequencyDisplayText(frequencyValue);
+                        frequencyElement.textContent = frequencyText;
+                    } else {
+                        frequencyElement.textContent = 'Select frequency';
+                    }
                 }
             }
             
